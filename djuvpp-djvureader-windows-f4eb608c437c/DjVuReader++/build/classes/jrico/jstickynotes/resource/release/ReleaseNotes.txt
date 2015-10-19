@@ -1,0 +1,11 @@
+Release notes
+
++ Version 0.5
+    - Added keyboards shortcuts
+        - [CTRL] + [S]: Show all notes
+        - [CTRL] + [H]: Hide all notes
+        - [CTRL] + [N]: Create new note
+        - [ESC]: Leaves the Editing mode 
+    - Added font customization per note
+    - Added global preferences dialog 
+    - Fixed inconsistency in the color gradient factor
