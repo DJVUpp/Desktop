@@ -1,0 +1,47 @@
+Covert Task
+===========================================
+
+1-Convert Djvu to PDF
+
+package : main Page
+class :DjVuToPdf
+
+
+
+2-Convert PDF To DjVu
+--------------------------
+
+package : main Page
+
+class : PdfToDjvu 
+
+
+3-Convert Djvu To Image
+---------------------------
+package : main Page
+
+class : DjVuToImage
+
+
+
+4-convert Image To Djvu 
+---------------------------
+package : main Page
+
+class : ImageToDjVu
+
+
+
+5-Convert PDF To Image
+---------------------------
+package : main Page
+
+class : PdfToImage
+
+
+
+6-Convert Image To Pdf 
+---------------------------
+package : main Page
+
+class : ImageToPdf 

@@ -1,0 +1,50 @@
+-------------------------------------------------------------------------------------------
+******************************         Edit Tasks         *********************************
+
+1-Tools
+  Package: com.lizardtech.DjVubean.RibbonMenu .........	Class: DjVu Component  
+  methods :
+	getToolForEditBand()
+      	AddCommandButton() 
+        getEditContent()
+  
+
+
+2-Font 
+  Package: com.lizardtech.DjVubean.RibbonMenu..........	Class: DjVu Component  
+ methods :
+         getFontBand()
+         Addflowcomponent()
+        
+
+3-paragraph
+  Package: com.lizardtech.DjVubean.RibbonMenu.......	Class: DjVu Component  
+ methods :
+          getParagraphBand()
+          Addflowcomponent()
+
+
+-------------------------------------------------------------------------------------------
+*****************************       Comment Tasks:       **********************************
+
+1-Tool Band 
+	Package: com.lizardtech.DjVubean.RibbonMenu ............	Class: DjVu Component  
+	Methods:
+           	 getToolForCommentBand()
+           	 AddCommandButton()
+2- Text Makeup :
+       	Package: com.lizardtech.DjVubean.RibbonMenu ............	Class: RibbonMenuCreation
+        methods:
+                 getTextmarkupBand(final DjvuStart djvu)
+               
+3- Type Writer Band (JRibbon Band):
+	Package: com.lizardtech.DjVubean.RibbonMenu ............       	Class: RibbonMenuCreation
+        methods :
+                 getTypewriterBand()
+                 AddCommandButton()
+
+4- Drawing Band (JRibbon Band):
+        	Package: com.lizardtech.DjVubean.RibbonMenu ...........	Class: RibbonMenuCreation
+               	Method: 
+                       getDrawingBand()
+             _____________________________________________________________                  
