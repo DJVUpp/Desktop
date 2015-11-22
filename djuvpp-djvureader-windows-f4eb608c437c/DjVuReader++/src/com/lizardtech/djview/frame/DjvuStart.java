@@ -240,7 +240,7 @@ public class DjvuStart extends RibbonMenuCreation implements ITabbedPaneWindow, 
 
         FileDialog fd = new FileDialog(this, "open djvu file", FileDialog.LOAD);
         fd.setMultipleMode(true);
-        fd.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/DjvuIcon.png")));
+        fd.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/djvuNewIcon.png")));
         fd.show();
         if (fd.getDirectory() != null) {
             File files[] = fd.getFiles();
@@ -356,7 +356,7 @@ public class DjvuStart extends RibbonMenuCreation implements ITabbedPaneWindow, 
                     djvu.setLocationRelativeTo(null);
                     djvu.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                     djvu.setVisible(true);
-                    djvu.setApplicationIcon(getResizableIconFromResource("/images/DjvuIcon.png"));
+                    djvu.setApplicationIcon(getResizableIconFromResource("/images/djvuNewIcon.png"));
                     djvu.addWindowListener(new WindowAdapter() {
                         @Override
                         public void windowClosing(WindowEvent e) {

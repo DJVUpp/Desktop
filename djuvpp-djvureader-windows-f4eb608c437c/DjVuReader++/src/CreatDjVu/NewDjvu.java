@@ -42,7 +42,7 @@ public class NewDjvu {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JFrame frame = new JFrame("Write here");
+                final JFrame frame = new JFrame("Write here");
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.setAlwaysOnTop(true);
                 frame.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/DjvuIcon.png")));
@@ -58,8 +58,8 @@ public class NewDjvu {
                 inputpanel.setLayout(new FlowLayout());
                 final JTextField input = new JTextField(20);
                 JLabel name = new JLabel("DjVu Name : ");
-                JButton create = new JButton("Create");
-                JButton edite = new JButton("Edite");
+                final JButton create = new JButton("Create");
+                final JButton edite = new JButton("Edite");
                 edite.setEnabled(false);
                 frame.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override

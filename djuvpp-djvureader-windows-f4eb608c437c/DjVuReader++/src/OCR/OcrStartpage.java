@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
  * @author FATHI HOSSAM
  */
 public class OcrStartpage {
+    
     public static void OCRimage(String path){
         String pathdir="";
         JTextArea textArea = new JTextArea("please wait Your Text appear here ");
