@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+// FIXME: getTool.. methode is replicated for no obvious reasons, the View may
+//  be chached and reused since it is the same
 package com.lizardtech.djvubean.RibbonMenu;
 
 import CreatDjVu.NewDjvu;
@@ -706,7 +708,7 @@ public class DjvuComponents implements RibbonGetIcon {
 
             }
         });
-              frame.addWindowListener(new java.awt.event.WindowAdapter() {
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 String ObjButtons[] = {"Yes", "No"};

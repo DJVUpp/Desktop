@@ -50,6 +50,8 @@ import javax.swing.event.ChangeListener;
 
 import org.pushingpixels.substance.api.skin.SubstanceOfficeBlue2007LookAndFeel;
 
+// FIXME: the whole tabbedpane is static!!
+
 @SuppressWarnings("serial")
 public class DjvuStart extends RibbonMenuCreation implements ITabbedPaneWindow, ITabbedPaneWindowFactory, ITabFactory {
 
