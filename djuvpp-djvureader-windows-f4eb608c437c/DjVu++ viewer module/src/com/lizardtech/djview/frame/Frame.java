@@ -262,7 +262,6 @@ public final class Frame extends JFrame implements AppletStub {
                     CardPanel=new JPanel(new CardLayout());
                     
                   FullBook = new FullBookView(Bean,this, CardPanel);
-                  com.lizardtech.djview.frame.StatusBar.frame=this;
                   com.lizardtech.djvubean.DjVuBean.frame=this;
                     isDjVu = ((Boolean) isValidDjVuMethod.invoke(s, null)).booleanValue();
                 } catch (final Throwable exp) {

@@ -1,6 +1,5 @@
 package com.lizardtech.djvubean.RibbonMenu;
 
-import com.lizardtech.djview.frame.DjvuStart;
 import java.awt.Dimension;
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
@@ -24,7 +23,7 @@ public class RibbonMenuCreation extends JRibbonFrame implements RibbonGetIcon {
     boolean flage = true;
     /* The Main method that Load the Ribbon Menu */
 
-    public void SetRibbonMenu(final DjvuStart djvu) {
+    public void SetRibbonMenu() {
     }
 
 //this method to get icon from resource and set it into commponents

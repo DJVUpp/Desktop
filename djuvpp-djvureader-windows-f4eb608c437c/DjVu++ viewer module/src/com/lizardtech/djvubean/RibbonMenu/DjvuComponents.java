@@ -5,12 +5,6 @@
  */
 package com.lizardtech.djvubean.RibbonMenu;
 
-import com.lizardtech.djview.frame.DjvuStart;
-import com.lizardtech.djview.frame.PageSelect;
-import static com.lizardtech.djview.frame.PageSelect.*;
-import com.lizardtech.djview.frame.StatusBar;
-import static com.lizardtech.djview.frame.StatusBar.*;
-
 import com.lizardtech.djvu.DjVuOptions;
 import com.lizardtech.djvubean.DjVuBean;
 import static com.lizardtech.djvubean.DjVuBean.nscale;
@@ -31,7 +25,6 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
 import javax.swing.SwingUtilities;
-import static jdk.nashorn.internal.objects.Global.print;
 import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
@@ -140,7 +133,6 @@ public class DjvuComponents implements RibbonGetIcon {
                 djvubean.setZoom(DjVuBean.ZOOM_IN);
                 Zoomformat = nscale + "%";
                 DjvuRibbonComponents.ZoomB.setSelectedItem(Zoomformat);
-                jsldHort.setValue(nscale);
             }
         });
         Button.ZIN = new JCommandMenuButton("Zoom In", getResizableIconFromResource("/images/zoom in48.png"));
@@ -155,7 +147,6 @@ public class DjvuComponents implements RibbonGetIcon {
                 djvubean.setZoom(DjVuBean.ZOOM_IN);
                 Zoomformat = nscale + "%";
                 DjvuRibbonComponents.ZoomB.setSelectedItem(Zoomformat);
-                jsldHort.setValue(nscale);
             }
         });
 
@@ -171,7 +162,6 @@ public class DjvuComponents implements RibbonGetIcon {
                 djvubean.setZoom(DjVuBean.ZOOM_OUT);
                 Zoomformat = nscale + "%";
                 DjvuRibbonComponents.ZoomB.setSelectedItem(Zoomformat);
-                jsldHort.setValue(nscale);
             }
         });
         Button.Z100 = new JCommandMenuButton("100%", null);
@@ -179,9 +169,7 @@ public class DjvuComponents implements RibbonGetIcon {
 
             public void actionPerformed(ActionEvent e) {
                 djvubean.setZoom(DjVuBean.ZOOM100);
-                Zooms.setText(djvubean.getZoom());
                 DjvuRibbonComponents.ZoomB.setSelectedItem(djvubean.getZoom());
-                jsldHort.setValue(100);
             }
         });
         Button.Z25 = new JCommandMenuButton("25%", null);
@@ -189,18 +177,14 @@ public class DjvuComponents implements RibbonGetIcon {
 
             public void actionPerformed(ActionEvent e) {
                 djvubean.setZoom(DjVuBean.ZOOM25);
-                Zooms.setText(djvubean.getZoom());
                 DjvuRibbonComponents.ZoomB.setSelectedItem(djvubean.getZoom());
-                jsldHort.setValue(25);
             }
         });
         Button.Z50 = new JCommandMenuButton("50%", null);
         Button.Z50.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 djvubean.setZoom(DjVuBean.ZOOM50);
-                Zooms.setText(djvubean.getZoom());
                 DjvuRibbonComponents.ZoomB.setSelectedItem(djvubean.getZoom());
-                jsldHort.setValue(50);
             }
         });
         Button.Z125 = new JCommandMenuButton("125%", null);
@@ -208,9 +192,7 @@ public class DjvuComponents implements RibbonGetIcon {
 
             public void actionPerformed(ActionEvent e) {
                 djvubean.setZoom("125%");
-                Zooms.setText(djvubean.getZoom());
                 DjvuRibbonComponents.ZoomB.setSelectedItem(djvubean.getZoom());
-                jsldHort.setValue(125);
             }
         });
         Button.Z200 = new JCommandMenuButton("200%", null);
@@ -218,9 +200,7 @@ public class DjvuComponents implements RibbonGetIcon {
 
             public void actionPerformed(ActionEvent e) {
                 djvubean.setZoom(DjVuBean.ZOOM200);
-                Zooms.setText(djvubean.getZoom());
                 DjvuRibbonComponents.ZoomB.setSelectedItem(djvubean.getZoom());
-                jsldHort.setValue(200);
             }
         });
         Button.Z600 = new JCommandMenuButton("600%", null);
@@ -228,9 +208,7 @@ public class DjvuComponents implements RibbonGetIcon {
 
             public void actionPerformed(ActionEvent e) {
                 djvubean.setZoom(DjVuBean.ZOOM200);
-                Zooms.setText(djvubean.getZoom());
                 DjvuRibbonComponents.ZoomB.setSelectedItem(djvubean.getZoom());
-                jsldHort.setValue(600);
             }
         });
         Button.Z800 = new JCommandMenuButton("800%", null);
@@ -238,9 +216,7 @@ public class DjvuComponents implements RibbonGetIcon {
 
             public void actionPerformed(ActionEvent e) {
                 djvubean.setZoom(DjVuBean.ZOOM800);
-                Zooms.setText(djvubean.getZoom());
                 DjvuRibbonComponents.ZoomB.setSelectedItem(djvubean.getZoom());
-                jsldHort.setValue(800);
             }
         });
         Button.Z400 = new JCommandMenuButton("400%", null);
@@ -248,9 +224,7 @@ public class DjvuComponents implements RibbonGetIcon {
 
             public void actionPerformed(ActionEvent e) {
                 djvubean.setZoom(DjVuBean.ZOOM400);
-                Zooms.setText(djvubean.getZoom());
                 DjvuRibbonComponents.ZoomB.setSelectedItem(djvubean.getZoom());
-                jsldHort.setValue(400);
             }
         });
         Button.FP = new JCommandMenuButton("Fit page", getResizableIconFromResource(new ImageIcon("/images/fit page48.png").toString()));
@@ -258,9 +232,7 @@ public class DjvuComponents implements RibbonGetIcon {
 
             public void actionPerformed(ActionEvent e) {
                 djvubean.setZoom(DjVuBean.ZOOM_FIT_PAGE);
-                Zooms.setText(djvubean.getZoom());
                 DjvuRibbonComponents.ZoomB.setSelectedItem(djvubean.getZoom());
-                jsldHort.setValue(52);
                 modeNum = 52;
                 UpdateZoom(modeNum);
             }
@@ -270,9 +242,7 @@ public class DjvuComponents implements RibbonGetIcon {
 
             public void actionPerformed(ActionEvent e) {
                 djvubean.setZoom("115%");
-                Zooms.setText(djvubean.getZoom());
                 DjvuRibbonComponents.ZoomB.setSelectedItem(djvubean.getZoom());
-                jsldHort.setValue(115);
                 modeNum = 115;
                 UpdateZoom(modeNum);
             }
@@ -283,7 +253,6 @@ public class DjvuComponents implements RibbonGetIcon {
             public void actionPerformed(ActionEvent e) {
                 djvubean.setZoom(DjVuBean.ZOOM_FIT_WIDTH);
                 DjvuRibbonComponents.ZoomB.setSelectedItem("146%");
-                jsldHort.setValue(146);
                 modeNum = 146;
                 UpdateZoom(modeNum);
 
@@ -294,9 +263,7 @@ public class DjvuComponents implements RibbonGetIcon {
 
             public void actionPerformed(ActionEvent e) {
                 djvubean.setZoom(DjVuBean.ZOOM100);
-                Zooms.setText(djvubean.getZoom());
                 DjvuRibbonComponents.ZoomB.setSelectedItem(djvubean.getZoom());
-                jsldHort.setValue(100);
                 modeNum = 100;
                 UpdateZoom(modeNum);
             }
@@ -338,7 +305,7 @@ public class DjvuComponents implements RibbonGetIcon {
      * @param Djvu
      * @return
      */
-    public JRibbonBand getUiOptionsBand(DjvuStart Djvu) {
+    public JRibbonBand getUiOptionsBand() {
         JRibbonBand Uioptions = new JRibbonBand("UI Options", null);
         Uioptions.setResizePolicies(CoreRibbonResizePolicies.getCorePoliciesRestrictive(Uioptions));
         Uioptions.startGroup();
@@ -346,7 +313,6 @@ public class DjvuComponents implements RibbonGetIcon {
                 + "ToolBar Mode", null);
         Uioptions.addCommandButton(Button.Switch, RibbonElementPriority.TOP);
         Uioptions.startGroup();
-        System.err.println(DjvuStart.djvu);
 
         List<RibbonBandResizePolicy> resizePolicies = new ArrayList<RibbonBandResizePolicy>();
         resizePolicies.add(new CoreRibbonResizePolicies.Mirror(Uioptions.getControlPanel()));
@@ -363,7 +329,6 @@ public class DjvuComponents implements RibbonGetIcon {
 
     public JFlowRibbonBand getGotoBand() {
         JFlowRibbonBand Goto = new JFlowRibbonBand("GO To", getResizableIconFromResource("/images/search.png"));
-        Goto.addFlowComponent(new PageSelect().getGotoPanel());
         DjvuRibbonComponents.NextView = new JCommandButton("Next View", getResizableIconFromResource("/images/next view48.png"));
         DjvuRibbonComponents.NextView.setEnabled(false);
         DjvuRibbonComponents.NextView.setDisplayState(CommandButtonDisplayState.MEDIUM);
@@ -378,17 +343,13 @@ public class DjvuComponents implements RibbonGetIcon {
 
                     }
                     djvubean.setPage(djvubean.SeqView.get(index + 1));
-                    pageSelectBox.setSelectedItem(djvubean.getPage());
-                    GoToArea.setText("" + djvubean.getPage());
 
                 } else {
                     if (djvubean.getPage() == 1) {
                         DjvuRibbonComponents.prevview.setEnabled(false);
 
-                        prev.setEnabled(false);
                     }
                     DjvuRibbonComponents.NextView.setEnabled(false);
-                    next.setEnabled(false);
                 }
 
             }
@@ -409,17 +370,12 @@ public class DjvuComponents implements RibbonGetIcon {
                     }
 
                     djvubean.setPage(djvubean.SeqView.get(index - 1));
-                    pageSelectBox.setSelectedItem(djvubean.getPage());
-                    GoToArea.setText("" + djvubean.getPage());
                     DjvuRibbonComponents.NextView.setEnabled(true);
-                    next.setEnabled(true);
                 } else {
                     if (djvubean.getPage() == djvubean.SeqView.get(djvubean.SeqView.size() - 1)) {
                         DjvuRibbonComponents.NextView.setEnabled(false);
-                        next.setEnabled(false);
                     }
                     DjvuRibbonComponents.prevview.setEnabled(false);
-                    prev.setEnabled(false);
                 }
             }
         });
@@ -441,8 +397,8 @@ public class DjvuComponents implements RibbonGetIcon {
         Button.RotateLeft2.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-
-                com.lizardtech.djview.frame.StatusBar.frame.FullBook.rotate(-90);
+                // TODO: rotate the page.
+                // com.lizardtech.djview.frame.StatusBar.frame.FullBook.rotate(-90);
 
             }
         });
@@ -455,9 +411,9 @@ public class DjvuComponents implements RibbonGetIcon {
 
             public void actionPerformed(ActionEvent e) {
                 //  djvubean.setRotationDegrees(90f);
+                //  TODO: rotate the page.
 
-                com.lizardtech.djview.frame.StatusBar.frame.FullBook.rotate(90);
-
+                //  com.lizardtech.djview.frame.StatusBar.frame.FullBook.rotate(90);
             }
         });
         Button.RotatePages2 = new JCommandButton("Rotate"
@@ -469,8 +425,8 @@ public class DjvuComponents implements RibbonGetIcon {
         Button.RotatePages2.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-
-                com.lizardtech.djview.frame.StatusBar.frame.FullBook.rotate(-90);
+                //  TODO: rotate the page.
+                //  com.lizardtech.djview.frame.StatusBar.frame.FullBook.rotate(-90);
 
             }
         });
@@ -485,33 +441,23 @@ public class DjvuComponents implements RibbonGetIcon {
         });
         PageDisplay.addCommandButton(Button.RotatePages2, RibbonElementPriority.TOP);
         PageDisplay.startGroup();
-        mins.setEnabled(false);
         DjvuRibbonComponents.Single = new JCommandButton("Single", getResizableIconFromResource("/images/single page24.png"));
         DjvuRibbonComponents.Single.setEnabled(false);
 
-        DjvuRibbonComponents.Single.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                if (StatusBar.frame.FullBook.Continous) {
-                    StatusBar.frame.FullBook.Switch_FullBookView(false);
-                }
-                djvubean.setPageLayout(DjVuBean.SINGLE);
-                DjvuRibbonComponents.Single.getActionModel().setSelected(true);
-                DjvuRibbonComponents.Continous.getActionModel().setSelected(false);
-                DjvuRibbonComponents.facing.getActionModel().setSelected(false);
-                UpdatePageLayout(getPageLayout(djvubean));
-            }
+        DjvuRibbonComponents.Single.addActionListener((ActionEvent e) -> {
+            djvubean.setPageLayout(DjVuBean.SINGLE);
+            DjvuRibbonComponents.Single.getActionModel().setSelected(true);
+            DjvuRibbonComponents.Continous.getActionModel().setSelected(false);
+            DjvuRibbonComponents.facing.getActionModel().setSelected(false);
         });
         DjvuRibbonComponents.Continous = new JCommandButton("Continous", getResizableIconFromResource("/images/continous24.png"));
         DjvuRibbonComponents.Continous.setEnabled(false);
         DjvuRibbonComponents.Continous.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                StatusBar.frame.FullBook.Switch_FullBookView(true);
                 DjvuRibbonComponents.Single.getActionModel().setSelected(false);
                 DjvuRibbonComponents.Continous.getActionModel().setSelected(true);
                 DjvuRibbonComponents.facing.getActionModel().setSelected(false);
-                UpdatePageLayout(getPageLayout(djvubean));
             }
         });
 
@@ -520,14 +466,10 @@ public class DjvuComponents implements RibbonGetIcon {
         DjvuRibbonComponents.facing.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                if (StatusBar.frame.FullBook.Continous) {
-                    StatusBar.frame.FullBook.Switch_FullBookView(false);
-                }
                 djvubean.setPageLayout(DjVuBean.BOOK);
                 DjvuRibbonComponents.Single.getActionModel().setSelected(false);
                 DjvuRibbonComponents.Continous.getActionModel().setSelected(false);
                 DjvuRibbonComponents.facing.getActionModel().setSelected(true);
-                UpdatePageLayout(getPageLayout(djvubean));
             }
         });
         PageDisplay.addCommandButton(DjvuRibbonComponents.Single, RibbonElementPriority.MEDIUM);
@@ -564,35 +506,10 @@ public class DjvuComponents implements RibbonGetIcon {
 //                Button.HighLight.setEnabled(true);
 //                Button.Strikeout.setEnabled(true);
 //                Button.UnderLine.setEnabled(true);
-                if (djvubean.getPage() > 1) {
-                    FirstPage.setEnabled(true);
-                    prevPage.setEnabled(true);
-                    GotoFirstPage.setEnabled(true);
-                    GotoprevPage.setEnabled(true);
-                } else {
-                    FirstPage.setEnabled(false);
-                    prevPage.setEnabled(false);
-                    GotoFirstPage.setEnabled(false);
-                    GotoprevPage.setEnabled(false);
-
-                }
-                LastPage.setEnabled(true);
-                nextPage.setEnabled(true);
-                GotoLastPage.setEnabled(true);
-                GotonextPage.setEnabled(true);
-                GoToArea.setEnabled(true);
                 Button.FitVisable.setEnabled(true);
-                pageSelectBox.setEnabled(true);
                 Button.ConvertBandZoom.setEnabled(true);
                 Button.ConvertBandHand.setEnabled(true);
                 Button.ConvertBandSelect.setEnabled(true);
-                Zooms.setEnabled(true);
-                jsldHort.setEnabled(true);
-                SinglepageMode.setEnabled(true);
-                continousMode.setEnabled(true);
-                facingmode.setEnabled(true);
-                Plus.setEnabled(true);
-                mins.setEnabled(true);
                 DjvuRibbonComponents.Single.setEnabled(true);
                 DjvuRibbonComponents.Continous.setEnabled(true);
                 DjvuRibbonComponents.facing.setEnabled(true);
@@ -639,36 +556,14 @@ public class DjvuComponents implements RibbonGetIcon {
                 // Button.HighLight.setEnabled(false);
                 // Button.Strikeout.setEnabled(false);
                 // Button.UnderLine.setEnabled(false);
-                FirstPage.setEnabled(false);
-                LastPage.setEnabled(false);
-                next.setEnabled(false);
-                prev.setEnabled(false);
-                nextPage.setEnabled(false);
-                prevPage.setEnabled(false);
                 Button.NextView.setEnabled(false);
                 Button.prevview.setEnabled(false);
-                pageSelectBox.setEnabled(false);
-                GotoFirstPage.setEnabled(false);
-                GotoLastPage.setEnabled(false);
-                GotonextPage.setEnabled(false);
-                GotoprevPage.setEnabled(false);
-                GoToArea.setEnabled(false);
                 Button.ConvertBandZoom.setEnabled(false);
                 Button.ConvertBandHand.setEnabled(false);
                 Button.ConvertBandSelect.setEnabled(false);
-                Zooms.setEnabled(false);
-                jsldHort.setEnabled(false);
-                Plus.setEnabled(false);
-                mins.setEnabled(false);
-                SinglepageMode.setEnabled(false);
-                continousMode.setEnabled(false);
-                facingmode.setEnabled(false);
                 Button.ZoomIn.setEnabled(false);
                 Button.Zoomout.setEnabled(false);
                 DjvuRibbonComponents.ZoomB.setSelectedItem("");
-                Zooms.setText("");
-                pageSelectBox.setSelectedItem("");
-                GoToArea.setText("");
                 DjvuRibbonComponents.Single.setEnabled(false);
                 DjvuRibbonComponents.Continous.setEnabled(false);
                 DjvuRibbonComponents.facing.setEnabled(false);
@@ -714,12 +609,6 @@ public class DjvuComponents implements RibbonGetIcon {
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
-
-                pageSelectBox.removeAllItems();
-                documentSize = djvubean.getDocumentSize();
-                for (int i = 0; i < documentSize;) {
-                    pageSelectBox.addItem(++i);
-                }
 
             }
         });

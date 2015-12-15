@@ -21,8 +21,9 @@ import javax.swing.JFrame;
  * and open the template in the editor.
  */
 /**
- *
- * @author Osama
+ *  This class is a Main class to test the module functionality
+ * 
+ *  @author Osama
  */
 public class Main extends JFrame {
 
@@ -68,10 +69,8 @@ public class Main extends JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Main();
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Main();
         });
     }
 

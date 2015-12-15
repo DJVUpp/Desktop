@@ -43,7 +43,6 @@
 //
 package com.lizardtech.djvubean.keys;
 
-import static com.lizardtech.djview.frame.PageSelect.*;
 import com.lizardtech.djvubean.*;
 import static com.lizardtech.djvubean.RibbonMenu.DjvuComponents.djvubean;
 import com.lizardtech.djvubean.RibbonMenu.DjvuRibbonComponents;
@@ -172,16 +171,6 @@ public class DjVuKeys implements KeyListener {
                     break;
                 case (char)KeyEvent.VK_RIGHT:
                        djvubean.setPageString(DjVuBean.NEXT_PAGE);
-                FirstPage.setEnabled(true);
-                prevPage.setEnabled(true);
-                LastPage.setEnabled(true);
-                nextPage.setEnabled(true);
-                GotoFirstPage.setEnabled(true);
-                GotoprevPage.setEnabled(true);
-                GotoLastPage.setEnabled(true);
-                GotonextPage.setEnabled(true);
-                pageSelectBox.setSelectedItem(djvubean.getPage());
-                GoToArea.setText("" + djvubean.getPage());
                
 //            default:
 //  	        displayInfo(e, "KEY TYPED: ");
@@ -211,30 +200,10 @@ public class DjVuKeys implements KeyListener {
                 case KeyEvent.VK_LEFT:
                     bean.setScroll(DjVuBean.SCROLL_LEFT);
                     djvubean.setPageString(DjVuBean.PREV_PAGE);
-                FirstPage.setEnabled(true);
-                prevPage.setEnabled(true);
-                LastPage.setEnabled(true);
-                nextPage.setEnabled(true);
-                GotoFirstPage.setEnabled(true);
-                GotoprevPage.setEnabled(true);
-                GotoLastPage.setEnabled(true);
-                GotonextPage.setEnabled(true);
-                pageSelectBox.setSelectedItem(djvubean.getPage());
-                GoToArea.setText("" + djvubean.getPage());
                     break;
                 case KeyEvent.VK_RIGHT:
                      bean.setScroll(DjVuBean.SCROLL_RIGHT);
                      djvubean.setPageString(DjVuBean.NEXT_PAGE);
-                FirstPage.setEnabled(true);
-                prevPage.setEnabled(true);
-                LastPage.setEnabled(true);
-                nextPage.setEnabled(true);
-                GotoFirstPage.setEnabled(true);
-                GotoprevPage.setEnabled(true);
-                GotoLastPage.setEnabled(true);
-                GotonextPage.setEnabled(true);
-                pageSelectBox.setSelectedItem(djvubean.getPage());
-                GoToArea.setText("" + djvubean.getPage());
                
                     break;
 //            default:

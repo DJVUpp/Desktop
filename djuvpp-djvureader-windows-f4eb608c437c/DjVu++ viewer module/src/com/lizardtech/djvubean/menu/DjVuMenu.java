@@ -45,10 +45,7 @@
 //
 package com.lizardtech.djvubean.menu;
 
-import static com.lizardtech.djview.frame.StatusBar.jsldHort;
-import static com.lizardtech.djvubean.DjVuBean.nscale;
 
-import com.lizardtech.djview.frame.PageSelect;
 import com.lizardtech.djvu.DjVuOptions;
 import com.lizardtech.djvubean.*;
 import com.lizardtech.djvubean.RibbonMenu.DjvuRibbonComponents;
@@ -59,8 +56,6 @@ import java.awt.event.*;
 import java.beans.*;
 import java.util.*;
 
-import javax.accessibility.*;
-import javax.swing.JMenuBar;
 
 
 /**
@@ -750,8 +745,6 @@ public class DjVuMenu
           case 3 : // navigation
           {
             bean.setPageString(((MenuItem)event.getSource()).getLabel());
-            PageSelect.pageSelectBox.setSelectedItem(((MenuItem)event.getSource()).getLabel());
-            
             break;
           }
           case 4 : // about

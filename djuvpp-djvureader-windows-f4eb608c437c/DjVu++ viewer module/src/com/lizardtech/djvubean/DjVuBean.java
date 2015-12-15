@@ -56,7 +56,6 @@ import java.lang.reflect.*;
 import java.net.URL;
 import java.util.*;
 
-import static com.lizardtech.djview.frame.PageSelect.*;
 
 /**
  * This Panel is designed for rendering a DjVuImage. Since normally a DjVuImage
@@ -1913,7 +1912,6 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
             currview=getPage();
         }
         else if(prevview !=getPage() && currview !=getPage() && currview !=0){
-            prev.setEnabled(true);
             DjvuRibbonComponents.prevview.setEnabled(true);
         }
         try {

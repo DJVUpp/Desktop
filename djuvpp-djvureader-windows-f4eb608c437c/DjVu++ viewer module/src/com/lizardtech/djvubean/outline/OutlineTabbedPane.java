@@ -19,13 +19,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 
 import com.lizardtech.djview.frame.Frame;
-import static com.lizardtech.djview.frame.PageSelect.GoToArea;
 import com.lizardtech.djvubean.DjVuBean;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import static com.lizardtech.djview.frame.PageSelect.pageSelectBox;
-import static com.lizardtech.djview.frame.StatusBar.frame;
 import java.awt.Graphics;
 import javax.imageio.ImageIO;
 
@@ -59,6 +54,7 @@ public class OutlineTabbedPane
 
     private Boolean pageFlag = false;
     private Boolean thumblainsTabFlag = true;
+
     public OutlineTabbedPane(final DjVuBean djvubean, final Frame frame) {
         this.djvubean = djvubean;
         final int pack = 200;
@@ -66,19 +62,16 @@ public class OutlineTabbedPane
         topPanel = new JPanel();
         topPanel.setPreferredSize(new Dimension(pack, getToolkit().getScreenSize().height));
         topPanel.setLayout(new BorderLayout());
-         
-
 
         // Create the tab pages
         createPagesTab();
         createCommentTab();
         createThumblainsTab();
-            try
-             {  Braker=new ImageIcon(
-            CreateThumbnails.Resizeimage((BufferedImage)(ImageIO.read(this.getClass().getResource("/images/Braker.jpg"))),124,45));
-             }
-             catch(IOException e)
-             {}
+        try {
+            Braker = new ImageIcon(
+                    CreateThumbnails.Resizeimage((BufferedImage) (ImageIO.read(this.getClass().getResource("/images/Braker.jpg"))), 124, 45));
+        } catch (IOException e) {
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -87,17 +80,17 @@ public class OutlineTabbedPane
                     try {
                         BufferedImage img;
 
-                        img = CreateThumbnails.generateThumbnail(i,125,170);
+                        img = CreateThumbnails.generateThumbnail(i, 125, 170);
                         BookImages[i] = new ImageIcon(img);
                         // add the images to jlabels with text
-                        PagesLabel[i].setIcon(combosed_image(BookImages[i],Braker));
+                        PagesLabel[i].setIcon(combosed_image(BookImages[i], Braker));
                         ThumblainsPane[i].add(PagesLabel[i]);
                     } catch (Exception ex) {
-                        
-                    }
-                    }
 
-                } 
+                    }
+                }
+
+            }
         }).start();
 
         // Create a tabbed pane
@@ -120,7 +113,7 @@ public class OutlineTabbedPane
                                     pageFlag = switchFlag(pageFlag);
                                     thumblainsTabFlag = true;
                                     tabbedPane.setSelectedIndex(0);
-                                      
+
                                     frame.repaint();
                                     frame.revalidate();
 
@@ -129,7 +122,6 @@ public class OutlineTabbedPane
                                     topPanel.revalidate();
                                     pageFlag = switchFlag(pageFlag);
 
-                                       
                                     frame.repaint();
                                     frame.revalidate();
                                     tabbedPane.setSelectedIndex(0);
@@ -144,7 +136,7 @@ public class OutlineTabbedPane
                                     thumblainsTabFlag = switchFlag(thumblainsTabFlag);
                                     pageFlag = true;
                                     tabbedPane.setSelectedIndex(1);
-                                     
+
                                     frame.repaint();
                                     frame.revalidate();
 
@@ -153,7 +145,7 @@ public class OutlineTabbedPane
                                     removeTabs();
                                     topPanel.setPreferredSize(new Dimension(55, getToolkit().getScreenSize().height));
                                     topPanel.revalidate();
-                                    
+
                                     frame.repaint();
                                     frame.revalidate();
                                     tabbedPane.setSelectedIndex(1);
@@ -173,8 +165,8 @@ public class OutlineTabbedPane
         });
         createTabs();
         frame.add("West", GettopPanel());
-                                    frame.repaint();
-                                    frame.revalidate();
+        frame.repaint();
+        frame.revalidate();
 
     }
 
@@ -182,8 +174,9 @@ public class OutlineTabbedPane
         PagePane = new JPanel();
         PagePane.setLayout(new BorderLayout());
         //djvubean.getOutline().setBackground(Color.WHITE);
-        if(djvubean.getOutline()!=null)
-        PagePane.add(djvubean.getOutline());
+        if (djvubean.getOutline() != null) {
+            PagePane.add(djvubean.getOutline());
+        }
 
     }
 
@@ -194,7 +187,7 @@ public class OutlineTabbedPane
         BookImages = new ImageIcon[PagesCount];
         PagesLabel = new JLabel[PagesCount];
         ThumblainsPane = new JPanel[PagesCount];
-		// get  images of book
+        // get  images of book
         // Set every page in 
         for (int i = 0; i < PagesCount; i++) {
 
@@ -207,9 +200,8 @@ public class OutlineTabbedPane
             ThumblainsPane[i].add(PagesLabel[i]);
 
         }
-    
 
-		// tell the ThumblainsList to use the panel array for its data
+        // tell the ThumblainsList to use the panel array for its data
         ThumblainsList.setListData(ThumblainsPane);
         ThumblainsList.addMouseListener(new MouseAdapter() {
             @Override
@@ -218,11 +210,6 @@ public class OutlineTabbedPane
                 JList JLelement = (JList) e.getSource();
 
                 djvubean.setPageString("" + (JLelement.getSelectedIndex() + 1));
-                pageSelectBox.setSelectedItem(djvubean.getPage());
-                GoToArea.setText("" + djvubean.getPage());
-                
-                if(frame.FullBook.Continous || frame.FullBook.Is_Rotated)
-                        frame.FullBook.Switch_FullBookView(false);
 
             }
         });
@@ -233,8 +220,9 @@ public class OutlineTabbedPane
         ThumblainsList.setFocusable(true);
 
         // put our JList in a JScrollPane
-        if(djvubean.getOutline()!=null)
-        ThumblainsScrollPane.setPreferredSize(djvubean.getOutline().getSize());
+        if (djvubean.getOutline() != null) {
+            ThumblainsScrollPane.setPreferredSize(djvubean.getOutline().getSize());
+        }
         ThumblainsScrollPane.setWheelScrollingEnabled(true);
 
     }
@@ -255,7 +243,7 @@ public class OutlineTabbedPane
 
     // Main method to get things started
     public static void main(String args[]) {
-		// Create an instance of the test application
+        // Create an instance of the test application
 	/*	mainFrame= new OutlineTabbedPane();
          mainFrame.setVisible( true );
          */
@@ -288,22 +276,18 @@ public class OutlineTabbedPane
             return true;
         } else {
             return false;
-        }}
-       private ImageIcon combosed_image(ImageIcon img1,ImageIcon img2)
-       {
-        int pad=0;
-            final BufferedImage compositeImage = new BufferedImage( img1.getIconWidth(),img1.getIconHeight()+img2.getIconHeight()+pad, BufferedImage.TYPE_INT_ARGB );
-        final Graphics      graphics       = compositeImage.createGraphics();
+        }
+    }
+
+    private ImageIcon combosed_image(ImageIcon img1, ImageIcon img2) {
+        int pad = 0;
+        final BufferedImage compositeImage = new BufferedImage(img1.getIconWidth(), img1.getIconHeight() + img2.getIconHeight() + pad, BufferedImage.TYPE_INT_ARGB);
+        final Graphics graphics = compositeImage.createGraphics();
 
         // Iterate over the icons, painting each icon and adding some padding space between them
-            graphics.drawImage( img1.getImage(),0,0, null );
-            graphics.drawImage( img2.getImage(),0,img1.getIconHeight()+pad, null );
-            
-       
+        graphics.drawImage(img1.getImage(), 0, 0, null);
+        graphics.drawImage(img2.getImage(), 0, img1.getIconHeight() + pad, null);
 
-        return new ImageIcon( compositeImage );
-    }}
-               
-    
-
-
+        return new ImageIcon(compositeImage);
+    }
+}

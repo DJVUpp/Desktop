@@ -52,7 +52,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.*;
 import java.util.*;
-import static com.lizardtech.djview.frame.PageSelect.*;
 
 
 /**
@@ -491,8 +490,6 @@ public class Outline
           if(pageno > 0)
           {
             djvuBean.setPage(pageno);
-            pageSelectBox.setSelectedItem(djvuBean.getPage());
-            GoToArea.setText(""+djvuBean.getPage());
             
           }
         }
