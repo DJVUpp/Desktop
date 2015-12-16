@@ -21,6 +21,7 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationM
  *
  * @author niessuh
  */
+// FIXME: Delete.
 public class DjvuRibbonComponents {
 
     public JCommandButton Hand;

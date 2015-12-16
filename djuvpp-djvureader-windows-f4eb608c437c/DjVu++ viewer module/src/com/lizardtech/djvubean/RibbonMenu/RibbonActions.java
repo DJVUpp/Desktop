@@ -10,8 +10,8 @@ package com.lizardtech.djvubean.RibbonMenu;
  *
  * @author niessuh
  */
-
 // TODO: !!
+// FIXME: Delete.
 public class RibbonActions {
 
     private static final DjvuRibbonComponents Button = new DjvuRibbonComponents();
@@ -19,6 +19,5 @@ public class RibbonActions {
     public RibbonActions() {
 
     }
-
 
 }

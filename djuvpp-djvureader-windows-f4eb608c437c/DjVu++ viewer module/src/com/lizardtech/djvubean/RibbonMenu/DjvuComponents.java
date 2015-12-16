@@ -43,6 +43,8 @@ import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
  *
  * @author niessuh
  */
+
+// FIXME: Delete.
 public class DjvuComponents {
 
     /*to call JCommandButtons from DjvuRibbonComponents class */
