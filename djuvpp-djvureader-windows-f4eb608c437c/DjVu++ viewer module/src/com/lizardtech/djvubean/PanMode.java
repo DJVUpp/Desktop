@@ -48,9 +48,6 @@ package com.lizardtech.djvubean;
 import com.lizardtech.djvu.DjVuOptions;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 
 /**

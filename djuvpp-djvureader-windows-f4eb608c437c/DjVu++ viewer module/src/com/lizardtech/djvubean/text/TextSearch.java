@@ -49,14 +49,9 @@ import com.lizardtech.djvu.Document;
 import com.lizardtech.djvu.text.*;
 import com.lizardtech.djvu.DjVuOptions;
 import com.lizardtech.djvubean.*;
-import java.applet.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.beans.*;
 import java.io.IOException;
-import java.lang.reflect.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.*;
 
 

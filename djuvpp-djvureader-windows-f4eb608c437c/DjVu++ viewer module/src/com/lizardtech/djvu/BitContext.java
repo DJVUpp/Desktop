@@ -46,7 +46,7 @@
 package com.lizardtech.djvu;
 
 /**
- * This class impliments a mutable Byte type class.  The byte is reported in the
+ * This class implements a mutable Byte type class.  The byte is reported in the
  * range of 0 to 255.
  *
  * @author Bill C. Riemers

@@ -10,6 +10,8 @@ package com.lizardtech.djvubean.RibbonMenu;
  *
  * @author niessuh
  */
+
+// TODO: !!
 public class RibbonActions {
 
     private static final DjvuRibbonComponents Button = new DjvuRibbonComponents();

@@ -57,6 +57,8 @@ import java.util.*;
  *
  * @author docbill
  */
+
+// NOTE: this class is not used, It maybe useful tough!!
 public class AnnoManager 
   extends MouseAdapter
   implements MouseMotionListener

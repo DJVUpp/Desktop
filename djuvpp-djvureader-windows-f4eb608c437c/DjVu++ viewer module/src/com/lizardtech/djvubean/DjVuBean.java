@@ -56,7 +56,6 @@ import java.lang.reflect.*;
 import java.net.URL;
 import java.util.*;
 
-
 /**
  * This Panel is designed for rendering a DjVuImage. Since normally a DjVuImage
  * requires too much memory to render at full resolution, this panel should be
@@ -162,8 +161,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     /**
      * String used for selecting From Slider zoom.
      */
-   public static  String ZOOMSlider = " ";
-   public static  String ZOOMComBox = " ";
+    public static String ZOOMSlider = " ";
+    public static String ZOOMComBox = " ";
     /**
      * String used for selecting 800% zoom.
      */
@@ -441,12 +440,13 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
 
     // the offset of the first page
     private int pageOffset = 0;
-     //.......................
-    public ArrayList<Integer> SeqView=new ArrayList<Integer>();
-    public static int prevview=0;
-         public static int currview=0;
-         
-             public static com.lizardtech.djview.frame.Frame frame;
+    //.......................
+    public ArrayList<Integer> SeqView = new ArrayList<Integer>();
+    public static int prevview = 0;
+    public static int currview = 0;
+
+    public static com.lizardtech.djview.frame.Frame frame;
+
     //~ Constructors -----------------------------------------------------------
     /**
      * Creates a new DjVuBean object.
@@ -909,81 +909,81 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
             }
         }
     }
+
     //for Ocr Arabic
     public void setMode(int mode, String arabic) {
-		 if (mode != this.mode.intValue()) {
+        if (mode != this.mode.intValue()) {
 //		      final long lockTime=System.currentTimeMillis();
-		            synchronized (this) {
-		                if (mode != this.mode.intValue()) {
-		                    final Number oldMode = this.mode;
-		                    this.mode = (mode != LAST_MODE)
-		                            ? (new Integer(mode))
-		                            : getLastMode();
+            synchronized (this) {
+                if (mode != this.mode.intValue()) {
+                    final Number oldMode = this.mode;
+                    this.mode = (mode != LAST_MODE)
+                            ? (new Integer(mode))
+                            : getLastMode();
 
-		                    switch (this.mode.intValue()) {
-		                        case ZOOM_MODE: {
-		                            if (!(mlistener instanceof ZoomMode)) {
-		                                if (mlistener != null) {
-		                                    removeMouseListener(mlistener);
-		                                }
+                    switch (this.mode.intValue()) {
+                        case ZOOM_MODE: {
+                            if (!(mlistener instanceof ZoomMode)) {
+                                if (mlistener != null) {
+                                    removeMouseListener(mlistener);
+                                }
 
-		                                mlistener = new ZoomMode(this);
-		                                if (this.image != null) {
-		                                    addMouseListener(mlistener);
-		                                }
-		                            }
+                                mlistener = new ZoomMode(this);
+                                if (this.image != null) {
+                                    addMouseListener(mlistener);
+                                }
+                            }
 
-		                            break;
-		                        }
-		                        case PAN_MODE: {
-		                            if (!(mlistener instanceof PanMode)) {
-		                                if (mlistener != null) {
-		                                    removeMouseListener(mlistener);
-		                                }
+                            break;
+                        }
+                        case PAN_MODE: {
+                            if (!(mlistener instanceof PanMode)) {
+                                if (mlistener != null) {
+                                    removeMouseListener(mlistener);
+                                }
 
-		                                mlistener = new PanMode(this);
-		                                if (this.image != null) {
+                                mlistener = new PanMode(this);
+                                if (this.image != null) {
 
-		                                    addMouseListener(mlistener);
-		                                }
-		                            }
+                                    addMouseListener(mlistener);
+                                }
+                            }
 
-		                            break;
-		                        }
-		                        case SELECT_MODE: {
-		                            if (!(mlistener instanceof SelectMode)) {
-		                                if (mlistener != null) {
-		                                    removeMouseListener(mlistener);
-		                                }
+                            break;
+                        }
+                        case SELECT_MODE: {
+                            if (!(mlistener instanceof SelectMode)) {
+                                if (mlistener != null) {
+                                    removeMouseListener(mlistener);
+                                }
 
-		                                mlistener = new SelectMode(this,arabic);
-		                                if (this.image != null) {
-		                                    addMouseListener(mlistener);
-		                                }
-		                            }
+                                mlistener = new SelectMode(this, arabic);
+                                if (this.image != null) {
+                                    addMouseListener(mlistener);
+                                }
+                            }
 
-		                            break;
-		                        }
-		                        default: {
-		                            if (mlistener != null) {
-		                                removeMouseListener(mlistener);
-		                            }
+                            break;
+                        }
+                        default: {
+                            if (mlistener != null) {
+                                removeMouseListener(mlistener);
+                            }
 
-		                            mlistener = null;
-		                        }
-		                    }
+                            mlistener = null;
+                        }
+                    }
 
-		                    if (this.mode.intValue() != oldMode.intValue()) {
-		                        lastMode = oldMode;
-		                        change.firePropertyChange("mode", oldMode, this.mode);
-		                    }
-		                }
+                    if (this.mode.intValue() != oldMode.intValue()) {
+                        lastMode = oldMode;
+                        change.firePropertyChange("mode", oldMode, this.mode);
+                    }
+                }
 //		        DjVuObject.checkLockTime(lockTime,10000);
-		            }
-		        }
-		
-	}
+            }
+        }
 
+    }
 
     /**
      * Return the current mode. May be ZOOM_MODE or PAN_MODE.
@@ -1061,21 +1061,28 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
                 repaint(50L);
             }
         }
-       
-        if (page==1) frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().setValue(0);
-        else if (page==frame.FullBook.PagesCount) frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().setValue(frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().getMaximum());
-        else
-        frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().setValue((int)(frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().getMaximum()/frame.FullBook.PagesCount)*(page-1));
-      
-        if (page==1) frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().setValue(0);
-        else if (page==frame.FullBook.PagesCount) frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().setValue(frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().getMaximum());
-        else
-        frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().setValue((int)(frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().getMaximum()/frame.FullBook.PagesCount)*(page-1));
-     
-     if(frame.FullBook.Continous)
-        frame.FullBook.Switch_FullBookView(true);
-       else 
-        frame.FullBook.Switch_FullBookView(false);
+
+        if (page == 1) {
+            frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().setValue(0);
+        } else if (page == frame.FullBook.PagesCount) {
+            frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().setValue(frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().getMaximum());
+        } else {
+            frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().setValue((int) (frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().getMaximum() / frame.FullBook.PagesCount) * (page - 1));
+        }
+
+        if (page == 1) {
+            frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().setValue(0);
+        } else if (page == frame.FullBook.PagesCount) {
+            frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().setValue(frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().getMaximum());
+        } else {
+            frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().setValue((int) (frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().getMaximum() / frame.FullBook.PagesCount) * (page - 1));
+        }
+
+        if (frame.FullBook.Continous) {
+            frame.FullBook.Switch_FullBookView(true);
+        } else {
+            frame.FullBook.Switch_FullBookView(false);
+        }
     }
 
 //  /**
@@ -1739,7 +1746,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
                 ? getSize()
                 : retval;
     }
- public static int nscale;
+    public static int nscale;
+
     /**
      * Scale the current zoom to either a value specified in the
      * ZOOM_SPECIAL_LIST, or a number followed by percent sign. i.e.
@@ -1767,11 +1775,10 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
             } else if (DjVuBean.ZOOM_IN.equalsIgnoreCase(zoom)) {
                 final int scale
                         = (this.zoom <= 0)
-                        ? Math.min(
-                                getXScale(),
-                                getYScale())
-                        : this.zoom;
-               
+                                ? Math.min(
+                                        getXScale(),
+                                        getYScale())
+                                : this.zoom;
 
                 if (scale >= 1051) {
                     nscale = 1200;
@@ -1797,11 +1804,10 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
             } else if (DjVuBean.ZOOM_OUT.equalsIgnoreCase(zoom)) {
                 final int scale
                         = (this.zoom <= 0)
-                        ? Math.max(
-                                getXScale(),
-                                getYScale())
-                        : this.zoom;
-                
+                                ? Math.max(
+                                        getXScale(),
+                                        getYScale())
+                                : this.zoom;
 
                 if (scale < 60) {
                     nscale = 25;
@@ -1905,13 +1911,13 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
      */
     @Override
     public void propertyChange(PropertyChangeEvent event) {
-    	 if(! SeqView.contains(getPage()))
-         {SeqView.add(getPage());
-         }
-        if(prevview !=getPage() && currview !=getPage() && currview ==0){
-            currview=getPage();
+        if (!SeqView.contains(getPage())) {
+            SeqView.add(getPage());
         }
-        else if(prevview !=getPage() && currview !=getPage() && currview !=0){
+        if (prevview != getPage() && currview != getPage() && currview == 0) {
+            currview = getPage();
+        } else if (prevview != getPage() && currview != getPage() && currview != 0) {
+            //  FIXME:  DjvuRibbonComponents.prevview not intialized.
             DjvuRibbonComponents.prevview.setEnabled(true);
         }
         try {

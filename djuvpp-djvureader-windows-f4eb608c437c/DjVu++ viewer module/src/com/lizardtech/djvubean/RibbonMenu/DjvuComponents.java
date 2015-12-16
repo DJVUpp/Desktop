@@ -43,7 +43,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
  *
  * @author niessuh
  */
-public class DjvuComponents implements RibbonGetIcon {
+public class DjvuComponents {
 
     /*to call JCommandButtons from DjvuRibbonComponents class */
     private static final DjvuRibbonComponents Button = new DjvuRibbonComponents();

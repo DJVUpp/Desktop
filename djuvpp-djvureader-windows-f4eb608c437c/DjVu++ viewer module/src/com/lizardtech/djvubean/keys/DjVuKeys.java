@@ -43,10 +43,12 @@
 //
 package com.lizardtech.djvubean.keys;
 
+import com.lizardtech.djvu.DjVuOptions;
 import com.lizardtech.djvubean.*;
 import static com.lizardtech.djvubean.RibbonMenu.DjvuComponents.djvubean;
 import com.lizardtech.djvubean.RibbonMenu.DjvuRibbonComponents;
 import java.awt.event.*;
+import java.beans.PropertyChangeListener;
 
 /**
  * This class implements a keyboard short cuts the user may use to navigate the
@@ -72,7 +74,9 @@ public class DjVuKeys implements KeyListener {
         if (text != null) {
             text.addKeyListener(this);
         }
-//    bean.addPropertyChangeListener(this);
+//        TODO: find a way to add this listener other than casting or go with
+//        addKeyListener methode.
+//        bean.addPropertyChangeListener((PropertyChangeListener) this);
         bean.properties.put(
                 "addOn.keys",
                 bean.properties.getProperty("keys", "true"));
@@ -88,12 +92,13 @@ public class DjVuKeys implements KeyListener {
     /**
      * Handle the key typed event from the text field.
      */
+    @Override
     public void keyTyped(KeyEvent e) {
         if (isEnabled()) {
-            System.err.println((char)KeyEvent.VK_1);
-            
+            System.err.println((char) KeyEvent.VK_1);
+
             switch (e.getKeyChar()) {
-                case (char)KeyEvent.VK_1:
+                case (char) KeyEvent.VK_1:
                     bean.setZoom(DjVuBean.ZOOM100);
                     DjvuRibbonComponents.ZoomB.setSelectedItem(bean.getZoom());
                     break;
@@ -169,12 +174,12 @@ public class DjVuKeys implements KeyListener {
                 case KeyEvent.VK_BACK_SPACE:
                     bean.setPage(bean.getPage() - bean.getVisiblePageCount());
                     break;
-                case (char)KeyEvent.VK_RIGHT:
-                       djvubean.setPageString(DjVuBean.NEXT_PAGE);
-               
-//            default:
-//  	        displayInfo(e, "KEY TYPED: ");
-//                break;
+                case (char) KeyEvent.VK_RIGHT:
+                    djvubean.setPageString(DjVuBean.NEXT_PAGE);
+
+                default:
+                    displayInfo(e, "KEY TYPED: ");
+                    break;
             }
         }
     }
@@ -182,6 +187,7 @@ public class DjVuKeys implements KeyListener {
     /**
      * Handle the key pressed event from the text field.
      */
+    @Override
     public void keyPressed(KeyEvent e) {
         if (isEnabled()) {
             switch (e.getKeyCode()) {
@@ -202,13 +208,13 @@ public class DjVuKeys implements KeyListener {
                     djvubean.setPageString(DjVuBean.PREV_PAGE);
                     break;
                 case KeyEvent.VK_RIGHT:
-                     bean.setScroll(DjVuBean.SCROLL_RIGHT);
-                     djvubean.setPageString(DjVuBean.NEXT_PAGE);
-               
+                    bean.setScroll(DjVuBean.SCROLL_RIGHT);
+                    djvubean.setPageString(DjVuBean.NEXT_PAGE);
+
                     break;
-//            default:
-//                displayInfo(e, "KEY PRESSED: ");
-//                break;
+                default:
+                    displayInfo(e, "KEY PRESSED: ");
+                    break;
             }
         }
     }
@@ -216,53 +222,53 @@ public class DjVuKeys implements KeyListener {
     /**
      * Handle the key released event from the text field.
      */
+    @Override
     public void keyReleased(KeyEvent e) {
-//      displayInfo(e, "KEY RELEASED: ");
+        displayInfo(e, "KEY RELEASED: ");
     }
 
-//    protected void displayInfo(KeyEvent e, String s)
-//    {
-//        //You should only rely on the key char if the event
-//        //is a key typed event.
-//        int id = e.getID();
-//        String keyString;
-//        if (id == KeyEvent.KEY_TYPED) {
-//            char c = e.getKeyChar();
-//            keyString = "key character = '" + c + "'";
-//        } else {
-//            int keyCode = e.getKeyCode();
-//            keyString = "key code = " + keyCode
-//                        + " ("
-//                        + KeyEvent.getKeyText(keyCode)
-//                        + ")";
-//        }
-//        int modifiers = e.getModifiersEx();
-//        String modString = "modifiers = " + modifiers;
-//        String tmpString = KeyEvent.getModifiersExText(modifiers);
-//        if (tmpString.length() > 0) {
-//            modString += " (" + tmpString + ")";
-//        } else {
-//            modString += " (no modifiers)";
-//        }
-//        String actionString = "action key? ";
-//        if (e.isActionKey()) {
-//            actionString += "YES";
-//        } else {
-//            actionString += "NO";
-//        }
-//        String locationString = "key location: ";
-//        int location = e.getKeyLocation();
-//        if (location == KeyEvent.KEY_LOCATION_STANDARD) {
-//            locationString += "standard";
-//        } else if (location == KeyEvent.KEY_LOCATION_LEFT) {
-//            locationString += "left";
-//        } else if (location == KeyEvent.KEY_LOCATION_RIGHT) {
-//            locationString += "right";
-//        } else if (location == KeyEvent.KEY_LOCATION_NUMPAD) {
-//            locationString += "numpad";
-//        } else { // (location == KeyEvent.KEY_LOCATION_UNKNOWN)
-//            locationString += "unknown";
-//        }
-//        DjVuOptions.out.println(s+"\t"+keyString+"\t"+modString+"\t"+actionString+"\t"+locationString);
-//    }
+    protected void displayInfo(KeyEvent e, String s) {
+        //You should only rely on the key char if the event
+        //is a key typed event.
+        int id = e.getID();
+        String keyString;
+        if (id == KeyEvent.KEY_TYPED) {
+            char c = e.getKeyChar();
+            keyString = "key character = '" + c + "'";
+        } else {
+            int keyCode = e.getKeyCode();
+            keyString = "key code = " + keyCode
+                    + " ("
+                    + KeyEvent.getKeyText(keyCode)
+                    + ")";
+        }
+        int modifiers = e.getModifiersEx();
+        String modString = "modifiers = " + modifiers;
+        String tmpString = KeyEvent.getModifiersExText(modifiers);
+        if (tmpString.length() > 0) {
+            modString += " (" + tmpString + ")";
+        } else {
+            modString += " (no modifiers)";
+        }
+        String actionString = "action key? ";
+        if (e.isActionKey()) {
+            actionString += "YES";
+        } else {
+            actionString += "NO";
+        }
+        String locationString = "key location: ";
+        int location = e.getKeyLocation();
+        if (location == KeyEvent.KEY_LOCATION_STANDARD) {
+            locationString += "standard";
+        } else if (location == KeyEvent.KEY_LOCATION_LEFT) {
+            locationString += "left";
+        } else if (location == KeyEvent.KEY_LOCATION_RIGHT) {
+            locationString += "right";
+        } else if (location == KeyEvent.KEY_LOCATION_NUMPAD) {
+            locationString += "numpad";
+        } else { // (location == KeyEvent.KEY_LOCATION_UNKNOWN)
+            locationString += "unknown";
+        }
+        DjVuOptions.out.println(s + "\t" + keyString + "\t" + modString + "\t" + actionString + "\t" + locationString);
+    }
 }
