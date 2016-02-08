@@ -42,8 +42,6 @@ public class DjvuRibbonComponents {
     public static JCommandButton Continous;
     public static JCommandButton Single;
     public static JCommandButton facing;
-    public static JCommandButton NextView;
-    public static JCommandButton prevview;
     public JCommandButton TyperWriter;
     public JCommandButton ConvertBandZoom;
     public JCommandButton ChangToolbarmod;

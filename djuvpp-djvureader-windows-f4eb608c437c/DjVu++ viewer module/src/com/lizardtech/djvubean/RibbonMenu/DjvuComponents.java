@@ -43,7 +43,6 @@ import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
  *
  * @author niessuh
  */
-
 // FIXME: Delete.
 public class DjvuComponents {
 
@@ -329,66 +328,6 @@ public class DjvuComponents {
         return new String(new char[times]).replace("\0", str);
     }
 
-    public JFlowRibbonBand getGotoBand() {
-        JFlowRibbonBand Goto = new JFlowRibbonBand("GO To", getResizableIconFromResource("/images/search.png"));
-        DjvuRibbonComponents.NextView = new JCommandButton("Next View", getResizableIconFromResource("/images/next view48.png"));
-        DjvuRibbonComponents.NextView.setEnabled(false);
-        DjvuRibbonComponents.NextView.setDisplayState(CommandButtonDisplayState.MEDIUM);
-        DjvuRibbonComponents.NextView.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                int index = 0;
-                if (djvubean.getPage() != djvubean.SeqView.get(djvubean.SeqView.size() - 1)) {
-
-                    if (djvubean.SeqView.contains(djvubean.getPage())) {
-                        index = djvubean.SeqView.indexOf(djvubean.getPage());
-
-                    }
-                    djvubean.setPage(djvubean.SeqView.get(index + 1));
-
-                } else {
-                    if (djvubean.getPage() == 1) {
-                        DjvuRibbonComponents.prevview.setEnabled(false);
-
-                    }
-                    DjvuRibbonComponents.NextView.setEnabled(false);
-                }
-
-            }
-        });
-        DjvuRibbonComponents.prevview = new JCommandButton("Previous View", getResizableIconFromResource("/images/previous view48.png"));
-        DjvuRibbonComponents.prevview.setEnabled(false);
-        DjvuRibbonComponents.prevview.setDisplayState(CommandButtonDisplayState.MEDIUM);
-        DjvuRibbonComponents.prevview.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                int index = 0;
-
-                if (djvubean.getPage() != 1) {
-
-                    if (djvubean.SeqView.contains(djvubean.getPage())) {
-                        index = djvubean.SeqView.indexOf(djvubean.getPage());
-
-                    }
-
-                    djvubean.setPage(djvubean.SeqView.get(index - 1));
-                    DjvuRibbonComponents.NextView.setEnabled(true);
-                } else {
-                    if (djvubean.getPage() == djvubean.SeqView.get(djvubean.SeqView.size() - 1)) {
-                        DjvuRibbonComponents.NextView.setEnabled(false);
-                    }
-                    DjvuRibbonComponents.prevview.setEnabled(false);
-                }
-            }
-        });
-        Goto.addFlowComponent(DjvuRibbonComponents.prevview);
-        Goto.addFlowComponent(DjvuRibbonComponents.NextView);
-        List<RibbonBandResizePolicy> resizePolicies = new ArrayList<RibbonBandResizePolicy>();
-        resizePolicies.add(new CoreRibbonResizePolicies.FlowTwoRows(Goto.getControlPanel()));
-        Goto.setResizePolicies(resizePolicies);
-        return Goto;
-    }
-
     public JRibbonBand getPageDisplay() {
         JRibbonBand PageDisplay = new JRibbonBand("Page Display", null);
         PageDisplay.setResizePolicies(CoreRibbonResizePolicies.getCorePoliciesRestrictive(PageDisplay));
@@ -558,8 +497,6 @@ public class DjvuComponents {
                 // Button.HighLight.setEnabled(false);
                 // Button.Strikeout.setEnabled(false);
                 // Button.UnderLine.setEnabled(false);
-                Button.NextView.setEnabled(false);
-                Button.prevview.setEnabled(false);
                 Button.ConvertBandZoom.setEnabled(false);
                 Button.ConvertBandHand.setEnabled(false);
                 Button.ConvertBandSelect.setEnabled(false);

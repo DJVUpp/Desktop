@@ -21,9 +21,9 @@ import javax.swing.JFrame;
  * and open the template in the editor.
  */
 /**
- *  This class is a Main class to test the module functionality
- * 
- *  @author Osama
+ * This class is a Main class to test the module functionality
+ *
+ * @author Osama
  */
 public class Main extends JFrame {
 

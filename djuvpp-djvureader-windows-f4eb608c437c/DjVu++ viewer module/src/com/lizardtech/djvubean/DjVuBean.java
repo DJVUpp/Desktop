@@ -1918,7 +1918,6 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
             currview = getPage();
         } else if (prevview != getPage() && currview != getPage() && currview != 0) {
             //  FIXME:  DjvuRibbonComponents.prevview not intialized.
-            DjvuRibbonComponents.prevview.setEnabled(true);
         }
         try {
             final String name = (event != null) ? event.getPropertyName() : null;

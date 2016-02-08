@@ -47,9 +47,6 @@ package com.lizardtech.djvubean.outline;
 
 import com.lizardtech.djvubean.DjVuBean;
 import java.awt.*;
-import java.awt.event.*;
-import java.beans.*;
-import java.util.*;
 
 
 /**
