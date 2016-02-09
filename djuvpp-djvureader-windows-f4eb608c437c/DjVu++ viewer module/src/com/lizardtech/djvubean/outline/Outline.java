@@ -54,8 +54,8 @@ import java.beans.*;
 import java.util.*;
 
 /**
- * This class is used for outline navigation. Logically this equivalent to a
- * JTree, but the look and feel is slightly different.
+ * This class is used for outline navigation. Logically this equivalent to a JTree, but the look and
+ * feel is slightly different.
  *
  * @author Bill C. Riemers
  * @version $Revision: 1.3 $
@@ -88,8 +88,7 @@ public class Outline
      *
      * @param djvuBean the DjVuBean to navigate.
      *
-     * @throws ArrayIndexOutOfBoundsException if the document has less than 2
-     * pages.
+     * @throws ArrayIndexOutOfBoundsException if the document has less than 2 pages.
      */
     public Outline(final DjVuBean djvuBean) {
         this.djvuBean = djvuBean;
@@ -399,9 +398,8 @@ public class Outline
     }
 
     /**
-     * Called when the user clicks the mouse on an outline item. If the check
-     * box is checked, the checked value will be toggled. If the name is
-     * clicked, the bookmark page will be displayed.
+     * Called when the user clicks the mouse on an outline item. If the check box is checked, the
+     * checked value will be toggled. If the name is clicked, the bookmark page will be displayed.
      *
      * @param x position along the X axis clicked.
      * @param y position along the Y axis clicked.
@@ -565,10 +563,7 @@ public class Outline
      *
      * @return the next row number to paint.
      */
-    public int paintItem(
-            final int item,
-            final Graphics g,
-            final Bookmark bookmark) {
+    public int paintItem(final int item, final Graphics g, final Bookmark bookmark) {
         int nextItem = item + 1;
 
         if (bookmark != null) {
