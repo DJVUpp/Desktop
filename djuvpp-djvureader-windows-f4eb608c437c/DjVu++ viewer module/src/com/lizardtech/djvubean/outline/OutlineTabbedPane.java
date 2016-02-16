@@ -375,4 +375,6 @@ public class OutlineTabbedPane
 
         return new ImageIcon(compositeImage);
     }
+    
+    
 }
