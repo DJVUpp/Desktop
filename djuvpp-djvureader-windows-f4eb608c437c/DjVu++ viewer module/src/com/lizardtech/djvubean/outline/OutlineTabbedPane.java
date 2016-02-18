@@ -23,6 +23,8 @@ import com.lizardtech.djvubean.DjVuBean;
 import java.io.IOException;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -42,6 +44,7 @@ public class OutlineTabbedPane
     private static int PagesCount;
     private final int thumbnailWidht = 125;
     private final int thumbnailHeight = 170;
+    private final int thumbnailCellHeight = 220;
     private final int thumBufferSize;
     private int drawnImagesCount = 0;
 
@@ -61,8 +64,8 @@ public class OutlineTabbedPane
 
     public OutlineTabbedPane(final DjVuBean djvubean, final Frame frame) {
 //        TODO: use scrollbar event instead of using buffering
-        // thumbnail buffer size is the size of what the screen can fit + 5
-        this.thumBufferSize = (int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() / thumbnailHeight) + 5);
+        // thumbnail buffer size is the size of what the screen can fit + 1
+        this.thumBufferSize = (int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() / thumbnailHeight) + 1);
         this.djvubean = djvubean;
         final int pack = 200;
         setBackground(Color.gray);
@@ -171,21 +174,29 @@ public class OutlineTabbedPane
         // construct the ThumblainsList as a JList	�
         ThumblainsList = new JList();
         ThumblainsScrollPane = new JScrollPane(ThumblainsList, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+//        ThumblainsScrollPane.getVerticalScrollBar().addAdjustmentListener((AdjustmentEvent e) -> {
+//            int index = e.getValue() / thumbnailCellHeight;
+//
+//            new Thread(() -> {
+//                for (int i = index; i <= index + thumBufferSize; i++) {
+//                    try {
+//                        drawThumnail(i);
+//                    } catch (IOException | ArrayIndexOutOfBoundsException ex) {
+//                        if (ex instanceof ArrayIndexOutOfBoundsException) {
+//                            //trying to draw non-existing pages thumbnails
+//                            break;
+//                        } else {
+//                            System.err.println("IOExecption: " + ex);
+//                        }
+//                    }
+//                }
+//            }).start();
+//
+//        });
         BookImages = new ImageIcon[PagesCount];
         PagesLabel = new JLabel[PagesCount];
         ThumblainsPane = new JPanel[PagesCount];
-        // get  images of book
-        // Set every page in 
-//        for (int i = 0; i < PagesCount; i++) {
 
-//            PagesLabel[i] = new JLabel("" + (i + 1));
-//            PagesLabel[i].setHorizontalTextPosition(JLabel.CENTER);
-//            PagesLabel[i].setVerticalTextPosition(JLabel.BOTTOM);
-//
-//            // create the corresponding panels 
-//            ThumblainsPane[i] = new JPanel(new FlowLayout(FlowLayout.LEFT));
-//            ThumblainsPane[i].add(PagesLabel[i]);
-//        }
         // tell the ThumblainsList to use the panel array for its data
         ThumblainsList.setListData(ThumblainsPane);
         ThumblainsList.addMouseListener(new MouseAdapter() {
@@ -198,7 +209,7 @@ public class OutlineTabbedPane
         ThumblainsList.setCellRenderer(new ImageListCellRenderer());
         ThumblainsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ThumblainsList.setLayoutOrientation(JList.VERTICAL);
-        ThumblainsList.setFixedCellHeight(220);
+        ThumblainsList.setFixedCellHeight(thumbnailCellHeight);
         ThumblainsList.setFocusable(true);
 
         // put our JList in a JScrollPane
@@ -206,93 +217,45 @@ public class OutlineTabbedPane
             ThumblainsScrollPane.setPreferredSize(djvubean.getOutline().getSize());
         }
         ThumblainsScrollPane.setWheelScrollingEnabled(true);
-
-        // create thumbnails
-//        TODO: create the thread in as a separate class
+        
         new Thread(new Runnable() {
+
             @Override
             public void run() {
-//                for (int i = 0; i < PagesCount; i++) {
-//
-//                    try {
-//                        BufferedImage img;
-//
-//                        img = CreateThumbnails.generateThumbnail(i, thumbnailWidht, thumbnailHeight);
-//                        BookImages[i] = new ImageIcon(img);
-//                        // add the images to jlabels with text
-//                        PagesLabel[i].setIcon(combosed_image(BookImages[i], Braker));
-//                        ThumblainsPane[i].add(PagesLabel[i]);
-//                    } catch (Exception ex) {
-//
-//                    }
-//                }
-
-//                while (true) {
-////                    PagesLabel[0].getHeight()  // reutrns the hight of the first label thus the height of the thumbnail
-//                    System.out.println("** " + ThumblainsScrollPane.getVerticalScrollBar().getValue()
-//                            + "\n fontHeight: " + PagesLabel[0].getHeight());
-//                }
-                // initial thumbnails
-                for (int i = 0; i < thumBufferSize; i++) {
+                for (int i = 0; i < PagesCount; i++){
                     try {
                         drawThumnail(i);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-                // FIXME: returns wrong indecies
-//                double thumnailTotalHeight = thumbnaIlHeight + 25.55555555555556;
-//                int thumnailTotalHeight = ThumblainsList.getFixedCellHeight();
-                int oldIndex = -1;
-                while (drawnImagesCount < PagesCount) {
-                    // if the user didn't scroll continue
-                    int index = (int) (ThumblainsScrollPane.getVerticalScrollBar().getValue() / 220) + 1;
-                    System.out.println("index: " + index);
-                    if ((index - oldIndex) < thumBufferSize) {
-                        //                        try {
-                        //                            Thread.sleep(100);
-                        //                        } catch (InterruptedException ex) {
-                        //                            // intrrupt
-                        //                            System.out.println("thumbnail thread intrrupted!");
-                        //                        }
-                        continue;
-                    }
-
-                    oldIndex = index;
-                    // render the following thumbnails
-                    for (int i = index - 1; i < index + thumBufferSize - 1; i++) {
-                        if (BookImages[i] == null) {
-                            System.out.println("i: " + i);
-                            try {
-                                drawThumnail(i);
-                            } catch (IOException ex) {
-                                ex.printStackTrace();
-                            }
+                    } catch (IOException | ArrayIndexOutOfBoundsException ex) {
+                        if (ex instanceof ArrayIndexOutOfBoundsException) {
+                            //trying to draw non-existing pages thumbnails
+                            break;
+                        } else {
+                            System.err.println("IOExecption: " + ex);
                         }
                     }
                 }
-                System.out.println("drawnImagesCount: " + drawnImagesCount);
-                System.out.println("thNail: " + ThumblainsList.getFixedCellHeight());
-            }
-
-            public void drawThumnail(int i) throws IOException {
-                PagesLabel[i] = new JLabel("" + (i + 1));
-                PagesLabel[i].setHorizontalTextPosition(JLabel.CENTER);
-                PagesLabel[i].setVerticalTextPosition(JLabel.BOTTOM);
-
-                // create the corresponding panels 
-                ThumblainsPane[i] = new JPanel(new FlowLayout(FlowLayout.LEFT));
-                ThumblainsPane[i].add(PagesLabel[i]);
-
-                BufferedImage img;
-                img = CreateThumbnails.generateThumbnail(i, thumbnailWidht, thumbnailHeight);
-                BookImages[i] = new ImageIcon(img);
-                drawnImagesCount++;
-                // add the images to jlabels with text
-                PagesLabel[i].setIcon(combosed_image(BookImages[i], Braker));
-                ThumblainsPane[i].add(PagesLabel[i]);
             }
         }).start();
+    }
+
+    public void drawThumnail(int i) throws IOException, ArrayIndexOutOfBoundsException {
+        if (BookImages[i] == null) {
+            PagesLabel[i] = new JLabel("" + (i + 1));
+            PagesLabel[i].setHorizontalTextPosition(JLabel.CENTER);
+            PagesLabel[i].setVerticalTextPosition(JLabel.BOTTOM);
+
+            // create the corresponding panels 
+            ThumblainsPane[i] = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            ThumblainsPane[i].add(PagesLabel[i]);
+
+            BufferedImage img;
+            img = CreateThumbnails.generateThumbnail(i, thumbnailWidht, thumbnailHeight);
+            BookImages[i] = new ImageIcon(img);
+            drawnImagesCount++;
+            // add the images to jlabels with text
+            PagesLabel[i].setIcon(combosed_image(BookImages[i], Braker));
+            ThumblainsPane[i].add(PagesLabel[i]);
+        }
     }
 
     public void createCommentTab() {
