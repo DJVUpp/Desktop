@@ -22,11 +22,6 @@ import com.lizardtech.djview.frame.Frame;
 import com.lizardtech.djvubean.DjVuBean;
 import java.io.IOException;
 import java.awt.Graphics;
-import java.awt.Toolkit;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 public class OutlineTabbedPane
@@ -65,7 +60,7 @@ public class OutlineTabbedPane
     public OutlineTabbedPane(final DjVuBean djvubean, final Frame frame) {
 //        TODO: use scrollbar event instead of using buffering
         // thumbnail buffer size is the size of what the screen can fit + 1
-        this.thumBufferSize = (int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() / thumbnailHeight) + 1);
+        this.thumBufferSize = 4;
         this.djvubean = djvubean;
         final int pack = 200;
         setBackground(Color.gray);
@@ -218,23 +213,20 @@ public class OutlineTabbedPane
         }
         ThumblainsScrollPane.setWheelScrollingEnabled(true);
         
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                for (int i = 0; i < PagesCount; i++){
-                    try {
-                        drawThumnail(i);
-                    } catch (IOException | ArrayIndexOutOfBoundsException ex) {
-                        if (ex instanceof ArrayIndexOutOfBoundsException) {
-                            //trying to draw non-existing pages thumbnails
-                            break;
-                        } else {
-                            System.err.println("IOExecption: " + ex);
-                        }
+        new Thread(() -> {
+            for (int i = 0; i < PagesCount; i++) {
+                try {
+                    drawThumnail(i);
+                } catch (IOException | ArrayIndexOutOfBoundsException ex) {
+                    if (ex instanceof ArrayIndexOutOfBoundsException) {
+                        //trying to draw non-existing pages thumbnails
+                        break;
+                    } else {
+                        System.err.println("IOExecption: " + ex);
                     }
                 }
             }
+            System.out.println("DONE!!");
         }).start();
     }
 
