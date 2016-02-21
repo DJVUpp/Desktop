@@ -22,8 +22,8 @@ import com.lizardtech.djview.frame.Frame;
 import com.lizardtech.djvubean.DjVuBean;
 import java.io.IOException;
 import java.awt.Graphics;
-import java.awt.event.AdjustmentEvent;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 
 public class OutlineTabbedPane
         extends JFrame {
@@ -33,8 +33,9 @@ public class OutlineTabbedPane
     private JPanel PagePane;
 
     public JScrollPane ThumblainsScrollPane;
-//    TODO:use dataModel instead of an array.
-    private JPanel ThumblainsPane[];
+//    NOTE: you can use dataModel instead of an array, but the data is static so array is perfable. 
+//    private JPanel ThumblainsPane[];
+    private DefaultListModel<JPanel> thumbnailData;
     public JList ThumblainsList;
     private ImageIcon BookImages[];
     private JLabel PagesLabel[];
@@ -170,32 +171,14 @@ public class OutlineTabbedPane
         // construct the ThumblainsList as a JList
         ThumblainsList = new JList();
         ThumblainsScrollPane = new JScrollPane(ThumblainsList, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-//        NOTE: CPU overload.
-//        ThumblainsScrollPane.getVerticalScrollBar().addAdjustmentListener((AdjustmentEvent e) -> {
-//            int index = e.getValue() / thumbnailCellHeight;
-//
-//            new Thread(() -> {
-//                for (int i = index; i <= index + thumBufferSize; i++) {
-//                    try {
-//                        drawThumnail(i);
-//                        ThumblainsList.setListData(ThumblainsPane);
-//                    } catch (IOException | ArrayIndexOutOfBoundsException ex) {
-//                        if (ex instanceof ArrayIndexOutOfBoundsException) {
-//                            //trying to draw non-existing pages thumbnails
-//                            break;
-//                        } else {
-//                            System.err.println("IOExecption: " + ex);
-//                        }
-//                    }
-//                }
-//            }).start();
-//        });
         BookImages = new ImageIcon[PagesCount];
         PagesLabel = new JLabel[PagesCount];
-        ThumblainsPane = new JPanel[PagesCount];
+//        ThumblainsPane = new JPanel[PagesCount];
+        thumbnailData = new DefaultListModel<>();
 
         // tell the ThumblainsList to use the panel array for its data
-        ThumblainsList.setListData(ThumblainsPane);
+//        ThumblainsList.setListData(ThumblainsPane);
+        ThumblainsList.setModel(thumbnailData);
         ThumblainsList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -215,23 +198,6 @@ public class OutlineTabbedPane
         }
         ThumblainsScrollPane.setWheelScrollingEnabled(true);
 
-        // loads all thumbnails in order.
-        // NOTE: not verty user-friendly!!
-//        new Thread(() -> {
-//            for (int i = 0; i < PagesCount; i++) {
-//                try {
-//                    drawThumnail(i);
-//                    ThumblainsList.setListData(ThumblainsPane);
-//                } catch (IOException | ArrayIndexOutOfBoundsException ex) {
-//                    if (ex instanceof ArrayIndexOutOfBoundsException) {
-//                        //trying to draw non-existing pages thumbnails
-//                        break;
-//                    }
-//                }
-//            }
-//            System.out.println("DONE!!");
-//        }).start();
-        
         // loads visible thumbnails
         // NOTE: busy waiting.
         new Thread(new Runnable() {
@@ -247,7 +213,7 @@ public class OutlineTabbedPane
 //                    System.out.println("index: " + index);
                     if (index == oldIndex) {
                         try {
-                            Thread.sleep(5);
+                            Thread.sleep(1);
                         } catch (InterruptedException ex) {
                         }
                     } else {
@@ -257,7 +223,7 @@ public class OutlineTabbedPane
                         for (int i = index - 1; i <= index + thumBufferSize - 1; i++) {
                             try {
                                 drawThumnail(i);
-                                ThumblainsList.setListData(ThumblainsPane);
+//                                ThumblainsList.setListData(ThumblainsPane);
                             } catch (IOException | ArrayIndexOutOfBoundsException ex) {
                                 if (ex instanceof ArrayIndexOutOfBoundsException) {
                                     //trying to draw non-existing pages thumbnails
@@ -277,40 +243,57 @@ public class OutlineTabbedPane
                     PagesLabel[i].setHorizontalTextPosition(JLabel.CENTER);
                     PagesLabel[i].setVerticalTextPosition(JLabel.BOTTOM);
 
-                    // create the corresponding panels 
-                    ThumblainsPane[i] = new JPanel(new FlowLayout(FlowLayout.LEFT));
-                    ThumblainsPane[i].add(PagesLabel[i]);
-
                     BufferedImage img;
                     img = CreateThumbnails.generateThumbnail(i, thumbnailWidht, thumbnailHeight);
                     BookImages[i] = new ImageIcon(img);
                     drawnImagesCount++;
                     // add the images to jlabels with text
                     PagesLabel[i].setIcon(combosed_image(BookImages[i], Braker));
-                    ThumblainsPane[i].add(PagesLabel[i]);
+                    // create the corresponding panels 
+                    JPanel tempPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                    tempPanel.add(PagesLabel[i]);
+                    tempPanel.add(PagesLabel[i]);
+                    thumbnailData.addElement(tempPanel);
                 }
             }
         }).start();
-    }
 
-    public void drawThumnail(int i) throws IOException, ArrayIndexOutOfBoundsException {
-        if (BookImages[i] == null) {
-            PagesLabel[i] = new JLabel("" + (i + 1));
-            PagesLabel[i].setHorizontalTextPosition(JLabel.CENTER);
-            PagesLabel[i].setVerticalTextPosition(JLabel.BOTTOM);
-
-            BufferedImage img;
-            img = CreateThumbnails.generateThumbnail(i, thumbnailWidht, thumbnailHeight);
-            BookImages[i] = new ImageIcon(img);
-
-            // create the corresponding panels 
-            ThumblainsPane[i] = new JPanel(new FlowLayout(FlowLayout.LEFT));
-            ThumblainsPane[i].add(PagesLabel[i]);
-
-            // add the images to jlabels with text
-            PagesLabel[i].setIcon(combosed_image(BookImages[i], Braker));
-            ThumblainsPane[i].add(PagesLabel[i]);
-        }
+        // NOTE: not verty user-friendly!!
+//        new Thread(new Runnable() {
+//
+//            public void run() {
+//                for (int i = 0; i < PagesCount; i++) {
+//                    try {
+//                        drawThumnail(i);
+//                    } catch (IOException | ArrayIndexOutOfBoundsException ex) {
+//                        if (ex instanceof ArrayIndexOutOfBoundsException) {
+//                            //trying to draw non-existing pages thumbnails
+//                            break;
+//                        }
+//                    }
+//                }
+//                System.out.println("DONE!!");
+//            }
+//
+//            public void drawThumnail(int i) throws IOException {
+//                if (BookImages[i] == null) {
+//                    PagesLabel[i] = new JLabel("" + (i + 1));
+//                    PagesLabel[i].setHorizontalTextPosition(JLabel.CENTER);
+//                    PagesLabel[i].setVerticalTextPosition(JLabel.BOTTOM);
+//
+//                    BufferedImage img;
+//                    img = CreateThumbnails.generateThumbnail(i, thumbnailWidht, thumbnailHeight);
+//                    BookImages[i] = new ImageIcon(img);
+//                    // add the images to jlabels with text
+//                    PagesLabel[i].setIcon(combosed_image(BookImages[i], Braker));
+//                    // create the corresponding panels 
+//                    JPanel tempPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+//                    tempPanel.add(PagesLabel[i]);
+//                    tempPanel.add(PagesLabel[i]);
+//                    thumbnailData.addElement(tempPanel);
+//                }
+//            }
+//        }).start();
     }
 
     public final void createCommentTab() {
