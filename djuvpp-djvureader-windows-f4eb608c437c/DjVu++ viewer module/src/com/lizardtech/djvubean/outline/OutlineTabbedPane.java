@@ -258,6 +258,7 @@ public class OutlineTabbedPane
                 }
             }
         }).start();
+        
         // NOTE: not verty user-friendly!!
 //        new Thread(new Runnable() {
 //
