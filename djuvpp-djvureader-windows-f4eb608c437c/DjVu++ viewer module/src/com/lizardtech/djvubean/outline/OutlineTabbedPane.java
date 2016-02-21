@@ -175,6 +175,7 @@ public class OutlineTabbedPane
         PagesLabel = new JLabel[PagesCount];
 //        ThumblainsPane = new JPanel[PagesCount];
         thumbnailData = new DefaultListModel<>();
+        thumbnailData.setSize(PagesCount);
 
         // tell the ThumblainsList to use the panel array for its data
 //        ThumblainsList.setListData(ThumblainsPane);
@@ -199,7 +200,6 @@ public class OutlineTabbedPane
         ThumblainsScrollPane.setWheelScrollingEnabled(true);
 
         // loads visible thumbnails
-        // NOTE: busy waiting.
         new Thread(new Runnable() {
             int drawnImagesCount = 0;
             int oldIndex = -1;
@@ -253,11 +253,11 @@ public class OutlineTabbedPane
                     JPanel tempPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
                     tempPanel.add(PagesLabel[i]);
                     tempPanel.add(PagesLabel[i]);
-                    thumbnailData.addElement(tempPanel);
+                    thumbnailData.set(i, tempPanel);
+
                 }
             }
         }).start();
-
         // NOTE: not verty user-friendly!!
 //        new Thread(new Runnable() {
 //
@@ -290,7 +290,7 @@ public class OutlineTabbedPane
 //                    JPanel tempPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 //                    tempPanel.add(PagesLabel[i]);
 //                    tempPanel.add(PagesLabel[i]);
-//                    thumbnailData.addElement(tempPanel);
+//                    thumbnailData.set(i, tempPanel);
 //                }
 //            }
 //        }).start();
