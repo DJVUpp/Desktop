@@ -46,8 +46,6 @@
 package com.lizardtech.djvubean;
 
 import com.lizardtech.djvu.*;
-import com.lizardtech.djvubean.RibbonMenu.DjvuRibbonComponents;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.*;

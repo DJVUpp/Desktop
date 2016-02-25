@@ -205,6 +205,8 @@ public class OutlineTabbedPane
             int oldIndex = -1;
             int index;
 
+//            NOTE: busy waiting.
+//            TODO: use event with chescking if the scroll value is idel.
             @Override
             public void run() {
                 while (drawnImagesCount < PagesCount) {

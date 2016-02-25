@@ -1,6 +1,5 @@
 package com.lizardtech.djview.frame;
 
-
 import com.lizardtech.djview.Applet;
 import com.lizardtech.djview.FullBookView;
 import com.lizardtech.djvu.DjVuOptions;
@@ -18,25 +17,20 @@ import java.util.*;
 import javax.swing.*;
 
 /**
- * A class for displaying djvu documents with javaw. Very simmular to the
- * DjVuLibre djview command.
+ * A class for displaying djvu documents with javaw. Very simmular to the DjVuLibre djview command.
  *
  * @author Bill C. Riemers
  * @version $Revision: 1.10 $
  */
 public final class Frame extends JFrame implements AppletStub {
 
- 
     //~ Static fields/initializers ---------------------------------------------
-
     private static final Class classApplet;
-      public static DjVuBean Bean;
+    public static DjVuBean Bean;
     private static final Method isValidDjVuMethod;
     private static final String classAppletName = "com.lizardtech.djview.Applet";
-    public static DjVuBean bean;
-    public static  Document document;
+    public static Document document;
     public JPanel CardPanel;
-
 
     static {
 
@@ -60,21 +54,17 @@ public final class Frame extends JFrame implements AppletStub {
 
     //~ Instance fields --------------------------------------------------------
     private final AppletContext appletContext;
-    /**
-     * Create an applet for this document.
-     */
     private final Hashtable parameters = new Hashtable();
-    public  OutlineTabbedPane     Thumbpanel ;
-    public FullBookView     FullBook  ;
+    public OutlineTabbedPane Thumbpanel;
+    public FullBookView FullBook;
 
-   
     private final TextField input = new TextField();
     private URL documentBase = null;
-   
+
     private boolean isDjVu = false;
     private HashMap<String, Component> componentMap;
-  
- /**
+
+    /**
      * Creates a new Frame object.
      */
     public Frame() {
@@ -226,11 +216,11 @@ public final class Frame extends JFrame implements AppletStub {
             if (jeditorPane == null) {
                 try {
                     new com.lizardtech.djvu.Document(url);
-                      document = new Document(url);
-                      com.lizardtech.djvubean.outline.CreateThumbnails.document=document;
+                    document = new Document(url);
+                    com.lizardtech.djvubean.outline.CreateThumbnails.document = document;
                 } catch (final Throwable exp) {
                     try {
-                        
+
                         jeditorPane = new JEditorPane(url);
                     } catch (final Throwable ignored) {
                     }
@@ -253,16 +243,15 @@ public final class Frame extends JFrame implements AppletStub {
                     final Applet s = (Applet) classApplet.newInstance();
                     s.setStub(this);
                     s.init();
-                    
-                    
-                  Thumbpanel  = new OutlineTabbedPane(Bean,this);
-              //    createComponentMap();
+
+                    Thumbpanel = new OutlineTabbedPane(Bean, this);
+                    //    createComponentMap();
                     component = s;
-                    
-                    CardPanel=new JPanel(new CardLayout());
-                    
-                  FullBook = new FullBookView(Bean,this, CardPanel);
-                  com.lizardtech.djvubean.DjVuBean.frame=this;
+
+                    CardPanel = new JPanel(new CardLayout());
+
+                    FullBook = new FullBookView(Bean, this, CardPanel);
+                    com.lizardtech.djvubean.DjVuBean.frame = this;
                     isDjVu = ((Boolean) isValidDjVuMethod.invoke(s, null)).booleanValue();
                 } catch (final Throwable exp) {
                     exp.printStackTrace(DjVuOptions.err);
@@ -278,7 +267,7 @@ public final class Frame extends JFrame implements AppletStub {
         if (component == null) {
             component = new TextArea("No Data Loaded");
         }
-        CardPanel.add(component,"Bean");
+        CardPanel.add(component, "Bean");
         add(CardPanel, BorderLayout.CENTER);
         validate();
     }
@@ -319,19 +308,21 @@ public final class Frame extends JFrame implements AppletStub {
             int height) {
         setSize(width, height);
     }
-private void createComponentMap() {
-        componentMap = new HashMap<String,Component>();
-        Component[] components = this.getContentPane().getComponents();
-        for (int i=0; i < components.length; i++) {
-                componentMap.put(components[i].getName(), components[i]);
-        }
-}
 
-public Component getComponentByName(String name) {
-        if (componentMap.containsKey(name)) {
-                return (Component) componentMap.get(name);
+    private void createComponentMap() {
+        componentMap = new HashMap<String, Component>();
+        Component[] components = this.getContentPane().getComponents();
+        for (int i = 0; i < components.length; i++) {
+            componentMap.put(components[i].getName(), components[i]);
         }
-        else return null;
-}
+    }
+
+    public Component getComponentByName(String name) {
+        if (componentMap.containsKey(name)) {
+            return (Component) componentMap.get(name);
+        } else {
+            return null;
+        }
+    }
 
 }

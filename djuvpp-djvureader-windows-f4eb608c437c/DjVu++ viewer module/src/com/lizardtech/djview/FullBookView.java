@@ -24,33 +24,30 @@ public class FullBookView
         extends JPanel {
 
     public JScrollPane ThumblainsScrollPane;
+    public static int PagesCount;
+    public static boolean Continous = false;
+    public static boolean Is_Rotated = false;
     private JPanel ThumblainsPane[];
     private JList ThumblainsList;
     private BufferedImage img[];
     private ImageIcon BookImages[];
     private JLabel PagesLabel[];
-    private JPanel Rotatedpane;
-
-    private JScrollPane RotatedpaneScrollPane;
+    private final JPanel Rotatedpane;
+    private final JScrollPane RotatedpaneScrollPane;
     private BufferedImage RotatedpaneImage;
-    private JLabel RotatedpaneLabel;
-    public static int PagesCount;
-    public static boolean Continous = false;
-    public static boolean Is_Rotated = false;
-
-    public static void setPagesCount(int pagesCount) {
-        PagesCount = pagesCount;
-    }
-
-    private DjVuBean djvubean;
-    private Frame frame;
-    private JPanel topPanel;
-    private JPanel beanPanel;
-    private CardLayout cardLayout;
+    private final JLabel RotatedpaneLabel;
+    private final DjVuBean djvubean;
+    private final Frame frame;
+    private final JPanel topPanel;
+    private final JPanel beanPanel;
+    private final CardLayout cardLayout;
     private int Width;
     private int Height;
     private int Pagenum = 0;
 
+    public static void setPagesCount(int pagesCount) {
+        PagesCount = pagesCount;
+    }
     public JPanel getTopPanel() {
         return topPanel;
     }

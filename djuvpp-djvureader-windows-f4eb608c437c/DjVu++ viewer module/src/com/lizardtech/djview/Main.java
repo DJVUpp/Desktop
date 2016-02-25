@@ -3,6 +3,8 @@ package com.lizardtech.djview;
 import com.lizardtech.djview.frame.Frame;
 import com.lizardtech.djvubean.DjVuBean;
 import com.lizardtech.djvubean.RibbonMenu.DjvuComponents;
+import com.lizardtech.djvubean.menu.DjVuMenu;
+import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.Toolkit;
 import java.io.File;
@@ -111,13 +113,19 @@ public class Main extends JFrame {
 
         Frame f = new Frame(url);
         f.setVisible(true);
+        f.setSize(700, 900);
 //        Container pane = f.getContentPane();
 //        tabbedPane.add(name, pane);
 //        tabbedPane.setSelectedComponent(pane);
 //        String tabName = tabbedPane.getTitleAt(tabbedPane.getSelectedIndex());
 //        if (!tabName.equals("GetStart")) {
         Band.setbean(beanMap.entrySet().iterator().next().getValue());
-
+        
+//        TODO: try poping a DjVuMenu and test perofrmance
+//        JFrame frame = new JFrame();
+//        DjVuMenu popMenu = new DjVuMenu(beanMap.entrySet().iterator().next().getValue());
+//        frame.setVisible(true);
+//        popMenu.show(frame, 100, 100);
 //        }
         //  }
         //});

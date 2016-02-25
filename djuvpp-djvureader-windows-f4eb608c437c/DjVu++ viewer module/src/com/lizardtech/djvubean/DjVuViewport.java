@@ -46,16 +46,12 @@
 package com.lizardtech.djvubean;
 
 import com.lizardtech.djvu.*;
-import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
 
 //import java.awt.geom.*;
 import java.io.IOException;
-import java.lang.reflect.*;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Hashtable;
 
 
 /**
