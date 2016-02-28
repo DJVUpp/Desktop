@@ -8,7 +8,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-
 import com.lizardtech.djvubean.DjVuBean;
 import com.lizardtech.djvubean.outline.CreateThumbnails;
 import java.awt.BorderLayout;
@@ -18,8 +17,10 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
 
+// TODO: Documentation.
 public class FullBookView
         extends JPanel {
 
@@ -27,15 +28,17 @@ public class FullBookView
     public static int PagesCount;
     public static boolean Continous = false;
     public static boolean Is_Rotated = false;
-    private JPanel ThumblainsPane[];
+    private DefaultListModel<JPanel> pages;
     private JList ThumblainsList;
+    // NOTE: this could be the buffer, you can use DefaultListModel instead.
     private BufferedImage img[];
     private ImageIcon BookImages[];
     private JLabel PagesLabel[];
-    private final JPanel Rotatedpane;
-    private final JScrollPane RotatedpaneScrollPane;
-    private BufferedImage RotatedpaneImage;
-    private final JLabel RotatedpaneLabel;
+    // TODO: revisite the rotation.
+//    private final JPanel Rotatedpane;
+//    private final JScrollPane RotatedpaneScrollPane;
+//    private BufferedImage RotatedpaneImage;
+//    private final JLabel RotatedpaneLabel;
     private final DjVuBean djvubean;
     private final Frame frame;
     private final JPanel topPanel;
@@ -44,13 +47,6 @@ public class FullBookView
     private int Width;
     private int Height;
     private int Pagenum = 0;
-
-    public static void setPagesCount(int pagesCount) {
-        PagesCount = pagesCount;
-    }
-    public JPanel getTopPanel() {
-        return topPanel;
-    }
 
     public FullBookView(final DjVuBean djvubean, final Frame frame, JPanel beanPanel) {
 
@@ -61,33 +57,48 @@ public class FullBookView
         Width = 720;
         Height = 768;
 
-        Rotatedpane = new JPanel(new BorderLayout());
-        RotatedpaneScrollPane = new JScrollPane(Rotatedpane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-        RotatedpaneLabel = new JLabel();
+//        Rotatedpane = new JPanel(new BorderLayout());
+//        RotatedpaneScrollPane = new JScrollPane(Rotatedpane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+//        RotatedpaneLabel = new JLabel();
         topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(Color.gray);
-        Rotatedpane.setBackground(Color.gray);
-        createImages();
+//        Rotatedpane.setBackground(Color.gray);
+        init();
+
         img = new BufferedImage[PagesCount];
 
         beanPanel.add(topPanel, "FullBook");
-        beanPanel.add(RotatedpaneScrollPane, "Rotate");
+//        beanPanel.add(RotatedpaneScrollPane, "Rotate");
         cardLayout.first(beanPanel);
 
+//        TODO: Documentation.
+//        renders all book images continously
         new Thread(new Runnable() {
 
             public void run() {
                 for (int i = 0; i < PagesCount; i++) {
 
                     try {
+                        PagesLabel[i] = new JLabel("" + (i + 1));
+                        PagesLabel[i].setHorizontalTextPosition(JLabel.CENTER);
+                        PagesLabel[i].setVerticalTextPosition(JLabel.BOTTOM);
+                        PagesLabel[i].setForeground(Color.GRAY);
+
+                        // create the corresponding panels
+                        JPanel tempPanel;
+                        tempPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+                        tempPanel.add(PagesLabel[i]);
+                        tempPanel.setForeground(Color.GRAY);
+
                         img[i] = CreateThumbnails.generateThumbnail(i, Width, Height);
                         BookImages[i] = new ImageIcon(img[i]);
+
                         // add the images to jlabels with text
                         PagesLabel[i].setSize(Width, Height);
                         PagesLabel[i].setIcon(BookImages[i]);
 
-                        ThumblainsPane[i].add(PagesLabel[i]);
+//                        ThumblainsPane[i].add(PagesLabel[i]);
+                        pages.set(i, tempPanel);
                     } catch (Exception ex) {
                         // Logger.getLogger(OutlineTabbedPane.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -99,33 +110,22 @@ public class FullBookView
 
     }
 
-    public void createImages() {
+    /**
+     * initialize the variables and views.
+     */
+    public void init() {
 
         ThumblainsList = new JList();
         ThumblainsScrollPane = new JScrollPane(ThumblainsList, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         BookImages = new ImageIcon[PagesCount];
+        pages = new DefaultListModel<>();
+        pages.setSize(PagesCount);
         PagesLabel = new JLabel[PagesCount];
-        ThumblainsPane = new JPanel[PagesCount];
         // get  images of book
         // Set every page in 
-        for (int i = 0; i < PagesCount; i++) {
-
-            PagesLabel[i] = new JLabel("" + (i + 1));
-            PagesLabel[i].setHorizontalTextPosition(JLabel.CENTER);
-
-            PagesLabel[i].setVerticalTextPosition(JLabel.BOTTOM);
-
-            PagesLabel[i].setForeground(Color.GRAY);
-
-            // create the corresponding panels
-            ThumblainsPane[i] = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            ThumblainsPane[i].add(PagesLabel[i]);
-            ThumblainsPane[i].setForeground(Color.GRAY);
-
-        }
 
         // tell the ThumblainsList to use the panel array for its data
-        ThumblainsList.setListData(ThumblainsPane);
+        ThumblainsList.setModel(pages);
         ThumblainsList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -160,16 +160,16 @@ public class FullBookView
         ThumblainsScrollPane.setPreferredSize(beanPanel.getPreferredSize());
         ThumblainsScrollPane.setWheelScrollingEnabled(true);
         topPanel.add(ThumblainsScrollPane, BorderLayout.CENTER);
-        Rotatedpane.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-
-                    Switch_FullBookView(false);
-
-                }
-            }
-        });
+//        Rotatedpane.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                if (e.getClickCount() == 2) {
+//
+//                    Switch_FullBookView(false);
+//
+//                }
+//            }
+//        });
 
     }
 
@@ -192,13 +192,12 @@ public class FullBookView
     }
 
     public void rotate(final int degree) {
-        RotatedpaneImage = rotateImage(img[djvubean.getPage() - 1], degree);
-        img[djvubean.getPage() - 1] = RotatedpaneImage;
+//        RotatedpaneImage = rotateImage(img[djvubean.getPage() - 1], degree);
+//        img[djvubean.getPage() - 1] = RotatedpaneImage;
+//
+//        RotatedpaneLabel.setIcon(new ImageIcon(RotatedpaneImage));
 
-        RotatedpaneLabel.setIcon(new ImageIcon(RotatedpaneImage));
-
-        Rotatedpane.add(RotatedpaneLabel, BorderLayout.CENTER);
-
+//        Rotatedpane.add(RotatedpaneLabel, BorderLayout.CENTER);
         cardLayout.show(beanPanel, "Rotate");
         Is_Rotated = true;
         Continous = false;
@@ -233,6 +232,14 @@ public class FullBookView
         g.drawRenderedImage(src, null);
 
         return result;
+    }
+
+    public static void setPagesCount(int pagesCount) {
+        PagesCount = pagesCount;
+    }
+
+    public JPanel getTopPanel() {
+        return topPanel;
     }
 
 }

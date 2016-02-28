@@ -17,7 +17,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
-
 import com.lizardtech.djview.frame.Frame;
 import com.lizardtech.djvubean.DjVuBean;
 import java.io.IOException;
@@ -25,6 +24,7 @@ import java.awt.Graphics;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 
+// TODO: Documentation.
 public class OutlineTabbedPane
         extends JFrame {
 
@@ -220,7 +220,7 @@ public class OutlineTabbedPane
                         }
                     } else {
 
-                        System.out.println("index: " + index);
+//                        System.out.println("index: " + index);
                         // render the following thumbnails
                         for (int i = index - 1; i <= index + thumBufferSize - 1; i++) {
                             try {
@@ -236,7 +236,7 @@ public class OutlineTabbedPane
                         oldIndex = index;
                     }
                 }
-                System.out.println("DONE!");
+                System.out.println("DONE rendering thumbnails!");
             }
 
             public void drawThumnail(int i) throws IOException {
@@ -260,7 +260,7 @@ public class OutlineTabbedPane
                 }
             }
         }).start();
-        
+
         // NOTE: not verty user-friendly!!
 //        new Thread(new Runnable() {
 //

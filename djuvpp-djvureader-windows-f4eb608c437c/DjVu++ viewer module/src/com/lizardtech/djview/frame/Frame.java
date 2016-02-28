@@ -215,23 +215,19 @@ public final class Frame extends JFrame implements AppletStub {
 
             if (jeditorPane == null) {
                 try {
-                    new com.lizardtech.djvu.Document(url);
                     document = new Document(url);
+//                    TODO: create a method/setter to to this.
                     com.lizardtech.djvubean.outline.CreateThumbnails.document = document;
                 } catch (final Throwable exp) {
                     try {
-
                         jeditorPane = new JEditorPane(url);
                     } catch (final Throwable ignored) {
                     }
                 }
-            }
-            if ((jeditorPane != null)) {
+            } else if ((jeditorPane != null)) {
                 try {
-
                     component = new JScrollPane(jeditorPane);
                     jeditorPane.setCaretPosition(0);
-
                 } catch (Throwable ignored) {
                 }
             }
@@ -240,19 +236,18 @@ public final class Frame extends JFrame implements AppletStub {
                 parameters.put("data", urlString);
 
                 try {
-                    final Applet s = (Applet) classApplet.newInstance();
-                    s.setStub(this);
-                    s.init();
+                    final Applet applet = (Applet) classApplet.newInstance();
+                    applet.setStub(this);
+                    applet.init();
 
                     Thumbpanel = new OutlineTabbedPane(Bean, this);
-                    //    createComponentMap();
-                    component = s;
-
+                    component = applet;
                     CardPanel = new JPanel(new CardLayout());
 
+                    // NOTE: what this does?
                     FullBook = new FullBookView(Bean, this, CardPanel);
                     com.lizardtech.djvubean.DjVuBean.frame = this;
-                    isDjVu = ((Boolean) isValidDjVuMethod.invoke(s, null)).booleanValue();
+                    isDjVu = ((Boolean) isValidDjVuMethod.invoke(applet, null)).booleanValue();
                 } catch (final Throwable exp) {
                     exp.printStackTrace(DjVuOptions.err);
                     component = null;

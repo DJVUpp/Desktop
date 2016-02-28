@@ -16,6 +16,7 @@ import javax.swing.ListCellRenderer;
 import javax.swing.UIManager;
 
 public class CreateThumbnails implements ListCellRenderer {
+
     public static Document document;
 
     public static BufferedImage getScreenShot(Component component) {
@@ -38,7 +39,7 @@ public class CreateThumbnails implements ListCellRenderer {
             thumbWidth = (int) (thumbHeight * imageRatio);
         }
 
-    // draw original image to thumbnail image object and
+        // draw original image to thumbnail image object and
         // scale it to the new size on-the-fly
         BufferedImage thumbImage = new BufferedImage(thumbWidth, thumbHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = thumbImage.createGraphics();
@@ -53,16 +54,14 @@ public class CreateThumbnails implements ListCellRenderer {
      * href="http://java.sun.com/javase/6/docs/api/javax/swing/ListCellRenderer.html:"
      * title="http://java.sun.com/javase/6/docs/api/javax/swing/ListCellRenderer.html:">http://java.sun.com/javase/6/docs/api/javax/swing/ListCellRenderer.html:</a>
      *
-     * Return a component that has been configured to display the specified
-     * value. That component's paint method is then called to "render" the cell.
-     * If it is necessary to compute the dimensions of a list because the list
-     * cells do not have a fixed size, this method is called to generate a
-     * component on which getPreferredSize can be invoked.
+     * Return a component that has been configured to display the specified value. That component's
+     * paint method is then called to "render" the cell. If it is necessary to compute the
+     * dimensions of a list because the list cells do not have a fixed size, this method is called
+     * to generate a component on which getPreferredSize can be invoked.
      *
      * jlist - the jlist we're painting value - the value returned by
-     * list.getModel().getElementAt(index). cellIndex - the cell index
-     * isSelected - true if the specified cell is currently selected
-     * cellHasFocus - true if the cell has focus
+     * list.getModel().getElementAt(index). cellIndex - the cell index isSelected - true if the
+     * specified cell is currently selected cellHasFocus - true if the cell has focus
      */
     public Component getListCellRendererComponent(JList jlist,
             Object value,
@@ -75,7 +74,7 @@ public class CreateThumbnails implements ListCellRenderer {
             component.setBackground(isSelected ? UIManager.getColor("Table.focusCellForeground") : Color.white);
             return component;
         } else {
-    // TODO - I get one String here when the JList is first rendered; proper way to deal with this?
+            // TODO - I get one String here when the JList is first rendered; proper way to deal with this?
             //System.out.println("Got something besides a JPanel: " + value.getClass().getCanonicalName());
             return new JLabel("???");
         }
@@ -136,13 +135,15 @@ public class CreateThumbnails implements ListCellRenderer {
                 + (aGreen - bGreen) * (aGreen - bGreen)
                 + (aBlue - bBlue) * (aBlue - bBlue));
 
-    // 510.0 is the maximum distance between two colors 
+        // 510.0 is the maximum distance between two colors 
         // (0,0,0,0 -> 255,255,255,255)
         double percentAway = distance / 510.0d;
 
         return (percentAway > tolerance);
     }
-
+    
+    // TODO: check the resolution (size in memory) of the image.
+    // TODO: Documentation.
     public static BufferedImage generateThumbnail(final int pageNumber, final int width, final int height)
             throws IOException {
 

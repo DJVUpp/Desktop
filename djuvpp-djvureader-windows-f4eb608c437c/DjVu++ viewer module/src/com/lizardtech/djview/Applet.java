@@ -56,8 +56,7 @@ import java.util.Properties;
 import java.lang.reflect.*;
 
 /**
- * A class for displaying djvu documents. Very simmular to the LizardTech DjVu
- * plugin.
+ * A class for displaying djvu documents. Very simmular to the LizardTech DjVu plugin.
  *
  * @author Bill C. Riemers
  * @version $Revision: 1.22 $
@@ -93,8 +92,7 @@ public class Applet
     public final String jarName = "djvuframe.jar";
 
     /**
-     * The main class to use, if main is invoked and the jar file is not
-     * available.
+     * The main class to use, if main is invoked and the jar file is not available.
      */
     public final String mainClass = "com.lizardtech.djview.frame.Frame";
 
@@ -155,8 +153,8 @@ public class Applet
 
     //~ Methods ----------------------------------------------------------------
     /**
-     * This applet may also be invoked as a program using javaw. In that event
-     * we first try running a jar file. If that fails we try the mainClass.
+     * This applet may also be invoked as a program using javaw. In that event we first try running
+     * a jar file. If that fails we try the mainClass.
      *
      * @param args Should contain the target URL to view.
      */
@@ -420,8 +418,7 @@ public class Applet
     }
 
     /**
-     * Called to create a split pane for displaying outline navigation along
-     * side of the DjVuBean.
+     * Called to create a split pane for displaying outline navigation along side of the DjVuBean.
      *
      * @param leftPane outline navigation.
      * @param centerPane DjVuBean.
@@ -466,8 +463,7 @@ public class Applet
     }
 
     /**
-     * Set the url to be rendered. The page will not be updated until init() is
-     * called.
+     * Set the url to be rendered. The page will not be updated until init() is called.
      *
      * @param url to render.
      */
@@ -514,8 +510,7 @@ public class Applet
     }
 
     /**
-     * Initialize the currently selected url, and render the first page of the
-     * document.
+     * Initialize the currently selected url, and render the first page of the document.
      */
     public void init() {
         validDjVu = false;
