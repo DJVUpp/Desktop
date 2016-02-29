@@ -14,9 +14,14 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
 
@@ -43,9 +48,10 @@ public class FullBookView
     private final Frame frame;
     private final JPanel topPanel;
     private final JPanel beanPanel;
+    private final JPanel defaultPage;
     private final CardLayout cardLayout;
-    private int Width;
-    private int Height;
+    private final int Width;
+    private final int Height;
     private int Pagenum = 0;
 
     public FullBookView(final DjVuBean djvubean, final Frame frame, JPanel beanPanel) {
@@ -54,6 +60,7 @@ public class FullBookView
         this.frame = frame;
         this.beanPanel = beanPanel;
         cardLayout = (CardLayout) beanPanel.getLayout();
+        defaultPage = new JPanel();
         Width = 720;
         Height = 768;
 
@@ -70,44 +77,6 @@ public class FullBookView
         beanPanel.add(topPanel, "FullBook");
 //        beanPanel.add(RotatedpaneScrollPane, "Rotate");
         cardLayout.first(beanPanel);
-
-//        TODO: Documentation.
-//        renders all book images continously
-        new Thread(new Runnable() {
-
-            public void run() {
-                for (int i = 0; i < PagesCount; i++) {
-
-                    try {
-                        PagesLabel[i] = new JLabel("" + (i + 1));
-                        PagesLabel[i].setHorizontalTextPosition(JLabel.CENTER);
-                        PagesLabel[i].setVerticalTextPosition(JLabel.BOTTOM);
-                        PagesLabel[i].setForeground(Color.GRAY);
-
-                        // create the corresponding panels
-                        JPanel tempPanel;
-                        tempPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-                        tempPanel.add(PagesLabel[i]);
-                        tempPanel.setForeground(Color.GRAY);
-
-                        img[i] = CreateThumbnails.generateThumbnail(i, Width, Height);
-                        BookImages[i] = new ImageIcon(img[i]);
-
-                        // add the images to jlabels with text
-                        PagesLabel[i].setSize(Width, Height);
-                        PagesLabel[i].setIcon(BookImages[i]);
-
-//                        ThumblainsPane[i].add(PagesLabel[i]);
-                        pages.set(i, tempPanel);
-                    } catch (Exception ex) {
-                        // Logger.getLogger(OutlineTabbedPane.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-
-            }
-
-        }).start();
-
     }
 
     /**
@@ -117,7 +86,126 @@ public class FullBookView
 
         ThumblainsList = new JList();
         ThumblainsScrollPane = new JScrollPane(ThumblainsList, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        ThumblainsScrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+            private final int bufferSize = 1;       // number of pages above and below the current image.
+            private final int timeGap = 110;        // time gap in milleseconds to draw a page.
+            private int oldIndex;
+            private long oldTime;                   // the time since the last change in the scroll value.
+            private int index;
+            private Thread gThread;
+
+            {
+                this.gThread = new Thread(() -> {
+                    try {
+                        resetAndDraw(index);
+                    } catch (IOException ex) {
+                    }
+                });
+            }
+
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                index = e.getValue() / Height;
+                if ((System.currentTimeMillis() - oldTime) > timeGap && index != oldIndex) {
+//                    try {
+                    // draw pages and reset old pages
+                    gThread.interrupt();
+                    gThread = new Thread(() -> {
+                        try {
+                            resetAndDraw(index);
+                        } catch (IOException ex) {
+                        }
+                    });
+                    gThread.start();
+
+//                        resetAndDraw(index);
+//                    } catch (IOException ex) {
+//                    }
+                    // set old values
+//                    oldIndex = index;
+//                    oldTime = System.currentTimeMillis();
+                }
+
+            }
+
+            /**
+             * Draws indexed pages and reset the old indexed page
+             *
+             * @param index the index of the image to draw starting from 0
+             */
+            private void resetAndDraw(int index) throws IOException {
+                System.out.println("index: " + index + " old index: " + oldIndex);
+//                if (index - oldIndex < bufferSize) {        // pages above the indexed page can be reused.
+//                    // reset pages
+//                    for (int i = oldIndex - bufferSize; i < index - bufferSize; i++) {
+//                        pages.set(i, defaultPage);
+//                    }
+//
+//                    // draw pages
+//                    for (int i = oldIndex + bufferSize + 1; i <= index + bufferSize; i++) {
+//                        draw(i);
+//                    }
+//                } else if (oldIndex - index < bufferSize) { // pages below the indexed page can be reused.
+//                    for (int i = oldIndex + bufferSize; i > index + bufferSize; i--) {      // reset.
+//                        pages.set(i, defaultPage);
+//                    }
+//                    for (int i = oldIndex + bufferSize + 1; i >= index + bufferSize; i--) {  // draw.
+//                        draw(i);
+//
+//                    }
+//                } else {                                    // no pages can be reused.
+//                for (int i = oldIndex - bufferSize; i <= oldIndex + bufferSize; i++) {  // reset.
+//                    try {
+//                        pages.set(i, null);
+//                    } catch (ArrayIndexOutOfBoundsException ex) {
+//                        System.out.println("Exception");
+//                        // excepected behaviour
+//                    }
+//                }
+//
+//                for (int i = index - bufferSize; i <= index + bufferSize; i++) {        // draw.
+//                    try {
+//                        draw(i);
+//                    } catch (ArrayIndexOutOfBoundsException ex) {
+//                        // excepected behaviour
+//                    }
+//                }
+//                }
+
+//                pages.remove(index);
+//                draw(index);
+//
+//                oldIndex = index;
+//                oldTime = System.currentTimeMillis();
+            }
+
+            /**
+             * Draws a page given the index
+             *
+             * @param i the index of the page to draw starting from 0.
+             */
+            private void draw(int i) throws IOException {
+                JLabel tempLabel;
+                tempLabel = new JLabel("" + (i + 1));
+                tempLabel.setHorizontalTextPosition(JLabel.CENTER);
+                tempLabel.setVerticalTextPosition(JLabel.BOTTOM);
+                tempLabel.setForeground(Color.GRAY);
+
+                // create the corresponding panels
+                JPanel tempPanel;
+                tempPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+                tempPanel.add(tempLabel);
+                tempPanel.setForeground(Color.GRAY);
+
+                // add the images to jlabels with text
+                tempLabel.setSize(Width, Height);
+                tempLabel.setIcon(new ImageIcon(CreateThumbnails.generateThumbnail(i, Width, Height)));
+
+                pages.set(i, tempPanel);
+            }
+        });
         BookImages = new ImageIcon[PagesCount];
+//        TODO: create a page template for the wait.
         pages = new DefaultListModel<>();
         pages.setSize(PagesCount);
         PagesLabel = new JLabel[PagesCount];
