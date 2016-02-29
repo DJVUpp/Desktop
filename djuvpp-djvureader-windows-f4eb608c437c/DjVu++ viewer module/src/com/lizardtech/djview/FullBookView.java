@@ -20,8 +20,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
 
@@ -35,10 +33,9 @@ public class FullBookView
     public static boolean Is_Rotated = false;
     private DefaultListModel<JPanel> pages;
     private JList ThumblainsList;
-    // NOTE: this could be the buffer, you can use DefaultListModel instead.
-    private BufferedImage img[];
-    private ImageIcon BookImages[];
-    private JLabel PagesLabel[];
+//    private BufferedImage img[];
+//    private ImageIcon BookImages[];
+//    private JLabel PagesLabel[];
     // TODO: revisite the rotation.
 //    private final JPanel Rotatedpane;
 //    private final JScrollPane RotatedpaneScrollPane;
@@ -72,8 +69,7 @@ public class FullBookView
 //        Rotatedpane.setBackground(Color.gray);
         init();
 
-        img = new BufferedImage[PagesCount];
-
+//        img = new BufferedImage[PagesCount];
         beanPanel.add(topPanel, "FullBook");
 //        beanPanel.add(RotatedpaneScrollPane, "Rotate");
         cardLayout.first(beanPanel);
@@ -82,7 +78,7 @@ public class FullBookView
     /**
      * initialize the variables and views.
      */
-    public void init() {
+    public final void init() {
 
         ThumblainsList = new JList();
         ThumblainsScrollPane = new JScrollPane(ThumblainsList, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -107,25 +103,15 @@ public class FullBookView
             public void adjustmentValueChanged(AdjustmentEvent e) {
                 index = e.getValue() / Height;
                 if ((System.currentTimeMillis() - oldTime) > timeGap && index != oldIndex) {
-//                    try {
-                    // draw pages and reset old pages
-                    gThread.interrupt();
-                    gThread = new Thread(() -> {
-                        try {
-                            resetAndDraw(index);
-                        } catch (IOException ex) {
-                        }
-                    });
-                    gThread.start();
-
-//                        resetAndDraw(index);
-//                    } catch (IOException ex) {
-//                    }
+                    try {
+                        // draw pages and reset old pages
+                        resetAndDraw(index);
+                    } catch (IOException ex) {
+                    }
                     // set old values
-//                    oldIndex = index;
-//                    oldTime = System.currentTimeMillis();
+                    oldIndex = index;
+                    oldTime = System.currentTimeMillis();
                 }
-
             }
 
             /**
@@ -172,11 +158,8 @@ public class FullBookView
 //                }
 //                }
 
-//                pages.remove(index);
-//                draw(index);
-//
-//                oldIndex = index;
-//                oldTime = System.currentTimeMillis();
+                pages.set(oldIndex, null);
+                draw(index);
             }
 
             /**
@@ -204,11 +187,11 @@ public class FullBookView
                 pages.set(i, tempPanel);
             }
         });
-        BookImages = new ImageIcon[PagesCount];
+//        BookImages = new ImageIcon[PagesCount];
 //        TODO: create a page template for the wait.
         pages = new DefaultListModel<>();
         pages.setSize(PagesCount);
-        PagesLabel = new JLabel[PagesCount];
+//        PagesLabel = new JLabel[PagesCount];
         // get  images of book
         // Set every page in 
 
