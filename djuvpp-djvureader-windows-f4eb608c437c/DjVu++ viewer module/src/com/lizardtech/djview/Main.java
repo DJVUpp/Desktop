@@ -28,7 +28,7 @@ import javax.swing.JFrame;
  * @author Osama
  */
 public class Main extends JFrame {
-
+    
     private final DjvuComponents Band = new DjvuComponents();
     public static final HashMap<String, DjVuBean> beanMap = new HashMap<String, DjVuBean>(); // TODO: remove static
     private ArrayList<String> bookList = new ArrayList<String>();
@@ -75,9 +75,9 @@ public class Main extends JFrame {
             new Main();
         });
     }
-
+    
     private void opendialog() throws IOException {
-
+        
         FileDialog fd = new FileDialog(this, "open djvu file", FileDialog.LOAD);
         fd.setMultipleMode(true);
         fd.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/djvuNewIcon.png")));
@@ -85,7 +85,7 @@ public class Main extends JFrame {
         if (fd.getDirectory() != null) {
             File files[] = fd.getFiles();
             for (File file : files) {
-
+                
                 String url;
                 url = "" + file.toURI().toURL();
                 url = url.substring(5, url.length());
@@ -94,13 +94,13 @@ public class Main extends JFrame {
                 url_name.put(url, name);
                 bookList.add(url);
                 openBookInNewTab(url, name);
-
+                
             }
-
+            
         }
-
+        
     }
-
+    
     public void openBookInNewTab(final String url, String name) {
 
         //SwingUtilities.invokeLater(new Runnable() {
@@ -110,10 +110,11 @@ public class Main extends JFrame {
         name_url.put(name, url.substring(1));
         url_name.put(url.substring(1), name);
         bookList.add(url.substring(1));
-
+        
         Frame f = new Frame(url);
         f.setVisible(true);
         f.setSize(700, 900);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        Container pane = f.getContentPane();
 //        tabbedPane.add(name, pane);
 //        tabbedPane.setSelectedComponent(pane);
@@ -121,14 +122,6 @@ public class Main extends JFrame {
 //        if (!tabName.equals("GetStart")) {
         Band.setbean(beanMap.entrySet().iterator().next().getValue());
         
-//        TODO: try poping a DjVuMenu and test perofrmance
-//        JFrame frame = new JFrame();
-//        DjVuMenu popMenu = new DjVuMenu(beanMap.entrySet().iterator().next().getValue());
-//        frame.setVisible(true);
-//        popMenu.show(frame, 100, 100);
-//        }
-        //  }
-        //});
     }
-
+    
 }
