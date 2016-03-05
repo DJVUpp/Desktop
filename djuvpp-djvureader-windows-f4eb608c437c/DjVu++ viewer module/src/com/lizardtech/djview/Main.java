@@ -3,8 +3,6 @@ package com.lizardtech.djview;
 import com.lizardtech.djview.frame.Frame;
 import com.lizardtech.djvubean.DjVuBean;
 import com.lizardtech.djvubean.RibbonMenu.DjvuComponents;
-import com.lizardtech.djvubean.menu.DjVuMenu;
-import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.Toolkit;
 import java.io.File;

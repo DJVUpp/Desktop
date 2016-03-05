@@ -25,13 +25,14 @@ public class PagesModel extends AbstractListModel {
     protected final int SIZE;
     protected final int WIDTH;
     protected final int HEIGHT;
+    private JPanel tempPanel;
+    private JLabel tempLabel;
 //    private JPanel[] data;
 
     public PagesModel(int size, int width, int height) {
         this.SIZE = size;
         this.WIDTH = width;
         this.HEIGHT = height;
-//        data = new JPanel[bufferSize];
     }
 
     @Override
@@ -46,22 +47,23 @@ public class PagesModel extends AbstractListModel {
         try {
             return getPage(index);
         } catch (IOException ex) {
-            System.err.println("Error rendering image");
+//            System.err.println("Error rendering image");
+            ex.printStackTrace();
         }
         return null;
-//
+
 //        return new JPanel();
     }
 
     protected JPanel getPage(int pageNo) throws IOException {
-        JLabel tempLabel;
+//        JLabel tempLabel;
         tempLabel = new JLabel("" + (pageNo + 1));
         tempLabel.setHorizontalTextPosition(JLabel.CENTER);
         tempLabel.setVerticalTextPosition(JLabel.BOTTOM);
         tempLabel.setForeground(Color.GRAY);
 
         // create the corresponding panels
-        JPanel tempPanel;
+//        JPanel tempPanel;
         tempPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         tempPanel.add(tempLabel);
         tempPanel.setForeground(Color.GRAY);

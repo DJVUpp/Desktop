@@ -1,5 +1,6 @@
 package com.lizardtech.djvubean.outline;
 
+import com.lizardtech.djvu.DjVuOptions;
 import com.lizardtech.djvu.DjVuPage;
 import com.lizardtech.djvu.Document;
 import com.lizardtech.djvubean.DjVuImage;
@@ -141,7 +142,7 @@ public class CreateThumbnails implements ListCellRenderer {
 
         return (percentAway > tolerance);
     }
-    
+
     // TODO: check the resolution (size in memory) of the image.
     // TODO: Documentation.
     public static BufferedImage generateThumbnail(final int pageNumber, final int width, final int height)
@@ -149,6 +150,7 @@ public class CreateThumbnails implements ListCellRenderer {
 
         com.lizardtech.djvu.DjVuOptions.out = com.lizardtech.djvu.DjVuOptions.err
                 = new PrintStream(new OutputStream() {
+                    @Override
                     public void write(final int b) {
                     }
                 });
@@ -164,6 +166,11 @@ public class CreateThumbnails implements ListCellRenderer {
         BufferedImage bimg = new BufferedImage(bounds.width, bounds.height, BufferedImage.TYPE_INT_RGB);
         Graphics graphics = bimg.getGraphics();
         graphics.drawImage(awtImage, 0, 0, null);
+
+        // -------------------------------------------------
+//        if (DjVuOptions.COLLECT_GARBAGE) {
+//            System.gc();
+//        }
         return bimg;
 
     }

@@ -244,7 +244,6 @@ public final class Frame extends JFrame implements AppletStub {
                     component = applet;
                     CardPanel = new JPanel(new CardLayout());
 
-                    // NOTE: what this does?
                     FullBook = new FullBookView(Bean, this, CardPanel);
                     com.lizardtech.djvubean.DjVuBean.frame = this;
                     isDjVu = ((Boolean) isValidDjVuMethod.invoke(applet, null)).booleanValue();
