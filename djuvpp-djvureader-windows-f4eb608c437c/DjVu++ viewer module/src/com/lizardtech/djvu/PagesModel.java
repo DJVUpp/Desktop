@@ -42,11 +42,11 @@ public class PagesModel extends AbstractListModel {
 
     @Override
     public JPanel getElementAt(int index) {
-        System.out.println("getting page #: " + index);
-
+//        System.out.println("getting page number: " + index);
         try {
             return getPage(index);
         } catch (IOException ex) {
+            // TODO: change remove the error printing.
 //            System.err.println("Error rendering image");
             ex.printStackTrace();
         }
@@ -55,6 +55,7 @@ public class PagesModel extends AbstractListModel {
 //        return new JPanel();
     }
 
+    // TODO: use a thread to fasten the page eliminate page drawing wait time.
     protected JPanel getPage(int pageNo) throws IOException {
 //        JLabel tempLabel;
         tempLabel = new JLabel("" + (pageNo + 1));
@@ -72,6 +73,8 @@ public class PagesModel extends AbstractListModel {
         tempLabel.setSize(WIDTH, HEIGHT);
         tempLabel.setIcon(new ImageIcon(CreateThumbnails.generateThumbnail(pageNo, WIDTH, HEIGHT)));
 
+//        ----------------------------------------------
+//        ----------------------------------------------
         return tempPanel;
     }
 }

@@ -45,7 +45,6 @@
 //
 package com.lizardtech.djvu;
 
-import java.lang.reflect.*;
 import java.io.PrintStream;
 
 

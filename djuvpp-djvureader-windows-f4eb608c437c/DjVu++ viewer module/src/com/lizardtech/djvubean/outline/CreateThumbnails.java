@@ -1,6 +1,5 @@
 package com.lizardtech.djvubean.outline;
 
-import com.lizardtech.djvu.DjVuOptions;
 import com.lizardtech.djvu.DjVuPage;
 import com.lizardtech.djvu.Document;
 import com.lizardtech.djvubean.DjVuImage;
@@ -152,9 +151,9 @@ public class CreateThumbnails implements ListCellRenderer {
                 = new PrintStream(new OutputStream() {
                     @Override
                     public void write(final int b) {
+                        // NOTE: there is no use for this function.
                     }
                 });
-
         final DjVuPage[] page = {document.getPage(pageNumber, DjVuPage.MAX_PRIORITY, true)};
         final DjVuImage image = new DjVuImage(page, false);
 
