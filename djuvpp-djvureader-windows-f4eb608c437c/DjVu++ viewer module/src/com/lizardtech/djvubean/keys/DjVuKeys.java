@@ -45,14 +45,11 @@ package com.lizardtech.djvubean.keys;
 
 import com.lizardtech.djvu.DjVuOptions;
 import com.lizardtech.djvubean.*;
-import static com.lizardtech.djvubean.RibbonMenu.DjvuComponents.djvubean;
 import com.lizardtech.djvubean.RibbonMenu.DjvuRibbonComponents;
 import java.awt.event.*;
-import java.beans.PropertyChangeListener;
 
 /**
- * This class implements a keyboard short cuts the user may use to navigate the
- * DjVu Document.
+ * This class implements a keyboard short cuts the user may use to navigate the DjVu Document.
  *
  * @author Bill C. Riemers
  * @version $Revision: 1.3 $
@@ -175,7 +172,7 @@ public class DjVuKeys implements KeyListener {
                     bean.setPage(bean.getPage() - bean.getVisiblePageCount());
                     break;
                 case (char) KeyEvent.VK_RIGHT:
-                    djvubean.setPageString(DjVuBean.NEXT_PAGE);
+                    bean.setPageString(DjVuBean.NEXT_PAGE);
 
                 default:
                     displayInfo(e, "KEY TYPED: ");
@@ -205,11 +202,11 @@ public class DjVuKeys implements KeyListener {
                     break;
                 case KeyEvent.VK_LEFT:
                     bean.setScroll(DjVuBean.SCROLL_LEFT);
-                    djvubean.setPageString(DjVuBean.PREV_PAGE);
+                    bean.setPageString(DjVuBean.PREV_PAGE);
                     break;
                 case KeyEvent.VK_RIGHT:
                     bean.setScroll(DjVuBean.SCROLL_RIGHT);
-                    djvubean.setPageString(DjVuBean.NEXT_PAGE);
+                    bean.setPageString(DjVuBean.NEXT_PAGE);
 
                     break;
                 default:

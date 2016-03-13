@@ -7,7 +7,7 @@ package com.lizardtech.djvubean;
 
 import com.lizardtech.djvu.DjVuOptions;
 
-import static com.lizardtech.djvubean.RibbonMenu.DjvuComponents.djvubean;
+import com.lizardtech.djview.Main;
 
 import com.lizardtech.djvubean.outline.CreateThumbnails;
 
@@ -82,8 +82,8 @@ public class SelectMode
     }
 
     /**
-     * Called when the mouse is dragged. Highlights the rectangle if the start
-     * position has been set.
+     * Called when the mouse is dragged. Highlights the rectangle if the start position has been
+     * set.
      *
      * @param event describing mouse action.
      */
@@ -124,8 +124,7 @@ public class SelectMode
     }
 
     /**
-     * Called when the mouse pointer enters the component. Performs no
-     * operation.
+     * Called when the mouse pointer enters the component. Performs no operation.
      *
      * @param event describing mouse action.
      */
@@ -192,17 +191,17 @@ public class SelectMode
     }
 
     public boolean crop() {
-      // There is nothing to crop if the selection rectangle is only a single
+        // There is nothing to crop if the selection rectangle is only a single
         // point.
 
         if (srcx == destx && srcy == desty) {
             return true;
         }
 
-      // Assume success.
+        // Assume success.
         boolean succeeded = true;
 
-      // Compute upper-left and lower-right coordinates for selection rectangle
+        // Compute upper-left and lower-right coordinates for selection rectangle
         // corners.
         int x1 = (srcx < destx) ? srcx : destx;
         int y1 = (srcy < desty) ? srcy : desty;
@@ -210,18 +209,18 @@ public class SelectMode
         int x2 = (srcx > destx) ? srcx : destx;
         int y2 = (srcy > desty) ? srcy : desty;
 
-      // Compute width and height of selection rectangle.
+        // Compute width and height of selection rectangle.
         int width = (x2 - x1) + 1;
         int height = (y2 - y1) + 1;
 
-      // Create a buffer to hold cropped image.
+        // Create a buffer to hold cropped image.
         BufferedImage biCrop = new BufferedImage(width, height,
                 BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = biCrop.createGraphics();
 
-      // Perform the crop operation.
+        // Perform the crop operation.
         try {
-            BufferedImage bi = CreateThumbnails.getScreenShot(djvubean);
+            BufferedImage bi = CreateThumbnails.getScreenShot(Main.beanMap.entrySet().iterator().next().getValue());
             BufferedImage bi2 = bi.getSubimage(x1, y1, width, height);
             g2d.drawImage(bi2, null, 0, 0);
         } catch (RasterFormatException e) {
@@ -248,7 +247,7 @@ public class SelectMode
 
         this.image = image;
 
-      // Set this panel's preferred size to the image's size, to influence the
+        // Set this panel's preferred size to the image's size, to influence the
         // display File f = new File("MyFile.png");
         File f = new File("cropImage.png");
         try {
@@ -258,7 +257,7 @@ public class SelectMode
             Logger.getLogger(SelectMode.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-      // Present scrollbars as necessary.
+        // Present scrollbars as necessary.
         // Prepare to remove any selection rectangle.
         srcx = destx;
         srcy = desty;

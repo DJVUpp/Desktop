@@ -2,7 +2,6 @@ package com.lizardtech.djview;
 
 import com.lizardtech.djview.frame.Frame;
 import com.lizardtech.djvubean.DjVuBean;
-import com.lizardtech.djvubean.RibbonMenu.DjvuComponents;
 import java.awt.FileDialog;
 import java.awt.Toolkit;
 import java.io.File;
@@ -27,7 +26,6 @@ import javax.swing.JFrame;
  */
 public class Main extends JFrame {
     
-    private final DjvuComponents Band = new DjvuComponents();
     public static final HashMap<String, DjVuBean> beanMap = new HashMap<String, DjVuBean>(); // TODO: remove static
     private ArrayList<String> bookList = new ArrayList<String>();
     private Map<String, String> name_url = new ConcurrentHashMap<String, String>();
@@ -118,7 +116,6 @@ public class Main extends JFrame {
 //        tabbedPane.setSelectedComponent(pane);
 //        String tabName = tabbedPane.getTitleAt(tabbedPane.getSelectedIndex());
 //        if (!tabName.equals("GetStart")) {
-        Band.setbean(beanMap.entrySet().iterator().next().getValue());
         
     }
     

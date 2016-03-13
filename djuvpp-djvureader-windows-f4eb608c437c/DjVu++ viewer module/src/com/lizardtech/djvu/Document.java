@@ -84,16 +84,16 @@ public class Document
     private String status = null;
 
     /**
-     * A map of saved pages for this document.
-     */
-    // NOTE: this is where the pages are buffered
-    protected Hashtable cachedInputStreamMap = new Hashtable();
-
-    /**
      * A flag to turn pages saving on or off
      */
     // TODO: chenge the number of saved pages (buffer size).
     protected boolean caching = false;
+
+    /**
+     * A map of saved pages for this document.
+     */
+    // NOTE: this is where the pages are buffered
+    protected Hashtable cachedInputStreamMap = new Hashtable();
 
     /**
      * A Vector of soft links to decoded pages.
@@ -249,6 +249,8 @@ public class Document
      */
     public DjVuPage getPage(final int pageno, final int priority, final boolean dataWait)
             throws IOException {
+        System.out.println("CachedInputStream Size: " + cachedInputStreamMap.size());
+
         final String name = getDjVmDir().page_to_file(pageno).get_load_name();
         final DjVuPage retval = getPage(name, priority, dataWait);
         return retval;
@@ -303,7 +305,8 @@ public class Document
 
                     if (ref != null) {
                         try {
-                            pageMap.put(id, ref);
+//                            pageMap.put(id, ref);
+                            System.out.println("PageMap size: " + pageMap.size());
                         } catch (final Throwable ignored) {
                         }
                     }
@@ -387,7 +390,7 @@ public class Document
             throw new IOException("Can not delete " + id);
         }
 
-        cachedInputStreamMap.remove(id);
+//        cachedInputStreamMap.remove(id);
         getDjVmDir().delete_file(id);
     }
 
@@ -438,14 +441,14 @@ public class Document
                 final URL fileurl = new URL(initURL, id);
                 pool = CachedInputStream.createCachedInputStream(this).init(fileurl, false);
                 insert_file(pool, DjVmDir.File.INCLUDE, id, id);
-            } else if (this.pool != null && caching) {
+            } else if (this.pool != null) {
                 pool = (CachedInputStream) this.pool.clone();
                 pool.skip(f.offset);
                 pool.setSize(f.size);
-                cachedInputStreamMap.put(id, pool);
-            } else if (initURL != null && caching) {
+//                cachedInputStreamMap.put(id, pool);
+            } else if (initURL != null) {
                 pool = CachedInputStream.createCachedInputStream(this).init(new URL(initURL, id), false);
-                cachedInputStreamMap.put(id, pool);
+//                cachedInputStreamMap.put(id, pool);
             }
         }
 
@@ -671,9 +674,9 @@ public class Document
             data_pool = input.createCachedInputStream(Integer.MAX_VALUE);
         }
 
-        cachedInputStreamMap.put(
-                f.get_load_name(),
-                data_pool);
+//        cachedInputStreamMap.put(
+//                f.get_load_name(),
+//                data_pool);
         getDjVmDir().insert_file(f, pos);
     }
 
@@ -768,9 +771,9 @@ public class Document
             final CachedInputStream filePool = (CachedInputStream) data_pool.clone();
             filePool.skip(f.offset);
             filePool.setSize(f.size);
-            cachedInputStreamMap.put(
-                    f.get_load_name(),
-                    filePool);
+//            cachedInputStreamMap.put(
+//                    f.get_load_name(),
+//                    filePool);
         }
 
         final Codec bookmark = getBookmark();

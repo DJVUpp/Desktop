@@ -46,155 +46,147 @@
 package com.lizardtech.djvubean;
 
 import com.lizardtech.djvu.DjVuOptions;
-import static com.lizardtech.djvubean.RibbonMenu.DjvuComponents.djvubean;
 import static com.lizardtech.djvubean.RibbonMenu.DjvuRibbonComponents.ZoomB;
 import java.awt.*;
 import java.awt.event.*;
-
 
 /**
  * ZoomMode is ue mouse listener to implement selection zoom on a DjVuBean.
  */
 class ZoomMode
-  implements MouseListener, MouseMotionListener
-{
-  //~ Instance fields --------------------------------------------------------
+        implements MouseListener, MouseMotionListener {
+    //~ Instance fields --------------------------------------------------------
 
-  /** DjVuBean to zoom. */
-  protected final DjVuBean djvuBean;
+    /**
+     * DjVuBean to zoom.
+     */
+    protected final DjVuBean djvuBean;
 
-  /** Most recient coordinate. */
-  protected final Point last = new Point();
+    /**
+     * Most recient coordinate.
+     */
+    protected final Point last = new Point();
 
-  /** Start point where the user pressed down on the mouse. */
-  protected Point start = null;
+    /**
+     * Start point where the user pressed down on the mouse.
+     */
+    protected Point start = null;
 
-  /** The area selected. */
-  protected final Rectangle select = new Rectangle();
+    /**
+     * The area selected.
+     */
+    protected final Rectangle select = new Rectangle();
 
-  //~ Constructors -----------------------------------------------------------
-
-  /**
-   * Creates a new ZoomMode object.
-   *
-   * @param bean DjVuBean object to listen to.
-   */
-  public ZoomMode(DjVuBean bean)
-  {
-    djvuBean = bean;
-  }
-
-  //~ Methods ----------------------------------------------------------------
-
-  /**
-   * Called when the mouse is clicked.  Performs no operation.
-   *
-   * @param event describing mouse action.
-   */
-  public void mouseClicked(MouseEvent event) {djvuBean.requestFocus();}
-
-  /**
-   * Called when the mouse is dragged.  Highlights the rectangle if the start
-   * position has been set.
-   *
-   * @param event describing mouse action.
-   */
-  public void mouseDragged(MouseEvent event)
-  {
-    if(start != null)
-    {
-      int i = event.getX();
-      int j = event.getY();
-
-      if((last.x != i) || (last.y != j))
-      {
-        int k = (i <= start.x)
-          ? i
-          : start.x;
-        int l = (j <= start.y)
-          ? j
-          : start.y;
-        int i1 = (i <= start.x)
-          ? (start.x - i)
-          : (i - start.x);
-        int j1 = (j <= start.y)
-          ? (start.y - j)
-          : (j - start.y);
-        select.setBounds(k, l, i1, j1);
-        djvuBean.setSelect(select);
-        last.setLocation(i, j);
-      }
+    //~ Constructors -----------------------------------------------------------
+    /**
+     * Creates a new ZoomMode object.
+     *
+     * @param bean DjVuBean object to listen to.
+     */
+    public ZoomMode(DjVuBean bean) {
+        djvuBean = bean;
     }
-  }
 
-  /**
-   * Called when the mouse pointer enters the component.  Performs no
-   * operation.
-   *
-   * @param event describing mouse action.
-   */
-  public void mouseEntered(MouseEvent event) {}
-
-  /**
-   * Called when the mouse pointer exits the component.  Performs no
-   * operation.
-   *
-   * @param event describing mouse action.
-   */
-  public void mouseExited(MouseEvent event) {}
-
-  /**
-   * Called when the mouse pointer is moved.  Performs no operation.
-   *
-   * @param event describing mouse action.
-   */
-  public void mouseMoved(MouseEvent event) {}
-
-  /**
-   * Called when the mouse button is pressed.  The start location will be
-   * set.
-   *
-   * @param event describing mouse action.
-   */
-  public void mousePressed(MouseEvent event)
-  {
-    try
-    {
-      djvuBean.requestFocus();
-      start = new Point(
-          event.getX(),
-          event.getY());
-      last.setLocation(start);
-      select.setBounds(start.x, start.y, 0, 0);
-      djvuBean.addMouseMotionListener(this);
-      djvuBean.setSelect(select);
+    //~ Methods ----------------------------------------------------------------
+    /**
+     * Called when the mouse is clicked. Performs no operation.
+     *
+     * @param event describing mouse action.
+     */
+    public void mouseClicked(MouseEvent event) {
+        djvuBean.requestFocus();
     }
-    catch(final Throwable exp)
-    {
-      exp.printStackTrace(DjVuOptions.err);
-      System.gc();
-    }
-  }
 
-  /**
-   * Called when the mouse button is released. The selected area will be
-   * zoomed to.
-   *
-   * @param event describing mouse action.
-   */
-  public void mouseReleased(MouseEvent event)
-  {
-    try
-    {
-      start = null;
-      djvuBean.removeMouseMotionListener(this);
-      djvuBean.zoomSelect();
-      ZoomB.setSelectedItem(djvubean.getZoom());
+    /**
+     * Called when the mouse is dragged. Highlights the rectangle if the start position has been
+     * set.
+     *
+     * @param event describing mouse action.
+     */
+    public void mouseDragged(MouseEvent event) {
+        if (start != null) {
+            int i = event.getX();
+            int j = event.getY();
+
+            if ((last.x != i) || (last.y != j)) {
+                int k = (i <= start.x)
+                        ? i
+                        : start.x;
+                int l = (j <= start.y)
+                        ? j
+                        : start.y;
+                int i1 = (i <= start.x)
+                        ? (start.x - i)
+                        : (i - start.x);
+                int j1 = (j <= start.y)
+                        ? (start.y - j)
+                        : (j - start.y);
+                select.setBounds(k, l, i1, j1);
+                djvuBean.setSelect(select);
+                last.setLocation(i, j);
+            }
+        }
     }
-    catch(final Throwable exp)
-    {
-      exp.printStackTrace(DjVuOptions.err);
-      System.gc();
+
+    /**
+     * Called when the mouse pointer enters the component. Performs no operation.
+     *
+     * @param event describing mouse action.
+     */
+    public void mouseEntered(MouseEvent event) {
     }
-  }
+
+    /**
+     * Called when the mouse pointer exits the component. Performs no operation.
+     *
+     * @param event describing mouse action.
+     */
+    public void mouseExited(MouseEvent event) {
+    }
+
+    /**
+     * Called when the mouse pointer is moved. Performs no operation.
+     *
+     * @param event describing mouse action.
+     */
+    public void mouseMoved(MouseEvent event) {
+    }
+
+    /**
+     * Called when the mouse button is pressed. The start location will be set.
+     *
+     * @param event describing mouse action.
+     */
+    public void mousePressed(MouseEvent event) {
+        try {
+            djvuBean.requestFocus();
+            start = new Point(
+                    event.getX(),
+                    event.getY());
+            last.setLocation(start);
+            select.setBounds(start.x, start.y, 0, 0);
+            djvuBean.addMouseMotionListener(this);
+            djvuBean.setSelect(select);
+        } catch (final Throwable exp) {
+            exp.printStackTrace(DjVuOptions.err);
+            System.gc();
+        }
+    }
+
+    /**
+     * Called when the mouse button is released. The selected area will be zoomed to.
+     *
+     * @param event describing mouse action.
+     */
+    public void mouseReleased(MouseEvent event) {
+        try {
+            start = null;
+            djvuBean.removeMouseMotionListener(this);
+            djvuBean.zoomSelect();
+            ZoomB.setSelectedItem(djvuBean);
+        } catch (final Throwable exp) {
+            exp.printStackTrace(DjVuOptions.err);
+            System.gc();
+        }
+    }
 }
