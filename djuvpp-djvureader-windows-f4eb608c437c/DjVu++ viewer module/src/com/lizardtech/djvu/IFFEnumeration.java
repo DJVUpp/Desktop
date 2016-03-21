@@ -59,6 +59,8 @@ public class IFFEnumeration
   extends DjVuObject
   implements Enumeration
 {
+    
+//    NOTE: Inspect this class
   //~ Static fields/initializers ---------------------------------------------
 
   /** chunk names which can contain other chunks */

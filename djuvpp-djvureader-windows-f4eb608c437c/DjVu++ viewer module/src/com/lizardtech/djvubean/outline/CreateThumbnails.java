@@ -1,13 +1,12 @@
 package com.lizardtech.djvubean.outline;
 
+import com.lizardtech.djvu.DjVuOptions;
 import com.lizardtech.djvu.DjVuPage;
 import com.lizardtech.djvu.Document;
 import com.lizardtech.djvubean.DjVuImage;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -146,14 +145,6 @@ public class CreateThumbnails implements ListCellRenderer {
     // TODO: Documentation.
     public static BufferedImage generateThumbnail(final int pageNumber, final int width, final int height)
             throws IOException {
-
-        com.lizardtech.djvu.DjVuOptions.out = com.lizardtech.djvu.DjVuOptions.err
-                = new PrintStream(new OutputStream() {
-                    @Override
-                    public void write(final int b) {
-                        // NOTE: there is no use for this function.
-                    }
-                });
         final DjVuPage[] page = {document.getPage(pageNumber, DjVuPage.MAX_PRIORITY, true)};
         final DjVuImage image = new DjVuImage(page, false);
 
@@ -166,10 +157,6 @@ public class CreateThumbnails implements ListCellRenderer {
         Graphics graphics = bimg.getGraphics();
         graphics.drawImage(awtImage, 0, 0, null);
 
-        // -------------------------------------------------
-//        if (DjVuOptions.COLLECT_GARBAGE) {
-//            System.gc();
-//        }
         return bimg;
 
     }

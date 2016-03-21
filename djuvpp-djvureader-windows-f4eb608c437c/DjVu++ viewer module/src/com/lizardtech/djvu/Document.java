@@ -92,7 +92,7 @@ public class Document
     /**
      * A map of saved pages for this document.
      */
-    // NOTE: this is where the pages are buffered
+    // NOTE : this is where the pages are buffered
     protected Hashtable cachedInputStreamMap = new Hashtable();
 
     /**
@@ -249,6 +249,7 @@ public class Document
      */
     public DjVuPage getPage(final int pageno, final int priority, final boolean dataWait)
             throws IOException {
+//    	TODO: remove the printing line.
         System.out.println("CachedInputStream Size: " + cachedInputStreamMap.size());
 
         final String name = getDjVmDir().page_to_file(pageno).get_load_name();
@@ -410,13 +411,12 @@ public class Document
     /**
      * Query the data for the specified name.
      *
-     * @param id name of the file
+     * @param id name of the fileub
      *
      * @return the requested data
      *
      * @throws IOException if an error occurs
      */
-    // TODO: optimize code.
     public CachedInputStream get_data(final String id)
             throws IOException {
         if (id == null) {
@@ -969,6 +969,6 @@ public class Document
         CachedInputStream createCachedInputStream(final String id)
                 throws IOException {
             return Document.this.get_data(id);
-        }
-    }
+		}
+	}
 }

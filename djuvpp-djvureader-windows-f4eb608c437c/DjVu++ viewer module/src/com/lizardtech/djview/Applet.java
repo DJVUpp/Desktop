@@ -56,7 +56,7 @@ import java.util.Properties;
 import java.lang.reflect.*;
 
 /**
- * A class for displaying djvu documents. Very simmular to the LizardTech DjVu plugin.
+ * A class for displaying djvu documents. Very similar to the LizardTech DjVu plugin.
  *
  * @author Bill C. Riemers
  * @version $Revision: 1.22 $
@@ -118,12 +118,12 @@ public class Applet
     protected URL url = null;
 
     /**
-     * True until the first time the mouse is moved over the applet.
+     * True until the first time the mouse is moved over the Applet.
      */
     protected boolean first = true;
 
     /**
-     * True if a scrollpane should be used. This is intended for debug purposes.
+     * True if a ScrollPane should be used. This is intended for debug purposes.
      */
     protected boolean useScrollPane = false;
 
