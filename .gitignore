@@ -20,3 +20,6 @@ hs_err_pid*
 /modules/Viewer module/DjVu++ viewer module/dist/
 /modules/Viewer module/DjVu++ viewer module/build/
 /modules/Viewer module/DjVu++ viewer module/nbproject/private/
+
+# documents
+/docs
