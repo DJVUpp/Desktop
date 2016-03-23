@@ -27,7 +27,7 @@ import javax.swing.ListSelectionModel;
 // NOTE: rotation was available in previous versions.
 public class FullBookView
         extends JPanel {
-    
+
     public JScrollPane ThumblainsScrollPane;
     public static int PagesCount;
     public static boolean Continous = false;
@@ -45,17 +45,17 @@ public class FullBookView
 
 //    private int Pagenum = 0;
     public FullBookView(final DjVuBean djvubean, final Frame frame, JPanel beanPanel) {
-        
+
         this.djvubean = djvubean;
         this.frame = frame;
         this.BEAN_PANEL = beanPanel;
         CARD_LAYOUT = (CardLayout) beanPanel.getLayout();
         PAGE_WIDHT = 720;
         PAGE_HEIGHT = 768;
-        
+
         TOP_PANEL = new JPanel(new BorderLayout());
         TOP_PANEL.setBackground(Color.gray);
-        
+
         beanPanel.add(TOP_PANEL, "FullBook");
         CARD_LAYOUT.first(beanPanel);
         init();
@@ -66,7 +66,7 @@ public class FullBookView
      * initialize the variables and views.
      */
     public final void init() {
-        
+
         ThumblainsList = new JList();
         ThumblainsScrollPane = new JScrollPane(ThumblainsList, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         pages = new DefaultListModel<>();
@@ -80,7 +80,7 @@ public class FullBookView
 
                 // TODO: revisite next statement.
                 djvubean.setPage(djvubean.getPage());
-                
+
                 if (e.getClickCount() == 1) {
                     JList JLelement = (JList) e.getSource();
                     djvubean.setPageString("" + (JLelement.getSelectedIndex() + 1));
@@ -88,7 +88,7 @@ public class FullBookView
 //                    Pagenum = ((JLelement.getSelectedIndex() + 1));
                 }
                 if (e.getClickCount() == 2) {
-                    
+
                     JList JLelement = (JList) e.getSource();
                     djvubean.setPageString("" + (JLelement.getSelectedIndex() + 1));
 //                    Pagenum = ((JLelement.getSelectedIndex() + 1));
@@ -97,7 +97,7 @@ public class FullBookView
             }
         });
         ThumblainsList.setCellRenderer(new com.lizardtech.djview.ImageListCellRenderer());
-        
+
         ThumblainsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ThumblainsList.setLayoutOrientation(JList.VERTICAL);
         ThumblainsList.setFixedCellWidth(PAGE_WIDHT);
@@ -108,10 +108,11 @@ public class FullBookView
         ThumblainsScrollPane.setPreferredSize(BEAN_PANEL.getPreferredSize());
         ThumblainsScrollPane.setWheelScrollingEnabled(true);
         TOP_PANEL.add(ThumblainsScrollPane, BorderLayout.CENTER);
-        
+
         renderer = new Thread(new Runnable() {
-            int oldIndex = 0;
+            int oldIndex = -1;
             int index;
+
             // TODO: make the thread sleep for some time
             // TODO: find another way to set and clear the pages.
             // TODO: extend the DefaultListModel to add a default empty page!!, may result in exceeded memory usage, IF so use a custom list renderer.
@@ -119,16 +120,30 @@ public class FullBookView
             public void run() {
                 while (true) {
                     index = ThumblainsScrollPane.getVerticalScrollBar().getValue() / ThumblainsList.getFixedCellHeight();
-                    System.out.println("index: " + index);
-                    try {
-                        setPage(index);
-                        oldIndex = index;
-                    } catch (IOException ex) {
-                        Logger.getLogger(FullBookView.class.getName()).log(Level.SEVERE, null, ex);
+
+                    if (index != oldIndex) {
+                        System.out.println("index: " + index);
+                        try {
+                            // cleaning pages.
+                            pages.clear();
+                            pages.setSize(PagesCount);
+
+                            // setting new page.
+                            pages.set(index, getPage(index));
+                            oldIndex = index;
+
+                            pages.set(index + 1, getPage(index + 1));
+                            pages.set(index - 1, getPage(index - 1));
+                        } catch (IOException | ArrayIndexOutOfBoundsException ignored) {
+                        }
+                    } else {
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException ignored) {
+                        }
                     }
-                    
                 }
-            } 
+            }
 
             /**
              * Renders the indexed DjVu page.
@@ -136,11 +151,11 @@ public class FullBookView
              * @param pageNo The number of the page to render.
              * @throws IOException thrown when the File can't be red.
              */
-            private void setPage(int pageNo) throws IOException {
+            private JPanel getPage(int pageNo) throws IOException, ArrayIndexOutOfBoundsException {
                 if (pages.get(pageNo) == null) {
                     JLabel tempLabel;
                     JPanel tempPanel;
-                    
+
                     tempLabel = new JLabel("" + (pageNo + 1));
                     tempLabel.setHorizontalTextPosition(JLabel.CENTER);
                     tempLabel.setVerticalTextPosition(JLabel.BOTTOM);
@@ -154,11 +169,10 @@ public class FullBookView
                     // add the images to jlabels with text
                     tempLabel.setSize(PAGE_WIDHT, PAGE_HEIGHT);
                     tempLabel.setIcon(new ImageIcon(CreateThumbnails.generateThumbnail(pageNo, PAGE_WIDHT, PAGE_HEIGHT)));
-                    
-                    pages.clear();
-                    pages.setSize(PagesCount);
-                    pages.set(pageNo, tempPanel);
+
+                    return tempPanel;
                 }
+                return pages.get(pageNo);
             }
         });
     }
@@ -169,7 +183,7 @@ public class FullBookView
     private void start() {
         renderer.start();
     }
-    
+
     public void Switch_FullBookView(Boolean Is_Continous) {
         if (Is_Continous) {
             if (Continous) {
@@ -179,22 +193,22 @@ public class FullBookView
             Continous = true;
             Is_Rotated = false;
         } else {
-            
+
             CARD_LAYOUT.show(BEAN_PANEL, "Bean");
             Is_Rotated = false;
             Continous = false;
-            
+
         }
-        
+
     }
-    
+
     public void rotate(final int degree) {
         CARD_LAYOUT.show(BEAN_PANEL, "Rotate");
         Is_Rotated = true;
         Continous = false;
-        
+
     }
-    
+
     private Boolean switchFlag(Boolean X) {
         if (X == false) {
             return true;
@@ -202,35 +216,35 @@ public class FullBookView
             return false;
         }
     }
-    
+
     public static BufferedImage rotateImage(BufferedImage src, double degrees) {
         //     if (degrees==0) return src;
         double radians = Math.toRadians(degrees);
-        
+
         int srcWidth = src.getWidth();
         int srcHeight = src.getHeight();
-        
+
         double sin = Math.abs(Math.sin(radians));
         double cos = Math.abs(Math.cos(radians));
         int newWidth = (int) Math.floor(srcWidth * cos + srcHeight * sin);
         int newHeight = (int) Math.floor(srcHeight * cos + srcWidth * sin);
-        
+
         BufferedImage result = new BufferedImage(newWidth, newHeight,
                 src.getType());
         Graphics2D g = result.createGraphics();
         g.translate((newWidth - srcWidth) / 2, (newHeight - srcHeight) / 2);
         g.rotate(radians, srcWidth / 2, srcHeight / 2);
         g.drawRenderedImage(src, null);
-        
+
         return result;
     }
-    
+
     public static void setPagesCount(int pagesCount) {
         PagesCount = pagesCount;
     }
-    
+
     public JPanel getTopPanel() {
         return TOP_PANEL;
     }
-    
+
 }
