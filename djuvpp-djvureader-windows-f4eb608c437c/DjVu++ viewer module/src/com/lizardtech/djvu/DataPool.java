@@ -180,7 +180,7 @@ public class DataPool
      * @return a byte array up to size BLOCKSIZE, or null if no data is available.
      */
     public byte[] getBlock(final int index, final boolean read) {
-        System.out.println("Datapool buffer size: " + buffer.size());
+//        System.out.println("Datapool buffer size: " + buffer.size());
 
         int start = index * BLOCKSIZE;
         if ((index < 0) || (start >= endOffset)) {

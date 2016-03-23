@@ -148,10 +148,9 @@ public class CreateThumbnails implements ListCellRenderer {
         final DjVuPage[] page = {document.getPage(pageNumber, DjVuPage.MAX_PRIORITY, true)};
         final DjVuImage image = new DjVuImage(page, false);
 
-        Rectangle bounds = image.computeScaledBounds(DjVuImage.FIT_PAGE, new Dimension(width, height));
+        Rectangle bounds = new Rectangle(width, height);
         Image[] awtImages = image.getScaledInstance((int) bounds.getWidth(), (int) bounds.getHeight()).getImage(new Frame(), bounds);
 
-//if ((awtImages != null) && (awtImages.length != 0) && (awtImages[0] != null)) {
         Image awtImage = awtImages[0];
         BufferedImage bimg = new BufferedImage(bounds.width, bounds.height, BufferedImage.TYPE_INT_RGB);
         Graphics graphics = bimg.getGraphics();

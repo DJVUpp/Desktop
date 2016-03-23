@@ -85,6 +85,8 @@ public class Document
 
     /**
      * A flag to turn pages saving on or off
+     *
+     * default if off.
      */
     // TODO: chenge the number of saved pages (buffer size).
     protected boolean caching = false;
@@ -275,11 +277,10 @@ public class Document
 
         DjVuPage page = null;
 
-        if (hasReferences) {
+        if (hasReferences && caching) {
             try {
                 page = (DjVuPage) getFromReference(pageMap.get(id));
                 if (page != null) {
-                    System.out.println("pageid: " + id + ", page info: " + page.getInfo());
                 }
             } catch (final ArrayIndexOutOfBoundsException exp) {
             }
@@ -289,7 +290,7 @@ public class Document
             System.out.println("Page was null");
 
             CachedInputStream data = get_data(id);
-            if (!dataWait) {
+            if (!dataWait && caching) {
                 prefetch(id, MAX_PRIORITY);
             }
             if (dataWait || (data.available() > 0)) {
@@ -304,9 +305,9 @@ public class Document
                 if (hasReferences) {
                     Object ref = createSoftReference(page, null);
 
-                    if (ref != null) {
+                    if (ref != null && caching) {
                         try {
-//                            pageMap.put(id, ref);
+                            pageMap.put(id, ref);
                             System.out.println("PageMap size: " + pageMap.size());
                         } catch (final Throwable ignored) {
                         }
@@ -422,8 +423,12 @@ public class Document
         if (id == null) {
             throw new IOException("Can not find blank name.");
         }
-
-        CachedInputStream pool = (CachedInputStream) cachedInputStreamMap.get(id);
+        CachedInputStream pool;
+        if (caching) {
+            pool = (CachedInputStream) cachedInputStreamMap.get(id);
+        } else {
+            pool = null;
+        }
 
         final DjVmDir djvmDir = getDjVmDir();
         if (pool == null) {
@@ -445,10 +450,14 @@ public class Document
                 pool = (CachedInputStream) this.pool.clone();
                 pool.skip(f.offset);
                 pool.setSize(f.size);
-//                cachedInputStreamMap.put(id, pool);
+                if (caching) {
+                    cachedInputStreamMap.put(id, pool);
+                }
             } else if (initURL != null) {
                 pool = CachedInputStream.createCachedInputStream(this).init(new URL(initURL, id), false);
-//                cachedInputStreamMap.put(id, pool);
+                if (caching) {
+                    cachedInputStreamMap.put(id, pool);
+                }
             }
         }
 
@@ -701,8 +710,10 @@ public class Document
                     final Document runnable = createDocument(new DjVuObject());
                     runnable.parentRef = createWeakReference(this, this);
                     runnable.dir = getDjVmDir();
-                    runnable.cachedInputStreamMap = cachedInputStreamMap;
-                    runnable.prefetchVector = prefetchVector;
+                    if (caching) {
+                        runnable.cachedInputStreamMap = cachedInputStreamMap;
+                        runnable.prefetchVector = prefetchVector;
+                    }
                     prefetchThread = thread = new Thread(runnable);
                     thread.start();
                 }
@@ -969,6 +980,6 @@ public class Document
         CachedInputStream createCachedInputStream(final String id)
                 throws IOException {
             return Document.this.get_data(id);
-		}
-	}
+        }
+    }
 }

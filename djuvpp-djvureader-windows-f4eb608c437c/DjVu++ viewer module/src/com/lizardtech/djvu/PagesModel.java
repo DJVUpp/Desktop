@@ -47,9 +47,8 @@ public class PagesModel extends AbstractListModel {
         } catch (IOException ex) {
             System.err.println("Error rendering image: " + ex.getMessage());
         }
+        
         return null;
-
-//        return new JPanel();
     }
 
     // TODO: fasten the page eliminate page drawing wait time.
@@ -68,8 +67,6 @@ public class PagesModel extends AbstractListModel {
         tempLabel.setSize(WIDTH, HEIGHT);
         tempLabel.setIcon(new ImageIcon(CreateThumbnails.generateThumbnail(pageNo, WIDTH, HEIGHT)));
 
-//        ----------------------------------------------
-//        ----------------------------------------------
         return tempPanel;
     }
 }
