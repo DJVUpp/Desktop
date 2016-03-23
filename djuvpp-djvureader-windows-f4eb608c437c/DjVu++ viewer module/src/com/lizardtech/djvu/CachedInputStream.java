@@ -49,92 +49,83 @@ import java.io.*;
 import java.util.*;
 import java.net.URL;
 
-  /**
- * This class is an InputStream which spans some of the accessable data in a
- * DataPool object.
- * 
+/**
+ * This class is an InputStream which spans some of the accessable data in a DataPool object.
+ *
  * @author Bill C. Riemers
  * @version $Revision: 1.5 $
  */
 public class CachedInputStream
-  extends InputStream
-  implements DjVuInterface, Cloneable
-{
+        extends InputStream
+        implements DjVuInterface, Cloneable {
     //~ Instance fields ------------------------------------------------------
 
     // Buffer used to access data
-    private DataPool buffer=null;
-    
+    private DataPool buffer = null;
+
     // Used for the mark and reset features.
-    private int markOffset=0;
+    private int markOffset = 0;
 
     // The current position of this stream in the data pool.
-    private int offset=0;
+    private int offset = 0;
 
     // The end position of this stream in the data pool.
-    private int endOffset=0;
+    private int endOffset = 0;
 
     // Index of the current data block
-    private int blockIndex=-1;
-    
+    private int blockIndex = -1;
+
     // The data block currently being read
-    private byte block[]=null;
-    
+    private byte block[] = null;
+
     // Object for holding the DjVuOptions
     private DjVuObject djvuObject = new DjVuObject();
 
     // We can assign a name to this Stream
-    private String name=null;
+    private String name = null;
 
     //~ Constructors ---------------------------------------------------------
-
     /**
      * Creates a new CachedInputStream object.
      */
-    public CachedInputStream()
-    {
+    public CachedInputStream() {
     }
 
     //~ Methods --------------------------------------------------------------
+    /**
+     * Creates an instance of CachedInputStream with the options interherited from the specified
+     * reference.
+     *
+     * @param ref Object to interherit DjVuOptions from.
+     *
+     * @return a new instance of CachedInputStream.
+     */
+    public static CachedInputStream createCachedInputStream(final DjVuInterface ref) {
+        final DjVuOptions options = ref.getDjVuOptions();
 
-  /**
-   * Creates an instance of CachedInputStream with the options interherited from the
-   * specified reference.
-   *
-   * @param ref Object to interherit DjVuOptions from.
-   *
-   * @return a new instance of CachedInputStream.
-   */
-  public static CachedInputStream createCachedInputStream(final DjVuInterface ref)
-  {
-    final DjVuOptions options = ref.getDjVuOptions();
+        return (CachedInputStream) DjVuObject.create(
+                options,
+                options.getCachedInputStreamClass(),
+                CachedInputStream.class);
+    }
 
-    return (CachedInputStream)DjVuObject.create(
-      options,
-      options.getCachedInputStreamClass(),
-      CachedInputStream.class);
-  }
+    /**
+     * Set the DjVuOptions used by this object.
+     *
+     * @param options The DjVuOptions used by this object.
+     */
+    public void setDjVuOptions(final DjVuOptions options) {
+        djvuObject.setDjVuOptions(options);
+    }
 
-  /**
-   * Set the DjVuOptions used by this object.
-   *
-   * @param options The DjVuOptions used by this object.
-   */
-  public void setDjVuOptions(final DjVuOptions options)
-  {
-    djvuObject.setDjVuOptions(options);
-  }
-
-  /**
-   * Query the DjVuOptions used by this object.
-   *
-   * @return the DjVuOptions used by this object.
-   */
-  public DjVuOptions getDjVuOptions()
-  {
-    return djvuObject.getDjVuOptions();
-  }
-
+    /**
+     * Query the DjVuOptions used by this object.
+     *
+     * @return the DjVuOptions used by this object.
+     */
+    public DjVuOptions getDjVuOptions() {
+        return djvuObject.getDjVuOptions();
+    }
 
     /**
      * Create an a new CachedInputStream.
@@ -143,43 +134,40 @@ public class CachedInputStream
      *
      * @return the newly created CachedInputStream
      */
-    public CachedInputStream createCachedInputStream(int size)
-    {
-      final CachedInputStream retval=(CachedInputStream)this.clone();
-      retval.setSize(size);
-      return retval;
+    public CachedInputStream createCachedInputStream(int size) {
+        final CachedInputStream retval = (CachedInputStream) this.clone();
+        retval.setSize(size);
+        return retval;
     }
 
     /**
      * Initialize the stream with a data source, startOffset, and endOffset.
-     * 
+     *
      * @param buffer DataPool containing data.
      * @param startOffset Starting position of this stream.
      * @param endOffset Ending position of this stream.
-     * 
+     *
      * @return the initialized stream
      */
-    public CachedInputStream init(final DataPool buffer,final int startOffset,final int endOffset)
-    {
-      this.buffer=buffer;
-      markOffset=offset=startOffset;
-      this.endOffset=endOffset;
-      return this;
+    public CachedInputStream init(final DataPool buffer, final int startOffset, final int endOffset) {
+        this.buffer = buffer;
+        markOffset = offset = startOffset;
+        this.endOffset = endOffset;
+        return this;
     }
-    
+
     /**
      * Initialize the stream with a data source, startOffset, and endOffset.
      *
      * @param url URL to read.
-     * @param prefetch True if data should be prefetched.  (Temporarily broken)
+     * @param prefetch True if data should be prefetched. (Temporarily broken)
      *
      * @return the initialized stream
      */
-    public CachedInputStream init(final URL url,final boolean prefetch)
-    {
-      return init(DataPool.createDataPool(this).init(url),0, Integer.MAX_VALUE);
+    public CachedInputStream init(final URL url, final boolean prefetch) {
+        return init(DataPool.createDataPool(this).init(url), 0, Integer.MAX_VALUE);
     }
-    
+
     /**
      * Initialize the stream by copying the supplied input.
      *
@@ -187,73 +175,60 @@ public class CachedInputStream
      *
      * @return the initialized stream
      */
-    public CachedInputStream init(final InputStream input)
-    {
-      if(input instanceof CachedInputStream)
-      {
-        final CachedInputStream i=(CachedInputStream)input;
-        return init(i.buffer,i.offset,i.getEndOffset());         
-      }
-      else
-      {
-        return init(DataPool.createDataPool(this).init(input),0, Integer.MAX_VALUE);
-      }
-    }
-    
-    /**
-     * Create a copy of this stream which will referes to the same DataPool
-     * 
-     * @return the newly created copy
-     */
-    public Object clone()
-    {
-      try
-      {
-        return super.clone();
-      }
-      catch(final CloneNotSupportedException ignored)
-      {
-        return null;
-      }
+    public CachedInputStream init(final InputStream input) {
+        if (input instanceof CachedInputStream) {
+            final CachedInputStream i = (CachedInputStream) input;
+            return init(i.buffer, i.offset, i.getEndOffset());
+        } else {
+            return init(DataPool.createDataPool(this).init(input), 0, Integer.MAX_VALUE);
+        }
     }
 
     /**
-     * Query the end position.  This value may only be reduced, never increased.
+     * Create a copy of this stream which will referes to the same DataPool
+     *
+     * @return the newly created copy
+     */
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (final CloneNotSupportedException ignored) {
+            return null;
+        }
+    }
+
+    /**
+     * Query the end position. This value may only be reduced, never increased.
      *
      * @return an offset past the last byte of this stream
      */
-    public int getEndOffset()
-    {
-      final int endOffset=buffer.getEndOffset();
-      return (endOffset<this.endOffset)?endOffset:this.endOffset;
+    public int getEndOffset() {
+        final int endOffset = buffer.getEndOffset();
+        return (endOffset < this.endOffset) ? endOffset : this.endOffset;
     }
 
-    
     /**
-     * Set the maximum number of bytes left in this stream.  
-     * Size may only be reduced, never increased.
+     * Set the maximum number of bytes left in this stream. Size may only be reduced, never
+     * increased.
      *
      * @param size the new size
      */
-    public synchronized void setSize(final int size)
-    {
-      final long endOffset=offset+size;
-      if(endOffset < (long)this.endOffset)
-      {
-        this.endOffset=(int)endOffset;
-      }
+    public synchronized void setSize(final int size) {
+        final long endOffset = offset + size;
+        if (endOffset < (long) this.endOffset) {
+            this.endOffset = (int) endOffset;
+        }
     }
-    
+
     /**
      * Query how much data is available.
      *
      * @return number of buffered bytes
      */
-    public int available()
-    {
-      final int position = buffer.getCurrentSize();
-      final int retval=(position < endOffset)?position:endOffset;
-      return (retval > 0)?retval:0;
+    public int available() {
+        final int position = buffer.getCurrentSize();
+        final int retval = (position < endOffset) ? position : endOffset;
+        return (retval > 0) ? retval : 0;
     }
 
     /**
@@ -261,9 +236,8 @@ public class CachedInputStream
      *
      * @param readLimit ignored
      */
-    public void mark(int readLimit)
-    {
-      markOffset = offset;
+    public void mark(int readLimit) {
+        markOffset = offset;
     }
 
     /**
@@ -271,35 +245,30 @@ public class CachedInputStream
      *
      * @return true
      */
-    public boolean markSuppoted()
-    {
-      return true;
+    public boolean markSuppoted() {
+        return true;
     }
 
     /**
-     * Read the next byte of data ranged 0 to 255.  Returns -1 if an EOF has been read.
+     * Read the next byte of data ranged 0 to 255. Returns -1 if an EOF has been read.
      *
      * @return next byte
      */
-    public int read()
-    {
-      int retval=-1;
-      final int index=offset/DataPool.BLOCKSIZE;
-      if(index != blockIndex)
-      {
-        block=buffer.getBlock(index, true);
-        blockIndex=index;
-        if(block == null)
-        {
-          offset = getEndOffset();
-          blockIndex = -1;
+    public int read() {
+        int retval = -1;
+        final int index = offset / DataPool.BLOCKSIZE;
+        if (index != blockIndex) {
+            block = buffer.getBlock(index, true);
+            blockIndex = index;
+            if (block == null) {
+                offset = getEndOffset();
+                blockIndex = -1;
+            }
         }
-      }
-      if(offset < getEndOffset())
-      {
-        retval=0xff&block[offset++%DataPool.BLOCKSIZE];
-      }
-      return retval;
+        if (offset < getEndOffset()) {
+            retval = 0xff & block[offset++ % DataPool.BLOCKSIZE];
+        }
+        return retval;
     }
 
     /**
@@ -312,101 +281,87 @@ public class CachedInputStream
      * @return number of bytes read
      */
     public int read(
-      final byte[] b,
-      final int    off,
-      int          len)
-    {
-      int retval=-1;
-      final int index=offset/DataPool.BLOCKSIZE;
-      if(index != blockIndex)
-      {
-        block=buffer.getBlock(index, true);
-        blockIndex=index;
-        if(block == null)
-        {
-          offset = getEndOffset();
-          blockIndex = -1;
+            final byte[] b,
+            final int off,
+            int len) {
+        int retval = -1;
+        final int index = offset / DataPool.BLOCKSIZE;
+        if (index != blockIndex) {
+            block = buffer.getBlock(index, true);
+            blockIndex = index;
+            if (block == null) {
+                offset = getEndOffset();
+                blockIndex = -1;
+            }
         }
-      }
-      if(offset < getEndOffset())
-      {
-        final int offset=this.offset%DataPool.BLOCKSIZE;
-        retval = DataPool.BLOCKSIZE-offset;
-        if(retval > len)
-        {
-          retval = len;
+        if (offset < getEndOffset()) {
+            final int offset = this.offset % DataPool.BLOCKSIZE;
+            retval = DataPool.BLOCKSIZE - offset;
+            if (retval > len) {
+                retval = len;
+            }
+            System.arraycopy(block, offset, b, off, retval);
+            this.offset += retval;
         }
-        System.arraycopy(block, offset,b,off,retval);
-        this.offset+=retval;
-      }
-      return retval;        
+        return retval;
     }
 
     /**
-     * Read data into an array of bytes.  The number of bytes
-     * read is the array length unless an EOF is read.
+     * Read data into an array of bytes. The number of bytes read is the array length unless an EOF
+     * is read.
      *
      * @param b byte array to copy data to
      *
      * @return number of bytes read
      */
-    public int read(byte [] b)
-    {
-      for(int remaining=b.length;remaining > 0;)
-      {
-        int retval=b.length-remaining;
-        final int len=read(b, retval, remaining);
-        if(len < 0)
-        {
-          return (retval > 0)?retval:(-1);              
+    public int read(byte[] b) {
+        for (int remaining = b.length; remaining > 0;) {
+            int retval = b.length - remaining;
+            final int len = read(b, retval, remaining);
+            if (len < 0) {
+                return (retval > 0) ? retval : (-1);
+            }
+            remaining -= len;
         }
-        remaining-=len;
-      }
-      return b.length;
+        return b.length;
     }
 
     /**
-     * Read the next two bytes as a posative integer.  If EOF is reached,
-     * then return -1.
+     * Read the next two bytes as a posative integer. If EOF is reached, then return -1.
      *
      * @return the value read
      */
-    public int read16()
-    {
-      final int msb = read();
+    public int read16() {
+        final int msb = read();
 
-      if(msb < 0)
-      {
-        return msb;
-      }
+        if (msb < 0) {
+            return msb;
+        }
 
-      final int lsb = read();
+        final int lsb = read();
 
-      return (lsb >= 0)
-      ? ((msb << 8) | lsb)
-      : (-1);
+        return (lsb >= 0)
+                ? ((msb << 8) | lsb)
+                : (-1);
     }
 
     /**
-     * Read the next three bytes as a posative integer.  If EOF is reached,
-     * then return -1.
+     * Read the next three bytes as a posative integer. If EOF is reached, then return -1.
      *
      * @return the value read
      */
-    public int read24()
-    {
-      final int msb = read16();
+    public int read24() {
+        final int msb = read16();
 
-      if(msb < 0)
-      {
-        return msb;
-      }
+        if (msb < 0) {
+            return msb;
+        }
 
-      final int lsb = read();
+        final int lsb = read();
 
-      return (lsb >= 0)
-      ? ((msb << 8) | lsb)
-      : (-1);
+        return (lsb >= 0)
+                ? ((msb << 8) | lsb)
+                : (-1);
     }
 
     /**
@@ -415,9 +370,8 @@ public class CachedInputStream
      * @throws IOException if an error occurs
      */
     public void reset()
-      throws IOException
-    {
-      offset = markOffset;
+            throws IOException {
+        offset = markOffset;
     }
 
     /**
@@ -427,149 +381,136 @@ public class CachedInputStream
      *
      * @return number of bytes actually skipped
      */
-    public long skip(final long n)
-    {
-      final int endOffset=getEndOffset();
-      int retval=((long)endOffset <= n+(long)offset)?(endOffset-offset):(int)n;
-      if(retval > 0)
-      {
-        offset+=retval;
-      }
-      else
-      {
-        retval=0;
-      }
-      return retval;
-    }
-    
-  /**
-   * Prefetch data in the same thread.
-   */
-  public void prefetchWait()
-  {
-    try
-    {
-      for(int i=offset/DataPool.BLOCKSIZE;i<getEndOffset()/DataPool.BLOCKSIZE;i++)
-      {
-        buffer.getBlock(i,true);
-      }
-      buffer.getBlock((getEndOffset()-1)/DataPool.BLOCKSIZE, true);
-    }
-    catch(final Throwable ignored) {}
-  }
-  
-  /**
-   * Convert the accessable data into a string.  First a java modified UTF-8
-   * translation will be tried.  If that fails, the data will be converted
-   * in the current locale encoding.  Unlike ImageInputStream.readUTF
-   * the first two bytes are not a length.
-   *
-   * @param textsize maximum amount of data to read
-   *
-   * @return the newly created string
-   *
-   * @throws IOException if an error occurs
-   */
-  public String readSizedUTF(int textsize)
-    throws IOException
-  {
-    final String retval=createCachedInputStream(textsize).readFullyUTF();
-    skip(textsize);
-    return retval;
-  }
-  
-  /**
-   * Convert the accessable data into a string.  First a java modified UTF-8
-   * translation will be tried.  If that fails, the data will be converted
-   * in the current locale encoding.  Unlike an ImageInputStream.readUTY
-   * the first two bytes are not a length.
-   *
-   * @return the newly created string
-   *
-   * @throws IOException if an error occurs
-   */
-  public String readFullyUTF()
-    throws IOException
-  {
-    final ByteArrayOutputStream output=new ByteArrayOutputStream();
-    output.write(0);
-    output.write(0);
-    for(int i=read();i>=0;i=read())
-    {
-      output.write(i);
-    }
-    final byte[] array = output.toByteArray();
-    try
-    {
-      // The string is too long for readUTF.  Try using standard UTF-8.  This
-      // will fail with the Microsoft JVM.
-      if(array.length > 65537)
-      {
-        return new String(array, 2, array.length - 2, "UTF-8");
-      }
-
-      // Try reading modified UTF-8.  This should be supported with all
-      // versions of Java.
-      array[0]=(byte)((array.length-2)>>8);
-      array[1]=(byte)((array.length-2)&0xff);
-      final DataInputStream input =
-        new DataInputStream(new ByteArrayInputStream(array));
-
-      return input.readUTF();
-    }
-    catch(final Throwable exp)
-    {
-      exp.printStackTrace(DjVuOptions.err);
-      System.gc();
+    public long skip(final long n) {
+        final int endOffset = getEndOffset();
+        int retval = ((long) endOffset <= n + (long) offset) ? (endOffset - offset) : (int) n;
+        if (retval > 0) {
+            offset += retval;
+        } else {
+            retval = 0;
+        }
+        return retval;
     }
 
-    return new String(array, 2, array.length - 2);
-  }
-  
-  /**
-   * Query the name of this stream.
-   *
-   * @return the stream name
-   */
-  public String getName()
-  {
-    return name;
-  }
-  
-  /**
-   * Set the name of this stream.
-   *
-   * @param name the stream name
-   */
-  public void setName(final String name)
-  {
-    this.name=name;
-  }
-  
-  /**
-   * Test if the underlying file has a DjVu octet signature.
-   *
-   * @return true if this is a valid DjVu file.
-   */
-  public boolean isDjVuFile()
-  {
-    final byte [] b=buffer.getBlock(0,true);
-    return (b != null)&&(b[0] == 65)&&(b[1] == 84)&&(b[2] == 38)&&(b[3] == 84);
-  }
-
-  /**
-   * Query the enumeration of IFF chunks.  Returns null, if the name is 
-   * four characters long.
-   *
-   * @return an Enumeration of CachedInputStream or null.
-   */
-  public Enumeration getIFFChunks()
-  {
-    IFFEnumeration retval=null;
-    if ((name == null)||(name.length() != 4))
-    {
-      retval=IFFEnumeration.createIFFEnumeration(this).init(this);
+    /**
+     * Prefetch data in the same thread.
+     */
+    public void prefetchWait() {
+        try {
+            for (int i = offset / DataPool.BLOCKSIZE; i < getEndOffset() / DataPool.BLOCKSIZE; i++) {
+                buffer.getBlock(i, true);
+            }
+            buffer.getBlock((getEndOffset() - 1) / DataPool.BLOCKSIZE, true);
+        } catch (final Throwable ignored) {
+        }
     }
-    return retval;
-  }
+
+    /**
+     * Convert the accessable data into a string. First a java modified UTF-8 translation will be
+     * tried. If that fails, the data will be converted in the current locale encoding. Unlike
+     * ImageInputStream.readUTF the first two bytes are not a length.
+     *
+     * @param textsize maximum amount of data to read
+     *
+     * @return the newly created string
+     *
+     * @throws IOException if an error occurs
+     */
+    public String readSizedUTF(int textsize)
+            throws IOException {
+        final String retval = createCachedInputStream(textsize).readFullyUTF();
+        skip(textsize);
+        return retval;
+    }
+
+    /**
+     * Convert the accessable data into a string. First a java modified UTF-8 translation will be
+     * tried. If that fails, the data will be converted in the current locale encoding. Unlike an
+     * ImageInputStream.readUTY the first two bytes are not a length.
+     *
+     * @return the newly created string
+     *
+     * @throws IOException if an error occurs
+     */
+    public String readFullyUTF()
+            throws IOException {
+        final ByteArrayOutputStream output = new ByteArrayOutputStream();
+        output.write(0);
+        output.write(0);
+        for (int i = read(); i >= 0; i = read()) {
+            output.write(i);
+        }
+        final byte[] array = output.toByteArray();
+        try {
+            // The string is too long for readUTF.  Try using standard UTF-8.  This
+            // will fail with the Microsoft JVM.
+            if (array.length > 65537) {
+                return new String(array, 2, array.length - 2, "UTF-8");
+            }
+
+            // Try reading modified UTF-8.  This should be supported with all
+            // versions of Java.
+            array[0] = (byte) ((array.length - 2) >> 8);
+            array[1] = (byte) ((array.length - 2) & 0xff);
+            final DataInputStream input
+                    = new DataInputStream(new ByteArrayInputStream(array));
+
+            return input.readUTF();
+        } catch (final Throwable exp) {
+            exp.printStackTrace(DjVuOptions.err);
+            System.gc();
+        }
+
+        return new String(array, 2, array.length - 2);
+    }
+
+    /**
+     * Query the name of this stream.
+     *
+     * @return the stream name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Set the name of this stream.
+     *
+     * @param name the stream name
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    /**
+     * Test if the underlying file has a DjVu octet signature.
+     *
+     * @return true if this is a valid DjVu file.
+     */
+    public boolean isDjVuFile() {
+        final byte[] b = buffer.getBlock(0, true);
+        return (b != null) && (b[0] == 65) && (b[1] == 84) && (b[2] == 38) && (b[3] == 84);
+    }
+
+    /**
+     * Query the enumeration of IFF chunks. Returns null, if the name is four characters long.
+     *
+     * @return an Enumeration of CachedInputStream or null.
+     */
+    public Enumeration getIFFChunks() {
+        IFFEnumeration retval = null;
+        if ((name == null) || (name.length() != 4)) {
+            retval = IFFEnumeration.createIFFEnumeration(this).init(this);
+        }
+        return retval;
+    }
+
+    /**
+     * gets the number of elements in this cache
+     * 
+     * @return the number of elements in this cache.
+     */
+    public int getSize() {
+        return buffer.getSize();
+    }
 }

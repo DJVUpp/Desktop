@@ -71,7 +71,7 @@ public class DataPool
      */
     public static Hashtable cache = new Hashtable();
 
-  //~ Instance fields --------------------------------------------------------
+    //~ Instance fields --------------------------------------------------------
     // This contains the data we a buffering.
     private final Vector buffer = new Vector();
 
@@ -102,14 +102,14 @@ public class DataPool
     // The largest end offset of read data.
     private int currentSize = 0;
 
-  //~ Constructors -----------------------------------------------------------
+    //~ Constructors -----------------------------------------------------------
     /**
      * Creates a new DataPool object.
      */
     public DataPool() {
     }
 
-  //~ Methods ----------------------------------------------------------------
+    //~ Methods ----------------------------------------------------------------
     /**
      * Creates an instance of DataPool with the options interherited from the specified reference.
      *
@@ -204,7 +204,7 @@ public class DataPool
         return read ? readBlock(index) : null;
     }
 
-  // Read the specified block of data.  Synchronization should happen prior to calling this
+    // Read the specified block of data.  Synchronization should happen prior to calling this
     // routine.  Data may be read either sequentially, or in random order if the server supports
     // http 1.1 range specifiers.
     private synchronized byte[] readBlock(final int index) {
@@ -355,6 +355,15 @@ public class DataPool
      */
     public int getEndOffset() {
         return endOffset;
+    }
+
+    /**
+     * gets the number of elements in this pool
+     *
+     * @return: the number of elements in this pool.
+     */
+    public int getSize() {
+        return buffer.size();
     }
 
 }

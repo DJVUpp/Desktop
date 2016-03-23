@@ -252,7 +252,8 @@ public class Document
     public DjVuPage getPage(final int pageno, final int priority, final boolean dataWait)
             throws IOException {
 //    	TODO: remove the printing line.
-        System.out.println("CachedInputStream Size: " + cachedInputStreamMap.size());
+//        System.out.println("CachedInputStream Size: " + cachedInputStreamMap.size());
+//        System.out.println("Dociment pool size: " + this.pool.getSize());
 
         final String name = getDjVmDir().page_to_file(pageno).get_load_name();
         final DjVuPage retval = getPage(name, priority, dataWait);
@@ -461,6 +462,7 @@ public class Document
             }
         }
 
+//        NOTE: this part may be for chunks decoding.
         if (!djvmDir.is_bundled()) {
             final Enumeration iff_in = pool.getIFFChunks();
             if ((iff_in == null) || !iff_in.hasMoreElements()) {

@@ -261,42 +261,6 @@ public class OutlineTabbedPane
             }
         }).start();
 
-        // NOTE: not verty user-friendly!!
-//        new Thread(new Runnable() {
-//
-//            public void run() {
-//                for (int i = 0; i < PagesCount; i++) {
-//                    try {
-//                        drawThumnail(i);
-//                    } catch (IOException | ArrayIndexOutOfBoundsException ex) {
-//                        if (ex instanceof ArrayIndexOutOfBoundsException) {
-//                            //trying to draw non-existing pages thumbnails
-//                            break;
-//                        }
-//                    }
-//                }
-//                System.out.println("DONE!!");
-//            }
-//
-//            public void drawThumnail(int i) throws IOException {
-//                if (BookImages[i] == null) {
-//                    PagesLabel[i] = new JLabel("" + (i + 1));
-//                    PagesLabel[i].setHorizontalTextPosition(JLabel.CENTER);
-//                    PagesLabel[i].setVerticalTextPosition(JLabel.BOTTOM);
-//
-//                    BufferedImage img;
-//                    img = CreateThumbnails.generateThumbnail(i, thumbnailWidht, thumbnailHeight);
-//                    BookImages[i] = new ImageIcon(img);
-//                    // add the images to jlabels with text
-//                    PagesLabel[i].setIcon(combosed_image(BookImages[i], Braker));
-//                    // create the corresponding panels 
-//                    JPanel tempPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-//                    tempPanel.add(PagesLabel[i]);
-//                    tempPanel.add(PagesLabel[i]);
-//                    thumbnailData.set(i, tempPanel);
-//                }
-//            }
-//        }).start();
     }
 
     public final void createCommentTab() {
