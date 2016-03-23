@@ -128,7 +128,7 @@ public class FullBookView
                     }
                     
                 }
-            }
+            } 
 
             /**
              * Renders the indexed DjVu page.
