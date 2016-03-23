@@ -61,7 +61,7 @@ public class PagesModel extends AbstractListModel {
         return null;
     }
 
-    // TODO: fasten the page eliminate page drawing wait time.
+    // TODO: make page viewing more responsive.
     protected JPanel getPage(int pageNo) throws IOException {
         tempLabel = new JLabel("" + (pageNo + 1));
         tempLabel.setHorizontalTextPosition(JLabel.CENTER);
