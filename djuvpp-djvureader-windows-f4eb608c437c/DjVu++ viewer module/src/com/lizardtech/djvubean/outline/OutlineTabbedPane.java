@@ -37,8 +37,6 @@ public class OutlineTabbedPane
 //    private JPanel ThumblainsPane[];
     private DefaultListModel<JPanel> thumbnailData;
     public JList ThumblainsList;
-    private ImageIcon BookImages[];
-    private JLabel PagesLabel[];
     private static int PagesCount;
     private final int thumbnailWidht = 125;
     private final int thumbnailHeight = 170;
@@ -171,9 +169,6 @@ public class OutlineTabbedPane
         // construct the ThumblainsList as a JList
         ThumblainsList = new JList();
         ThumblainsScrollPane = new JScrollPane(ThumblainsList, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        BookImages = new ImageIcon[PagesCount];
-        PagesLabel = new JLabel[PagesCount];
-//        ThumblainsPane = new JPanel[PagesCount];
         thumbnailData = new DefaultListModel<>();
         thumbnailData.setSize(PagesCount);
 
@@ -212,7 +207,6 @@ public class OutlineTabbedPane
                 while (drawnImagesCount < PagesCount) {
                     // if the user didn't scroll continue
                     index = (int) (ThumblainsScrollPane.getVerticalScrollBar().getValue() / thumbnailCellHeight) + 1;
-//                    System.out.println("index: " + index);
                     if (index == oldIndex) {
                         try {
                             Thread.sleep(1);
@@ -240,23 +234,24 @@ public class OutlineTabbedPane
             }
 
             public void drawThumnail(int i) throws IOException {
-                if (BookImages[i] == null) {
-                    PagesLabel[i] = new JLabel("" + (i + 1));
-                    PagesLabel[i].setHorizontalTextPosition(JLabel.CENTER);
-                    PagesLabel[i].setVerticalTextPosition(JLabel.BOTTOM);
+                if (thumbnailData.get(i) == null) {
+                    JLabel tempLabel;
+                    tempLabel = new JLabel("" + (i + 1));
+                    tempLabel.setHorizontalTextPosition(JLabel.CENTER);
+                    tempLabel.setVerticalTextPosition(JLabel.BOTTOM);
 
                     BufferedImage img;
+                    ImageIcon tempImgIcn;
                     img = CreateThumbnails.generateThumbnail(i, thumbnailWidht, thumbnailHeight);
-                    BookImages[i] = new ImageIcon(img);
+                    tempImgIcn = new ImageIcon(img);
                     drawnImagesCount++;
                     // add the images to jlabels with text
-                    PagesLabel[i].setIcon(combosed_image(BookImages[i], Braker));
+                    tempLabel.setIcon(combosed_image(tempImgIcn, Braker));
                     // create the corresponding panels 
                     JPanel tempPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-                    tempPanel.add(PagesLabel[i]);
-                    tempPanel.add(PagesLabel[i]);
+                    tempPanel.add(tempLabel);
+                    tempPanel.add(tempLabel);
                     thumbnailData.set(i, tempPanel);
-
                 }
             }
         }).start();

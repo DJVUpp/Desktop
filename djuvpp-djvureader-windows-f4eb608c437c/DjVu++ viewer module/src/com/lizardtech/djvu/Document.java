@@ -288,8 +288,6 @@ public class Document
         }
 
         if (page == null) {
-            System.out.println("Page was null");
-
             CachedInputStream data = get_data(id);
             if (!dataWait && caching) {
                 prefetch(id, MAX_PRIORITY);
