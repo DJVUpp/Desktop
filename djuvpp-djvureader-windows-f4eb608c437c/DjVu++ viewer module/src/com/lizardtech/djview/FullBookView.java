@@ -16,8 +16,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -96,7 +94,7 @@ public class FullBookView
                 }
             }
         });
-        ThumblainsList.setCellRenderer(new com.lizardtech.djview.ImageListCellRenderer());
+        ThumblainsList.setCellRenderer(new com.lizardtech.djview.ImageListCellRenderer(PAGE_WIDHT, PAGE_WIDHT));
 
         ThumblainsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ThumblainsList.setLayoutOrientation(JList.VERTICAL);
@@ -113,7 +111,6 @@ public class FullBookView
             int oldIndex = -1;
             int index;
 
-            // TODO: make the thread sleep for some time
             // TODO: find another way to set and clear the pages.
             // TODO: extend the DefaultListModel to add a default empty page!!, may result in exceeded memory usage, IF so use a custom list renderer.
             @Override
@@ -124,16 +121,28 @@ public class FullBookView
                     if (index != oldIndex) {
                         System.out.println("index: " + index);
                         try {
-                            // cleaning pages.
-                            pages.clear();
-                            pages.setSize(PagesCount);
-
+                            int olderIndex = oldIndex;
+                            int diff = Math.abs(index - olderIndex);
+                            // pre-cleaning pages.
+                            if (diff > 1) {
+                                pages.clear();
+                                pages.setSize(PagesCount);
+                            }
                             // setting new page.
                             pages.set(index, getPage(index));
-                            oldIndex = index;
+                            oldIndex = index;           // set older index in case of Exception.
 
                             pages.set(index + 1, getPage(index + 1));
                             pages.set(index - 1, getPage(index - 1));
+
+                            // cleaning pages.
+                            int sign = olderIndex - index > 0 ? 1 : -1;
+                            if (diff == 1) {
+                                pages.set(olderIndex + sign, null);
+                            } else if (diff == 2) {
+                                pages.set(olderIndex, null);
+                                pages.set(olderIndex + sign, null);
+                            }
                         } catch (IOException | ArrayIndexOutOfBoundsException ignored) {
                         }
                     } else {

@@ -4,13 +4,19 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
-import javax.swing.UIManager;
 
 public class ImageListCellRenderer implements ListCellRenderer {
+
+    private final DefaultPage defaultPage;
+
+    public ImageListCellRenderer(int width, int height) {
+        super();
+
+        defaultPage = new DefaultPage(width, height);
+    }
 
     /**
      * From
@@ -41,13 +47,7 @@ public class ImageListCellRenderer implements ListCellRenderer {
 //      component.setBackground (isSelected ? UIManager.getColor("Table.focusCellForeground") : Color.GRAY);
             return component;
         } else {
-            JPanel defaultPanel;
-            defaultPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
-            defaultPanel.setForeground(Color.GRAY);
-            defaultPanel.setBackground(Color.GRAY);
-
-            return new JPanel();
+            return defaultPage;
         }
     }
 }
