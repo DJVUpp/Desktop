@@ -89,6 +89,8 @@ public class Main extends JFrame {
 				name_url.put(name, url);
 				url_name.put(url, name);
 				bookList.add(url);
+				System.out.println(url);
+				System.out.println(name);
 				openBookInNewTab(url, name);
 
 			}

@@ -21,7 +21,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.ListSelectionModel;
 
-// TODO: Documentation.
 // NOTE: rotation was available in previous versions.
 public class FullBookView
         extends JPanel {
