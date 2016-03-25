@@ -551,23 +551,9 @@ public class Applet
             }
 
             setLayout(new BorderLayout());
-//
-//      final Component toolbar = djvuBean.getToolbar();
-//      //final RibbonMenu Ribbon=djvuBean.getRibbon();
-//
-//      if(toolbar != null)
-//      {
-//        add(toolbar, BorderLayout.SOUTH);
-//      }
-//        
 
             String surl = getDjVuBean().getURL().toString();
             String url2 = surl.substring(5, surl.length());
-//            String filename = DjvuStart.url_name.get(url2);
-
-            Main.beanMap.put(url2, getDjVuBean());
-            System.out.println(Main.beanMap.keySet().size());
-
             add(
                     getCenterPane(),
                     BorderLayout.CENTER);

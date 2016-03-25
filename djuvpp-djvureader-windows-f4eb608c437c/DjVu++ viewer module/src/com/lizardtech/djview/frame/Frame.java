@@ -6,14 +6,15 @@ import com.lizardtech.djvu.DjVuOptions;
 import com.lizardtech.djvu.Document;
 import com.lizardtech.djvubean.DjVuBean;
 import com.lizardtech.djvubean.outline.OutlineTabbedPane;
+
 import java.applet.*;
 import java.awt.*;
-
 import java.awt.event.*;
 import java.io.*;
 import java.lang.reflect.*;
 import java.net.*;
 import java.util.*;
+
 import javax.swing.*;
 
 /**
@@ -24,7 +25,8 @@ import javax.swing.*;
  */
 public final class Frame extends JFrame implements AppletStub {
 
-    //~ Static fields/initializers ---------------------------------------------
+    // ~ Static fields/initializers
+    // ---------------------------------------------
     private static final Class classApplet;
     public static DjVuBean Bean;
     private static final Method isValidDjVuMethod;
@@ -52,7 +54,8 @@ public final class Frame extends JFrame implements AppletStub {
         isValidDjVuMethod = xisValidDjVuMethod;
     }
 
-    //~ Instance fields --------------------------------------------------------
+    // ~ Instance fields
+    // --------------------------------------------------------
     private final AppletContext appletContext;
     private final Hashtable parameters = new Hashtable();
     public OutlineTabbedPane Thumbpanel;
@@ -69,7 +72,6 @@ public final class Frame extends JFrame implements AppletStub {
      */
     public Frame() {
         this(null);
-
     }
 
     /**
@@ -98,9 +100,7 @@ public final class Frame extends JFrame implements AppletStub {
 
             }
 
-            public void setStream(
-                    final String key,
-                    InputStream stream) {
+            public void setStream(final String key, InputStream stream) {
             }
 
             public Iterator getStreamKeys() {
@@ -178,9 +178,7 @@ public final class Frame extends JFrame implements AppletStub {
     public String getParameter(String name) {
         Object retval = parameters.get(name);
 
-        return (retval != null)
-                ? retval.toString()
-                : null;
+        return (retval != null) ? retval.toString() : null;
     }
 
     /**
@@ -216,7 +214,7 @@ public final class Frame extends JFrame implements AppletStub {
             if (jeditorPane == null) {
                 try {
                     document = new Document(url);
-//                    TODO: create a method/setter to to this.
+                    // TODO: create a method/setter to to this.
                     com.lizardtech.djvubean.outline.CreateThumbnails.document = document;
                 } catch (final Throwable exp) {
                     try {
@@ -249,7 +247,7 @@ public final class Frame extends JFrame implements AppletStub {
                     isDjVu = ((Boolean) isValidDjVuMethod.invoke(applet, null)).booleanValue();
                 } catch (final Throwable exp) {
                     exp.printStackTrace(DjVuOptions.err);
-                    component = null;
+                    component = new TextArea("No Data Loaded");
                     isDjVu = false;
                 }
 
@@ -258,9 +256,6 @@ public final class Frame extends JFrame implements AppletStub {
             isDjVu = false;
         }
 
-        if (component == null) {
-            component = new TextArea("No Data Loaded");
-        }
         CardPanel.add(component, "Bean");
         add(CardPanel, BorderLayout.CENTER);
         validate();
@@ -297,9 +292,7 @@ public final class Frame extends JFrame implements AppletStub {
      * @param width The new window width.
      * @param height The new window height.
      */
-    public void appletResize(
-            int width,
-            int height) {
+    public void appletResize(int width, int height) {
         setSize(width, height);
     }
 

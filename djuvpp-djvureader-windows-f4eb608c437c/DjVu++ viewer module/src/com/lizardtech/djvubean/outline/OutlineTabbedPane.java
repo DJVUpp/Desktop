@@ -1,5 +1,6 @@
 package com.lizardtech.djvubean.outline;
 
+import com.lizardtech.djview.ImageListCellRenderer;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -38,10 +39,10 @@ public class OutlineTabbedPane
     private DefaultListModel<JPanel> thumbnailData;
     public JList ThumblainsList;
     private static int PagesCount;
-    private final int thumbnailWidht = 125;
-    private final int thumbnailHeight = 170;
-    private final int thumbnailCellHeight = 220;
-    private final int thumBufferSize;
+    private final int THUMBNAIL_WIDTH = 125;
+    private final int THUMBNAIL_HEIGHT = 170;
+    private final int THUMBNAIL_CELL_HEIGHT = 220;
+    private final int THUMBNAIL_BUFFER_SIZE;
 
     private JPanel CommentPane;
     private DjVuBean djvubean;
@@ -59,7 +60,7 @@ public class OutlineTabbedPane
 
     public OutlineTabbedPane(final DjVuBean djvubean, final Frame frame) {
         // thumbnail buffer size is the size of what the screen can fit + 1
-        this.thumBufferSize = 4;
+        this.THUMBNAIL_BUFFER_SIZE = 4;
         this.djvubean = djvubean;
         final int pack = 200;
         setBackground(Color.gray);
@@ -182,10 +183,10 @@ public class OutlineTabbedPane
                 djvubean.setPageString("" + (JLelement.getSelectedIndex() + 1));
             }
         });
-        ThumblainsList.setCellRenderer(new ImageListCellRenderer());
+        ThumblainsList.setCellRenderer(new ImageListCellRenderer(THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT));
         ThumblainsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ThumblainsList.setLayoutOrientation(JList.VERTICAL);
-        ThumblainsList.setFixedCellHeight(thumbnailCellHeight);
+        ThumblainsList.setFixedCellHeight(THUMBNAIL_CELL_HEIGHT);
         ThumblainsList.setFocusable(true);
 
         // put our JList in a JScrollPane
@@ -206,7 +207,7 @@ public class OutlineTabbedPane
             public void run() {
                 while (drawnImagesCount < PagesCount) {
                     // if the user didn't scroll continue
-                    index = (int) (ThumblainsScrollPane.getVerticalScrollBar().getValue() / thumbnailCellHeight) + 1;
+                    index = (int) (ThumblainsScrollPane.getVerticalScrollBar().getValue() / THUMBNAIL_CELL_HEIGHT) + 1;
                     if (index == oldIndex) {
                         try {
                             Thread.sleep(1);
@@ -216,7 +217,7 @@ public class OutlineTabbedPane
 
 //                        System.out.println("index: " + index);
                         // render the following thumbnails
-                        for (int i = index - 1; i <= index + thumBufferSize - 1; i++) {
+                        for (int i = index - 1; i <= index + THUMBNAIL_BUFFER_SIZE - 1; i++) {
                             try {
                                 drawThumnail(i);
 //                                ThumblainsList.setListData(ThumblainsPane);
@@ -242,7 +243,7 @@ public class OutlineTabbedPane
 
                     BufferedImage img;
                     ImageIcon tempImgIcn;
-                    img = CreateThumbnails.generateThumbnail(i, thumbnailWidht, thumbnailHeight);
+                    img = CreateThumbnails.generateThumbnail(i, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
                     tempImgIcn = new ImageIcon(img);
                     drawnImagesCount++;
                     // add the images to jlabels with text

@@ -115,11 +115,7 @@ public class SelectMode
                 w = j1;
                 djvuBean.setSelect(select);
                 last.setLocation(i, j);
-//        EditorPanel.  selection = new Rectangle2D.Double(0, 0, djvubean.getWidth(), djvubean.getHeight());
-//          EditorPanel.selection.setFrame(select);
-//        
             }
-            //  new SnipingTool(start.x,start.y,select.width,select.height);
         }
     }
 
@@ -220,7 +216,7 @@ public class SelectMode
 
         // Perform the crop operation.
         try {
-            BufferedImage bi = CreateThumbnails.getScreenShot(Main.beanMap.entrySet().iterator().next().getValue());
+            BufferedImage bi = CreateThumbnails.getScreenShot(djvuBean);
             BufferedImage bi2 = bi.getSubimage(x1, y1, width, height);
             g2d.drawImage(bi2, null, 0, 0);
         } catch (RasterFormatException e) {

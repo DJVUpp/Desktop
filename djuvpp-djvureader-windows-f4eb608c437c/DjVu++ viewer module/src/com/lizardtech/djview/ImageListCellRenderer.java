@@ -2,7 +2,6 @@ package com.lizardtech.djview;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.FlowLayout;
 
 import javax.swing.JList;
 import javax.swing.JPanel;
