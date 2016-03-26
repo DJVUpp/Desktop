@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/src"/>
+	<classpathentry kind="src" path="djuvpp-djvureader-windows-f4eb608c437c/DjVu++ viewer module/src"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/dist/lib/AbsoluteLayout.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/dist/lib/AnimatonClass.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/dist/lib/com.lowagie.text-2.1.7.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/dist/lib/fest-swing-1.2.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/dist/lib/flamingo-6.2.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/dist/lib/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/dist/lib/itextpdf-5.5.5.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/dist/lib/JchromeTab.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/dist/lib/jgoodies-forms.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/dist/lib/jgoodies-looks-2.4.1.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/dist/lib/junit-4.4.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/dist/lib/miglayout-4.0.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/dist/lib/pdf-renderer.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/dist/lib/substance-6.1.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/dist/lib/substance-flamingo.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/dist/lib/trident.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/AbsoluteLayout.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/AnimatonClass.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/com.lowagie.text-2.1.7.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/fest-swing-1.2.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/flamingo-6.2.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/itextpdf-5.5.5.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/javax.mail.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/JchromeTab.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/jgoodies-forms.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/jgoodies-looks-2.4.1.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/junit-4.3.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/junit-4.4.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/miglayout-4.0.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/pdf-renderer.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/substance-6.1.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/substance-flamingo.jar"/>
+	<classpathentry kind="lib" path="djuvpp-djvureader-_linux-f9cd57d25c2f/DjVuReader++/Lib/trident.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="djuvpp-djvureader-windows-f4eb608c437c/DjVuReader++/build/classes"/>
+</classpath>
