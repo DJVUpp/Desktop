@@ -11,11 +11,6 @@ import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  * This class is a Main class to test the module functionality
  *
@@ -23,11 +18,13 @@ import javax.swing.JFrame;
  */
 public class Main extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Creates new form Main
 	 */
 	public Main() {
-//		DjVuOptions.err = System.err;
+		// DjVuOptions.err = System.err;
 
 		try {
 			opendialog();
@@ -61,9 +58,7 @@ public class Main extends JFrame {
 				String name = file.getName();
 				openBookInNewTab(url, name);
 			}
-
 		}
-
 	}
 
 	public void openBookInNewTab(final String url, String name) {

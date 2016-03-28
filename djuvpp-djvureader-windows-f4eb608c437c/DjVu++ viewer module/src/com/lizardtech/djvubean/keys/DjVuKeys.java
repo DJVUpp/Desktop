@@ -45,7 +45,6 @@ package com.lizardtech.djvubean.keys;
 
 import com.lizardtech.djvu.DjVuOptions;
 import com.lizardtech.djvubean.*;
-import com.lizardtech.djvubean.RibbonMenu.DjvuRibbonComponents;
 import java.awt.event.*;
 
 /**
@@ -97,49 +96,38 @@ public class DjVuKeys implements KeyListener {
             switch (e.getKeyChar()) {
                 case (char) KeyEvent.VK_1:
                     bean.setZoom(DjVuBean.ZOOM100);
-                    DjvuRibbonComponents.ZoomB.setSelectedItem(bean.getZoom());
                     break;
                 case '2':
                     bean.setZoom(DjVuBean.ZOOM150);
-                    DjvuRibbonComponents.ZoomB.setSelectedItem(bean.getZoom());
                     break;
                 case '3':
                     bean.setZoom(DjVuBean.ZOOM300);
-                    DjvuRibbonComponents.ZoomB.setSelectedItem(bean.getZoom());
                     break;
                 case '4':
                     bean.setZoom("400%");
-                    DjvuRibbonComponents.ZoomB.setSelectedItem(bean.getZoom());
                     break;
                 case '5':
                     bean.setZoom("500%");
-                    DjvuRibbonComponents.ZoomB.setSelectedItem(bean.getZoom());
                     break;
                 case '6':
                     bean.setZoom("600%");
-                    DjvuRibbonComponents.ZoomB.setSelectedItem(bean.getZoom());
                     break;
                 case '7':
                     bean.setZoom("700%");
-                    DjvuRibbonComponents.ZoomB.setSelectedItem(bean.getZoom());
                     break;
                 case '8':
                     bean.setZoom("800%");
-                    DjvuRibbonComponents.ZoomB.setSelectedItem(bean.getZoom());
                     break;
                 case '9':
                     bean.setZoom("900%");
-                    DjvuRibbonComponents.ZoomB.setSelectedItem(bean.getZoom());
                     break;
                 case '-':
                 case '_':
                     bean.setZoom(DjVuBean.ZOOM_OUT);
-                    DjvuRibbonComponents.ZoomB.setSelectedItem(bean.getZoom());
                     break;
                 case '=':
                 case '+':
                     bean.setZoom(DjVuBean.ZOOM_IN);
-                    DjvuRibbonComponents.ZoomB.setSelectedItem(bean.getZoom());
                     break;
                 case ' ':
                     bean.setPage(bean.getPage() + bean.getVisiblePageCount());
@@ -158,15 +146,12 @@ public class DjVuKeys implements KeyListener {
                 case '0':
                 case 'p':
                     bean.setZoom(DjVuBean.ZOOM_FIT_PAGE);
-                    DjvuRibbonComponents.ZoomB.setSelectedItem("53%");
                     break;
                 case 'w':
                     bean.setZoom(DjVuBean.ZOOM_FIT_WIDTH);
-                    DjvuRibbonComponents.ZoomB.setSelectedItem("146%");
                     break;
                 case 'v':
                     bean.setZoom(DjVuBean.ZOOM_FIT_WIDTH);
-                    DjvuRibbonComponents.ZoomB.setSelectedItem("115%");
                     break;
                 case KeyEvent.VK_BACK_SPACE:
                     bean.setPage(bean.getPage() - bean.getVisiblePageCount());

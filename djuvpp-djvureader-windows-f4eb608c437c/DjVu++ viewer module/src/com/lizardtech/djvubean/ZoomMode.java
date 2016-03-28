@@ -46,7 +46,6 @@
 package com.lizardtech.djvubean;
 
 import com.lizardtech.djvu.DjVuOptions;
-import static com.lizardtech.djvubean.RibbonMenu.DjvuRibbonComponents.ZoomB;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -183,7 +182,6 @@ class ZoomMode
             start = null;
             djvuBean.removeMouseMotionListener(this);
             djvuBean.zoomSelect();
-            ZoomB.setSelectedItem(djvuBean);
         } catch (final Throwable exp) {
             exp.printStackTrace(DjVuOptions.err);
             System.gc();
