@@ -1,7 +1,6 @@
 package com.lizardtech.djview;
 
 import com.lizardtech.djview.frame.Frame;
-import com.lizardtech.djvu.DjVuOptions;
 
 import java.awt.FileDialog;
 import java.awt.Toolkit;
