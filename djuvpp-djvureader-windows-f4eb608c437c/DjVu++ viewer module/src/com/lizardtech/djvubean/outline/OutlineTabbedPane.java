@@ -51,8 +51,8 @@ public class OutlineTabbedPane
             this.getClass().getResource("/images/bookmark24.png"));
     private ImageIcon ThumblainsIcon = new ImageIcon(
             this.getClass().getResource("/images/layers24.png"));
-    private ImageIcon CommentsIcon = new ImageIcon(
-            this.getClass().getResource("/images/comment.png"));
+//    private ImageIcon CommentsIcon = new ImageIcon(
+//            this.getClass().getResource("/images/comment.png"));
     private ImageIcon Braker;
 
     private Boolean pageFlag = false;
@@ -286,7 +286,7 @@ public class OutlineTabbedPane
         tabbedPane.removeAll();
         tabbedPane.addTab(null, PageIcon, null);
         tabbedPane.addTab(null, ThumblainsIcon, null);
-        tabbedPane.addTab(null, CommentsIcon, null);
+        tabbedPane.addTab(null, null, null);
 
     }
 
@@ -295,7 +295,7 @@ public class OutlineTabbedPane
         djvubean.properties.setProperty("navpane", "Outline");
         tabbedPane.addTab(null, PageIcon, PagePane);
         tabbedPane.addTab(null, ThumblainsIcon, ThumblainsScrollPane);
-        tabbedPane.addTab(null, CommentsIcon, CommentPane);
+        tabbedPane.addTab(null, null, CommentPane);
     }
 
     public JPanel GettopPanel() {

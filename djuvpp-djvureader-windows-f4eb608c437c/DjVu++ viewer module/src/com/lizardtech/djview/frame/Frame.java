@@ -129,12 +129,8 @@ public final class Frame extends JFrame implements AppletStub {
         };
 
         try {
-
             documentBase = (new File(System.getProperties().getProperty("user.dir", "/"), "/index.djvu")).toURL();
-
-        } catch (final MalformedURLException ignored) {
-
-        }
+        } catch (final MalformedURLException ignored) {        }
 
         setURL(url);
 
@@ -164,7 +160,6 @@ public final class Frame extends JFrame implements AppletStub {
      * @return null.
      */
     public URL getDocumentBase() {
-
         return documentBase;
     }
 

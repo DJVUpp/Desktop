@@ -129,6 +129,7 @@ public class CreateThumbnails implements ListCellRenderer {
         int bGreen = (int) ((b & 0x0000FF00) >>> 8);    // Green level
         int bBlue = (int) (b & 0x000000FF);            // Blue level
 
+        
         double distance = Math.sqrt((aAlpha - bAlpha) * (aAlpha - bAlpha)
                 + (aRed - bRed) * (aRed - bRed)
                 + (aGreen - bGreen) * (aGreen - bGreen)
@@ -143,6 +144,8 @@ public class CreateThumbnails implements ListCellRenderer {
 
     // TODO: check the resolution (size in memory) of the image.
     // TODO: Documentation.
+    // TODO: not use it in showing the actucal book pages in "FullBookView".
+    
     public static BufferedImage generateThumbnail(final int pageNumber, final int width, final int height)
             throws IOException {
         final DjVuPage[] page = {document.getPage(pageNumber, DjVuPage.MAX_PRIORITY, true)};

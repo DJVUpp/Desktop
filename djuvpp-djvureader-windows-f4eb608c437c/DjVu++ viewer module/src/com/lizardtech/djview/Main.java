@@ -1,7 +1,5 @@
 package com.lizardtech.djview;
 
-import com.lizardtech.djview.frame.Frame;
-
 import java.awt.FileDialog;
 import java.awt.Toolkit;
 import java.io.File;
@@ -10,6 +8,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
+
+import com.lizardtech.djview.frame.Frame;
+import com.lizardtech.djvu.DjVuOptions;
 
 /**
  * This class is a Main class to test the module functionality
@@ -24,7 +25,7 @@ public class Main extends JFrame {
 	 * Creates new form Main
 	 */
 	public Main() {
-		// DjVuOptions.err = System.err;
+		 DjVuOptions.err = System.err;
 
 		try {
 			opendialog();
