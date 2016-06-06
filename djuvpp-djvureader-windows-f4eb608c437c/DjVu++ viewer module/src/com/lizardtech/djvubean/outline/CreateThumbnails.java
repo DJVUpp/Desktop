@@ -1,12 +1,12 @@
 package com.lizardtech.djvubean.outline;
 
-import com.lizardtech.djvu.DjVuOptions;
 import com.lizardtech.djvu.DjVuPage;
 import com.lizardtech.djvu.Document;
 import com.lizardtech.djvubean.DjVuImage;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import javax.swing.ImageIcon;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -129,7 +129,6 @@ public class CreateThumbnails implements ListCellRenderer {
         int bGreen = (int) ((b & 0x0000FF00) >>> 8);    // Green level
         int bBlue = (int) (b & 0x000000FF);            // Blue level
 
-        
         double distance = Math.sqrt((aAlpha - bAlpha) * (aAlpha - bAlpha)
                 + (aRed - bRed) * (aRed - bRed)
                 + (aGreen - bGreen) * (aGreen - bGreen)
@@ -145,7 +144,6 @@ public class CreateThumbnails implements ListCellRenderer {
     // TODO: check the resolution (size in memory) of the image.
     // TODO: Documentation.
     // TODO: not use it in showing the actucal book pages in "FullBookView".
-    
     public static BufferedImage generateThumbnail(final int pageNumber, final int width, final int height)
             throws IOException {
         final DjVuPage[] page = {document.getPage(pageNumber, DjVuPage.MAX_PRIORITY, true)};
@@ -160,6 +158,27 @@ public class CreateThumbnails implements ListCellRenderer {
         graphics.drawImage(awtImage, 0, 0, null);
 
         return bimg;
-
     }
+
+    public static JPanel generateJPanelThumbnail(final int pageNumber, final int WIDTH, final int HEIGHT) throws IOException {
+        JLabel tempLabel;
+        tempLabel = new JLabel("" + (pageNumber + 1));
+        tempLabel.setHorizontalTextPosition(JLabel.CENTER);
+        tempLabel.setVerticalTextPosition(JLabel.BOTTOM);
+
+        BufferedImage img;
+        ImageIcon tempImgIcn;
+        img = generateThumbnail(pageNumber, WIDTH, HEIGHT);
+        tempImgIcn = new ImageIcon(img);
+
+        // add the images to jlabels with text
+//        tempLabel.setIcon(combosed_image(tempImgIcn, Braker));
+        // create the corresponding panels 
+        JPanel tempPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        tempPanel.add(tempLabel);
+        tempPanel.add(tempLabel);
+
+        return tempPanel;
+    }
+
 }
