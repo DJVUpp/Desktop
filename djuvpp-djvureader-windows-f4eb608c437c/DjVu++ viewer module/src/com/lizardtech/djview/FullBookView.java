@@ -5,8 +5,6 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -22,7 +20,6 @@ import javax.swing.ScrollPaneConstants;
 import com.lizardtech.djview.frame.Frame;
 import com.lizardtech.djvubean.DjVuBean;
 import com.lizardtech.djvubean.outline.CreateThumbnails;
-import java.awt.event.MouseListener;
 
 // NOTE: rotation was available in previous versions.
 public class FullBookView extends JPanel {
@@ -74,11 +71,13 @@ public class FullBookView extends JPanel {
 
         // tell the ThumblainsList to use the panel array for its data
         ThumblainsList.setModel(pages);
+
+        // NOTE: this listener is the listener when you click the page.
 //        ThumblainsList.addMouseListener(new MouseAdapter() {
 //            @Override
 //            public void mouseClicked(MouseEvent e) {
 //
-//                // TODO: revisite next statement.
+        // TODO: revisit next statement.
 //                djvubean.setPage(djvubean.getPage());
 //                
 //                if (e.getClickCount() == 1) {
@@ -96,7 +95,6 @@ public class FullBookView extends JPanel {
 //                }
 //            }
 //        });
-
         ThumblainsList.setCellRenderer(new com.lizardtech.djview.ImageListCellRenderer(PAGE_WIDHT, PAGE_WIDHT));
 
         ThumblainsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
