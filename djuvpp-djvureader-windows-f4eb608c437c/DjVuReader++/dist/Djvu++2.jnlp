@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Djvu++2.jnlp">
+  <information>
+    <title>Djvu++2</title>
+    <vendor>Sameh</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Djvu++2.jar" size="1767596" download="eager" />
+    <jar href="lib/DjVu___viewer_module.jar" size="1183475" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Djvu++2" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="src.RibbonMenu.DjvuMain"  name="Djvu++2" />
+  <update check="always"/>
+</jnlp>

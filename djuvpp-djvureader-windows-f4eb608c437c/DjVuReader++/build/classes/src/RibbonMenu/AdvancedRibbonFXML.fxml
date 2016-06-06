@@ -1,0 +1,903 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import src.Ribbon?>
+<?import src.RibbonTab?>
+<?import src.RibbonGroup?>
+<?import src.Column?>
+<?import javafx.collections.*?>
+<?import src.RibbonItem?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import src.QuickAccessBar?>
+
+
+
+<BorderPane id="BorderPane" maxHeight="710"  minHeight="200" prefHeight="720" prefWidth="1400"
+            styleClass="background" xmlns:fx="http://javafx.com/fxml" fx:controller="src.RibbonMenu.DjvuComponents">
+
+
+    <top>
+        <Ribbon maxHeight="175">
+
+
+
+            <tabs >
+
+
+
+                <RibbonTab text="Home"  >
+                    <ribbonGroups >
+                        <RibbonGroup title="Tools">
+                            <nodes>
+
+                                <Button fx:id="hand" onAction="#handClick" contentDisplay="TOP" text="_Hand" wrapText="true" styleClass="big">
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/hand.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button contentDisplay="TOP" text="_Select  Text" wrapText="true" styleClass="big">
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/textselect48.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                                <Button contentDisplay="TOP" text="    _Select  Annotation" wrapText="true" maxWidth="80">
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/select-annotation48.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Column>
+                                    <Button  onAction="#handClick" contentDisplay="left" text="_SnapShot" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/snap-shot48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <RibbonItem style="-fx-end-margin: 10em">
+                                        <item >
+
+                                            <ComboBox fx:id="myCombobox"></ComboBox>
+                                        </item>
+                                    </RibbonItem>
+                                </Column>
+
+
+                            </nodes>
+                        </RibbonGroup>
+                        <RibbonGroup title="View">
+                            <nodes>
+                                <Button contentDisplay="TOP" text="_Actual Size" wrapText="true" styleClass="big">
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/actual size48.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Column >
+
+                                    <Button contentDisplay="left" text="_Fit Page" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/fit page48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button contentDisplay="left" text="_Fit Width" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/fit width48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button contentDisplay="left" text="_Fit Visible" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/fit visible48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </Column>
+                                <Column>
+                                    <HBox>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/zoom out48.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+
+
+                                        <ComboBox >
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                    <String fx:value="Radians" />
+                                                    <String fx:value="Degrees" />
+                                                </FXCollections>
+                                            </items>
+                                        </ComboBox>
+
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/zoom in48.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                    </HBox>
+                                    <Button contentDisplay="left" text="_Rotate Left" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/rotate left48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button contentDisplay="left" text="_Rotate Right" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/rotate right48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+
+
+                                </Column>
+
+
+                            </nodes>
+                        </RibbonGroup>
+                        <RibbonGroup title="Comment">
+                            <nodes>
+                                <Button contentDisplay="TOP" text="_Type Writer" wrapText="true" styleClass="big">
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/type writer48.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button contentDisplay="TOP" text="_Note" wrapText="true" styleClass="big">
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/notes48.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Column >
+                                    <Button contentDisplay="left" text="_Highlight" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/highlight48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button contentDisplay="left" text="_Strikeout" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/strike out48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button contentDisplay="left" text="_Underline" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/underline48.png"/>
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </Column>
+                            </nodes>
+                        </RibbonGroup>
+                        <RibbonGroup title="Create">
+                            <nodes>
+                                <Button contentDisplay="TOP" text="_From File" wrapText="true" styleClass="big">
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/from file48.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button contentDisplay="TOP" text="_Blank" wrapText="true" styleClass="big">
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/Blank48.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                                <Button contentDisplay="TOP" text="    _From Clipboard" wrapText="true" maxWidth="90">
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/from clipboard48.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                            </nodes>
+                        </RibbonGroup>
+                    </ribbonGroups>
+                </RibbonTab>
+                <RibbonTab text="Comment">
+                    <ribbonGroups>
+
+                        <RibbonGroup title="Tools">
+                            <nodes>
+                                <Column>
+                                    <Button contentDisplay="left" text="_Hand" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/hand16.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+
+                                    <ComboBox>
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="Radians" />
+                                                <String fx:value="Degrees" />
+                                            </FXCollections>
+                                        </items>
+                                    </ComboBox>
+
+                                    <ComboBox>
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="Radians" />
+                                                <String fx:value="Degrees" />
+                                            </FXCollections>
+                                        </items>
+                                    </ComboBox>
+
+                                </Column>
+
+                            </nodes>
+                        </RibbonGroup >
+                        <RibbonGroup title="Text Markup">
+                            <nodes>
+                                <Column>
+
+                                    <Button>
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/highlight48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button>
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/strike out48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+
+                                </Column>
+                                <Column>
+                                    <Button>
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/underline248.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button>
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/replace text.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+
+                                </Column>
+                                <Column>
+                                    <Button>
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/underline48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button>
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/insert text.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+
+                                </Column>
+
+
+                            </nodes>
+                        </RibbonGroup>
+                        <RibbonGroup title="Typewriter">
+                            <nodes>
+                                <Button contentDisplay="TOP" text="_Note" wrapText="true" styleClass="big">
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/notes48.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+
+
+                                <Button contentDisplay="TOP" text="_Type Writer" wrapText="true" styleClass="big">
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/type writer48.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                                <Column>
+                                    <Button contentDisplay="left" text="_Callout" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/callout48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button contentDisplay="left" text="_Textbox" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/textbox48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+
+                                </Column>
+
+                            </nodes>
+                        </RibbonGroup>
+                        <RibbonGroup title="Drawing">
+                            <nodes>
+                                <Column>
+                                    <Button >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/rectangle48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button>
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/oval48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button>
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/polygon48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+
+
+                                </Column>
+                                <Column>
+                                    <Button>
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/arrow48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button>
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/line48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+
+                                </Column>
+
+                                <Column>
+                                    <Button contentDisplay="left" text="_Pencil" wrapText="true" minWidth="80"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/pencil48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button contentDisplay="left" text="_Eraser" wrapText="true" minWidth="80"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/eraser48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+
+                                </Column>
+                                <Button contentDisplay="TOP" text="_Area Highlight" wrapText="true" minWidth="100"  >
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/areaHighlight48.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+
+
+
+                            </nodes>
+                        </RibbonGroup>
+                    </ribbonGroups>
+
+
+                </RibbonTab>
+                <RibbonTab text="View">
+                    <ribbonGroups>
+                        <RibbonGroup title="Tools">
+                            <nodes>
+                                <Column>
+                                    <Button contentDisplay="left" text="_Hand" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/hand16.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+
+                                    <ComboBox>
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="Radians" />
+                                                <String fx:value="Degrees" />
+                                            </FXCollections>
+                                        </items>
+                                    </ComboBox>
+
+                                    <ComboBox>
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="Radians" />
+                                                <String fx:value="Degrees" />
+                                            </FXCollections>
+                                        </items>
+                                    </ComboBox>
+
+                                </Column>
+                            </nodes>
+                        </RibbonGroup>
+                        <RibbonGroup title="Go To">
+                            <nodes>
+                                <Column>
+                                    <HBox>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/FirstPage.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/prev.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <TextField id="sam" maxWidth="80">
+
+
+
+                                        </TextField>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/next.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/LastPage.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+
+
+                                    </HBox>
+                                    <HBox>
+                                        <Button contentDisplay="left" text="_Previous View" wrapText="true" minWidth="100"  >
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/previous view48.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+
+                                    </HBox>
+                                    <HBox>
+                                        <Button contentDisplay="left" text="_Next View" wrapText="true" minWidth="100"  >
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/next view48.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                    </HBox>
+                                </Column>
+                            </nodes>
+                        </RibbonGroup>
+                        <RibbonGroup title="Page Display">
+                            <nodes>
+                                <Column>
+                                    <Button contentDisplay="left" text="_Rotate Left" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/rotate left48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button contentDisplay="left" text="_Rotate Right" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/rotate right48.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </Column>
+                                <Column>
+                                    <Button contentDisplay="left" text="_Single" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/single page24.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+
+                                    <Button contentDisplay="left" text="_Facing" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/facing24.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button contentDisplay="left" text="_Continuous" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/continous24.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                </Column>
+                            </nodes>
+                        </RibbonGroup>
+                        <RibbonGroup title="View Settings">
+                            <nodes>
+                                <fx:define>
+                                    <ToggleGroup fx:id="statusBar"/>
+                                </fx:define>
+                                <Column>
+                                    <RadioButton text="Show Status Bar" toggleGroup="$statusBar" selected="true"/>
+                                    <RadioButton text="Hide Status Bar" toggleGroup="$statusBar"/>
+                                    <RadioButton text="Auto-hide Status Bar" toggleGroup="$statusBar"/>
+
+                                </Column>
+                                <Column>
+                                    <CheckBox text="Show App Menu Button" selected="true"/>
+                                    <CheckBox text="Show Task Bar" selected="true"/>
+                                </Column>
+
+                            </nodes>
+                        </RibbonGroup>
+                    </ribbonGroups>
+                </RibbonTab>
+                <RibbonTab text="Convert">
+                    <ribbonGroups>
+                        <RibbonGroup title="Tools">
+                            <nodes>
+                                <Column>
+                                    <Button contentDisplay="left" text="_Hand" wrapText="true" minWidth="100"  >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/hand16.png" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+
+                                    <ComboBox>
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="Radians" />
+                                                <String fx:value="Degrees" />
+                                            </FXCollections>
+                                        </items>
+                                    </ComboBox>
+
+                                    <ComboBox>
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="Radians" />
+                                                <String fx:value="Degrees" />
+                                            </FXCollections>
+                                        </items>
+                                    </ComboBox>
+                                </Column>
+                            </nodes>
+                        </RibbonGroup>
+                        <RibbonGroup title="Create">
+                            <nodes>
+                                <Button contentDisplay="TOP" text="_From File" wrapText="true" styleClass="big">
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/from file48.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button contentDisplay="TOP" text="_Blank" wrapText="true" styleClass="big">
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/Blank48.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                                <Button contentDisplay="TOP" text="    _From Clipboard" wrapText="true" maxWidth="90">
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/from clipboard48.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+
+                            </nodes>
+                        </RibbonGroup>
+                        <RibbonGroup title="Convert">
+                            <nodes>
+                                <Column>
+                                    <HBox>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/PDFtoDJ 48.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/PDF toImgs 48.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+
+                                    </HBox>
+                                </Column>
+                                <Column>
+                                    <HBox>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/DjVu to P 48.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/DjVu to P 48.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+
+                                    </HBox>
+                                </Column>
+                                <Column>
+                                    <HBox>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/image toPDF 48.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/image toDJVU 48.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+
+                                    </HBox>
+                                </Column>
+                            </nodes>
+
+                        </RibbonGroup>
+                        <RibbonGroup title="Ocr">
+                            <nodes>
+                                <Column>
+                                    <HBox>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/ocr arabic48.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button>
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/ocr english48.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+
+                                    </HBox>
+                                </Column>
+                            </nodes>
+
+                        </RibbonGroup>
+                    </ribbonGroups>
+                </RibbonTab>
+
+
+            </tabs>
+        </Ribbon>
+
+
+
+
+
+    </top>
+
+<!--
+<BorderPane>
+<top>
+
+    <Button fx:id="file" text="File" onAction="#handClick" styleClass="fileBtn" ></Button>
+
+</top>
+</BorderPane>
+-->
+</BorderPane>

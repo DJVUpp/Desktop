@@ -1,0 +1,13 @@
+May 14, 2016 6:32:47 AM javafx.scene.control.Control loadSkinClass
+SEVERE: Failed to load skin 'jfxtras.styles.jmetro8.MetroTextFieldSkin' for control TextField[id=sam, styleClass=text-input text-field]
+java.lang.NullPointerException
+
+
+
+
+if you run this project on netbens you will find this exception that is not related to the code as i run it in intellj ide
+there is no errors
+
+
+*** the main class called DjvuMain
+
