@@ -11,11 +11,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javafx.collections.ModifiableObservableListBase;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.embed.swing.SwingNode;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javax.swing.JPanel;
 
 /**
  * A custom observable list to store the book pages in it the

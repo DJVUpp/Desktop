@@ -144,7 +144,7 @@ public class DjvuMain extends Application {
 
         BookObservableList<ImageView> pagesData = new BookObservableList<>(PAGE_WIDTH, PAGE_HEIGHT);
         pages.setItems(pagesData);
-//        outline.setFixedCellSize(PAGE_HEIGHT + 4);
+//        outline.setFixedCellSize(PAGE_HEIGHT);
     }
 
     public static void main(String[] args) {
