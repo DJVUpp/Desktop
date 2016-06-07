@@ -8,8 +8,8 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Djvu++2.jar" size="1768508" download="eager" />
-    <jar href="lib/DjVu___viewer_module.jar" size="1183474" download="eager" />
+    <jar href="Djvu++2.jar" size="1769797" download="eager" />
+    <jar href="lib/DjVu___viewer_module.jar" size="1183914" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Djvu++2" >
     <param name="requiredFXVersion" value="8.0+"/>

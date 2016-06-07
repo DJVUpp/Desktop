@@ -1,8 +1,6 @@
 package src.RibbonMenu;
 
-import static com.lizardtech.djview.FullBookView.PagesCount;
 import com.lizardtech.djview.frame.Frame;
-import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.Toolkit;
 import java.io.File;
@@ -16,16 +14,10 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingNode;
 import javafx.geometry.Pos;
-import javax.swing.DefaultListModel;
+import javafx.scene.image.ImageView;
 import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
 /**
  * Created by pedro_000 on 1/6/2015.
@@ -35,6 +27,11 @@ public class DjvuMain extends Application {
     private Frame contentFrame;
     private ListView outline;
     private ListView pages;
+    private final int OUTLINE_FIXED_CELL_SIZE = 220;
+    private final int OUTLINE_WIDTH = 125;
+    private final int OUTLINE_HEIGHT = 170;
+    private final int PAGE_WIDTH = 720;
+    private final int PAGE_HEIGHT = 770;
 
     /* private final  com.pixelduke.javafx.ribbon.RibbonMenu.com.lizardtech.djvubean.RibbonMenu.DjvuComponents Band = new com.pixelduke.javafx.ribbon.RibbonMenu.com.lizardtech.djvubean.RibbonMenu.DjvuComponents();
      public static final HashMap<String, com.pixelduke.javafx.ribbon.RibbonMenu.com.lizardtech.djvubean.DjVuBean> beanMap = new HashMap<String, com.pixelduke.javafx.ribbon.RibbonMenu.com.lizardtech.djvubean.DjVuBean>(); // TODO: remove static
@@ -80,120 +77,10 @@ public class DjvuMain extends Application {
         // Then add this BorderPane to the tab after arrange its content as i do
         BorderPane view = new BorderPane();
 
-//        initOutlineView();
-//        initPagesView();
-        // testing layouts  ----------
-        final SwingNode swingNode = new SwingNode();
-        JPanel contentPanel = new JPanel();
-        contentPanel.add(contentFrame.getContentPane());
-        contentFrame.setPreferredSize(new Dimension(2000, 500));
-        contentPanel.setPreferredSize(new Dimension(2000, 500));
-//        swingNode.setContent(contentPanel);
-
-        JList<String> ThumblainsList;
-        JScrollPane ThumblainsScrollPane;
-        ThumblainsList = new JList();
-        ThumblainsScrollPane = new JScrollPane(ThumblainsList, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        DefaultListModel<String> pages;
-
-        pages = new DefaultListModel<>();
-        pages.setSize(PagesCount);
-        ThumblainsList.setModel(pages);
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-        pages.addElement("osama");
-
-        swingNode.setContent(ThumblainsList);
-
-        ScrollPane rScrollPane = new ScrollPane(swingNode);
-
-        view.setCenter(swingNode);
-        // ---------------------------
-
-//        view.setLeft(outline);
-//        view.setCenter(pages);
+        initOutlineView();
+        initPagesView();
+        view.setLeft(outline);
+        view.setCenter(pages);
         //  pane.getChildren().add(swingNode); // Adding swing node
         root.getChildren()
                 .addAll(editorRoot);
@@ -204,8 +91,7 @@ public class DjvuMain extends Application {
                 .add(view);
         viewTab.setContent(tabs);
 
-        viewTab.setText(
-                "Hola");
+        viewTab.setText("Hola");
 
         t.getTabs()
                 .addAll(viewTab);
@@ -241,14 +127,13 @@ public class DjvuMain extends Application {
      * Initialize the outline listView and creates the view Renderer.
      */
     private void initOutlineView() {
-        ObservableList<String> names = FXCollections.observableArrayList(
-                "Julia", "Ian", "Sue", "Matthew", "Hannah", "Stephan", "Denise", "1");
-        outline = new ListView<String>();
-        outline.setItems(names);
+        BookObservableList<ImageView> outlineData = new BookObservableList<>(OUTLINE_WIDTH, OUTLINE_HEIGHT);
 
-        // to get height Automatic
-//        outline.setFitToHeight(true);
-        outline.setMinWidth(200);
+        outline = new ListView<>();
+        outline.setItems(outlineData);
+//        outline.setFixedCellSize(OUTLINE_HEIGHT + 2);
+
+        outline.setMinWidth(OUTLINE_WIDTH);
     }
 
     /**
@@ -256,6 +141,10 @@ public class DjvuMain extends Application {
      */
     private void initPagesView() {
         pages = new ListView();
+
+        BookObservableList<ImageView> pagesData = new BookObservableList<>(PAGE_WIDTH, PAGE_HEIGHT);
+        pages.setItems(pagesData);
+//        outline.setFixedCellSize(PAGE_HEIGHT + 4);
     }
 
     public static void main(String[] args) {
