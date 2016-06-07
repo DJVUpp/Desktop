@@ -1,7 +1,7 @@
 package src.RibbonMenu;
 
+import static com.lizardtech.djview.FullBookView.PagesCount;
 import com.lizardtech.djview.frame.Frame;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.Toolkit;
@@ -14,13 +14,18 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-//import org.scenicview.ScenicView;
 
 import java.net.URL;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingNode;
 import javafx.geometry.Pos;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 /**
  * Created by pedro_000 on 1/6/2015.
@@ -28,6 +33,8 @@ import javax.swing.JPanel;
 public class DjvuMain extends Application {
 
     private Frame contentFrame;
+    private ListView outline;
+    private ListView pages;
 
     /* private final  com.pixelduke.javafx.ribbon.RibbonMenu.com.lizardtech.djvubean.RibbonMenu.DjvuComponents Band = new com.pixelduke.javafx.ribbon.RibbonMenu.com.lizardtech.djvubean.RibbonMenu.DjvuComponents();
      public static final HashMap<String, com.pixelduke.javafx.ribbon.RibbonMenu.com.lizardtech.djvubean.DjVuBean> beanMap = new HashMap<String, com.pixelduke.javafx.ribbon.RibbonMenu.com.lizardtech.djvubean.DjVuBean>(); // TODO: remove static
@@ -45,16 +52,9 @@ public class DjvuMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        // init the book to open
+        opendialog();
 
-        /*
-         FXMLLoader primaryLoader = new FXMLLoader(getClass().getResource("primary.fxml"));
-         Parent textAreaHolder = (Parent) primaryLoader.load();
-         FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("second.fxml"));
-         Parent textAreaUser = (Parent) secondaryLoader.load();
-         FXMLPrimaryController primaryController = (FXMLPrimaryController) textAreaHolder.getController();
-         FXMLsecondController secondController = (FXMLsecondController) textAreaUser.getController();
-         secondController.textProperty().bind(primaryController.textProperty())
-         */
         URL resource = getClass().getResource(RESOURCE);
         BorderPane root = FXMLLoader.load(resource);
 
@@ -70,140 +70,193 @@ public class DjvuMain extends Application {
         barr.getMenus().addAll(file);
         editorRoot.getChildren().add(barr);
 
-        final SwingNode swingNode = new SwingNode();
         // create tabPane
         TabPane t = new TabPane();
-        final StackPane tabes = new StackPane();
-        /*
-         *  StackPane tabB_stack = new StackPane();
-         tabB_stack.setAlignment(Pos.CENTER);
-         tabB_stack.getChildren().add(new Label("Label@Tab B"));
-         tabB.setContent(tabB_stack);
-         tabPane.getTabs().add(tabB);
-         Tab tabB = new Tab();
-         * */
+        final StackPane tabs = new StackPane();
+
         Tab viewTab = new Tab();
 
-        opendialog();
-
-        JPanel contentPanel = new JPanel();
-
-//        System.out.println("OUT ---------------> " + viewTab.getContent().getBoundsInLocal());
-//        System.out.println("OUT ---------------> " + primaryStage.getmin);
-//        contentPanel.setBackground(Color.red);
-        swingNode.setContent(contentPanel);
-
-      //  Pane pane = new Pane();
-  // BorderPane to add the two ScrollPanes to it
+        // BorderPane to add the two ScrollPanes to it
         // Then add this BorderPane to the tab after arrange its content as i do
         BorderPane view = new BorderPane();
-        // hBox this ex for any thing you wanto to add to the ScrollPane
-        // ex:-http://stackoverflow.com/questions/28037818/how-to-add-a-scrollbar-in-javafx
-        // Left ScrollPane
+
+//        initOutlineView();
+//        initPagesView();
+        // testing layouts  ----------
+        final SwingNode swingNode = new SwingNode();
+        JPanel contentPanel = new JPanel();
         contentPanel.add(contentFrame.getContentPane());
-        contentFrame.setPreferredSize(new Dimension(1400, 500));
-        contentPanel.setPreferredSize(new Dimension(1400, 500));
+        contentFrame.setPreferredSize(new Dimension(2000, 500));
+        contentPanel.setPreferredSize(new Dimension(2000, 500));
+//        swingNode.setContent(contentPanel);
 
-        
-        ScrollPane lScrollPane = new ScrollPane();
-        
-        // i try to add swingNode as we did to test but it does not work
-        // you can try an other way now you have the boderPane contanins the two l&r scrollPanes 
-        // then that borderPane called view added to the tab now evey thing ok
-        //it works on Netbeans without any exceptions except the one we have before related to javaFx 
+        JList<String> ThumblainsList;
+        JScrollPane ThumblainsScrollPane;
+        ThumblainsList = new JList();
+        ThumblainsScrollPane = new JScrollPane(ThumblainsList, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        DefaultListModel<String> pages;
+
+        pages = new DefaultListModel<>();
+        pages.setSize(PagesCount);
+        ThumblainsList.setModel(pages);
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+        pages.addElement("osama");
+
+        swingNode.setContent(ThumblainsList);
+
         ScrollPane rScrollPane = new ScrollPane(swingNode);
-        // to get height Automatic
-        lScrollPane.setFitToHeight(true);
-        lScrollPane.setMinWidth(200);
 
-        view.setLeft(lScrollPane);
+        view.setCenter(swingNode);
+        // ---------------------------
 
-
-        // set center to take the reast ot the layout so we can take only 200 for lScrollPane width the for the rScrollPane
-        // it wil take the reast Automatically
-        rScrollPane.setFitToHeight(true);
-        rScrollPane.setFitToWidth(true);
-
-        view.setCenter(rScrollPane);
-        
-      //  pane.getChildren().add(swingNode); // Adding swing node
-        root.getChildren().addAll(editorRoot);
+//        view.setLeft(outline);
+//        view.setCenter(pages);
+        //  pane.getChildren().add(swingNode); // Adding swing node
+        root.getChildren()
+                .addAll(editorRoot);
         // Add pane to the tab
-        tabes.setAlignment(Pos.CENTER);
-        tabes.getChildren().add(view);
-        viewTab.setContent(tabes);
-        viewTab.setText("Hola");
-        
-        t.getTabs().addAll(viewTab);
+        tabs.setAlignment(Pos.CENTER);
+
+        tabs.getChildren()
+                .add(view);
+        viewTab.setContent(tabs);
+
+        viewTab.setText(
+                "Hola");
+
+        t.getTabs()
+                .addAll(viewTab);
         root.setCenter(t);
        // root.getChildren().addAll(pane);
 
         // root.setCenter(swingNode);
         Scene scene = new Scene(root);
         URL url = this.getClass().getResource("../resource/fxribbon.css");
-        if (url == null) {
+        if (url
+                == null) {
             System.out.println("Resource not found. Aborting.");
             System.exit(-1);
         }
         String css = url.toExternalForm();
-        scene.getStylesheets().add(css);
+
+        scene.getStylesheets()
+                .add(css);
         URL url2 = this.getClass().getResource("../resource/fxribbon.css");
 
         // ScenicView.show(scene);
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("Djvuicon.png")));
-        primaryStage.setTitle("Djvu++");
+        primaryStage.getIcons()
+                .add(new Image(getClass().getResourceAsStream("Djvuicon.png")));
+        primaryStage.setTitle(
+                "Djvu++");
         primaryStage.setScene(scene);
+
         primaryStage.show();
 
-
     }
-    /* private void opendialog() throws IOException {
 
-     FileDialog fd = new FileDialog(this, "open djvu file", FileDialog.LOAD);
-     fd.setMultipleMode(true);
-     fd.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/djvuNewIcon.png")));
-     fd.show();
-     if (fd.getDirectory() != null) {
-     File files[] = fd.getFiles();
-     for (File file : files) {
+    /**
+     * Initialize the outline listView and creates the view Renderer.
+     */
+    private void initOutlineView() {
+        ObservableList<String> names = FXCollections.observableArrayList(
+                "Julia", "Ian", "Sue", "Matthew", "Hannah", "Stephan", "Denise", "1");
+        outline = new ListView<String>();
+        outline.setItems(names);
 
-     String url;
-     url = "" + file.toURI().toURL();
-     url = url.substring(5, url.length());
-     String name = file.getName();
-     name_url.put(name, url);
-     url_name.put(url, name);
-     bookList.add(url);
-     openBookInNewTab(url, name);
+        // to get height Automatic
+//        outline.setFitToHeight(true);
+        outline.setMinWidth(200);
+    }
 
-     }
-
-     }
-
-     }
-
-     public void openBookInNewTab(final String url, String name) {
-
-     //SwingUtilities.invokeLater(new Runnable() {
-     //  @Override
-     //public void run() {
-     name = url_name.get(url);
-     name_url.put(name, url.substring(1));
-     url_name.put(url.substring(1), name);
-     bookList.add(url.substring(1));
-
-     com.lizardtech.djview.frame.Frame f = new com.lizardtech.djview.frame.Frame(url);
-     f.setVisible(true);
-     f.setSize(700, 900);
-     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-     //        Container pane = f.getContentPane();
-     //        tabbedPane.add(name, pane);
-     //        tabbedPane.setSelectedComponent(pane);
-     //        String tabName = tabbedPane.getTitleAt(tabbedPane.getSelectedIndex());
-     //        if (!tabName.equals("GetStart")) {
-     Band.setbean(beanMap.entrySet().iterator().next().getValue());
-
-     }*/
+    /**
+     * Initialize the pages listView and creates the view Renderer.
+     */
+    private void initPagesView() {
+        pages = new ListView();
+    }
 
     public static void main(String[] args) {
         launch(args);
