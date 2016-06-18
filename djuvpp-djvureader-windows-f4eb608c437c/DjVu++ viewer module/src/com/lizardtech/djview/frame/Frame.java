@@ -33,6 +33,7 @@ public final class Frame extends JFrame implements AppletStub {
     private static final String classAppletName = "com.lizardtech.djview.Applet";
     public static Document document;
     public JPanel CardPanel;
+    private Applet applet;
 
     static {
 
@@ -233,11 +234,13 @@ public final class Frame extends JFrame implements AppletStub {
                     applet.setStub(this);
                     applet.init();
 
-                    Thumbpanel = new OutlineTabbedPane(Bean, this);
                     component = applet;
+                    this.applet = applet;
+                    Thumbpanel = new OutlineTabbedPane(Bean, this);
                     CardPanel = new JPanel(new CardLayout());
 
-                    FullBook = new FullBookView(Bean, this, CardPanel);
+                    // NOTE: comment the following line to make the applet default.
+//                    FullBook = new FullBookView(Bean, this, CardPanel);
                     com.lizardtech.djvubean.DjVuBean.frame = this;
                     isDjVu = ((Boolean) isValidDjVuMethod.invoke(applet, null)).booleanValue();
                 } catch (final Throwable exp) {
@@ -305,6 +308,10 @@ public final class Frame extends JFrame implements AppletStub {
         } else {
             return null;
         }
+    }
+    
+    public Applet getApplet(){
+    	return this.applet;
     }
 
 }

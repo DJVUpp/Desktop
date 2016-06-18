@@ -65,18 +65,23 @@ public class Main extends JFrame {
 
     public void openBookInNewTab(final String url, String name) {
         Frame f = new Frame(url);
-//        f.setVisible(true);
-//        f.setSize(700, 900);
-//        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // f.setVisible(true);
+        // f.setSize(700, 900);
+        // f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // =========================================================
         JFrame frame = new JFrame();
-        JPanel panel = new JPanel();
-        panel.add(new Button("button"));
+        // JPanel panel = new JPanel();
+        // panel.add(new Button("button"));
+        //
+        // // frame.add(f.getFullBook().ThumblainsScrollPane);
+        // frame.add(panel);
+        // frame.add(f.getContentPane());
 
-//        frame.add(f.getFullBook().ThumblainsScrollPane);
-        frame.add(panel);
-        frame.add(f.getContentPane());
-        
+        // frame.add(f.getApplet());
+        // f.Bean.setPage(10);
+        frame.add(f.Bean);
+
         frame.setVisible(true);
         frame.setSize(700, 900);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

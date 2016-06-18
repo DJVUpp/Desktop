@@ -1054,27 +1054,27 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
             }
         }
 
-        if (page == 1) {
-            frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().setValue(0);
-        } else if (page == frame.FullBook.PagesCount) {
-            frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().setValue(frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().getMaximum());
-        } else {
-            frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().setValue((int) (frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().getMaximum() / frame.FullBook.PagesCount) * (page - 1));
-        }
-
-        if (page == 1) {
-            frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().setValue(0);
-        } else if (page == frame.FullBook.PagesCount) {
-            frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().setValue(frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().getMaximum());
-        } else {
-            frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().setValue((int) (frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().getMaximum() / frame.FullBook.PagesCount) * (page - 1));
-        }
-
-        if (frame.FullBook.Continous) {
-            frame.FullBook.Switch_FullBookView(true);
-        } else {
-            frame.FullBook.Switch_FullBookView(false);
-        }
+//        if (page == 1) {
+//            frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().setValue(0);
+//        } else if (page == frame.FullBook.PagesCount) {
+//            frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().setValue(frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().getMaximum());
+//        } else {
+//            frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().setValue((int) (frame.Thumbpanel.ThumblainsScrollPane.getVerticalScrollBar().getMaximum() / frame.FullBook.PagesCount) * (page - 1));
+//        }
+//
+//        if (page == 1) {
+//            frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().setValue(0);
+//        } else if (page == frame.FullBook.PagesCount) {
+//            frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().setValue(frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().getMaximum());
+//        } else {
+//            frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().setValue((int) (frame.FullBook.ThumblainsScrollPane.getVerticalScrollBar().getMaximum() / frame.FullBook.PagesCount) * (page - 1));
+//        }
+//
+//        if (frame.FullBook.Continous) {
+//            frame.FullBook.Switch_FullBookView(true);
+//        } else {
+//            frame.FullBook.Switch_FullBookView(false);
+//        }
     }
 
 //  /**
