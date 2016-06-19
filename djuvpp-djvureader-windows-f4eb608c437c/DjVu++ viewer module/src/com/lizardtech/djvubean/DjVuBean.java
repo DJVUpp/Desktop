@@ -48,24 +48,30 @@ package com.lizardtech.djvubean;
 import com.lizardtech.djvu.*;
 import java.awt.*;
 import java.awt.event.*;
+import static java.awt.image.ImageObserver.ALLBITS;
+import static java.awt.image.ImageObserver.FRAMEBITS;
+import static java.awt.image.ImageObserver.SOMEBITS;
 import java.beans.*;
 import java.io.IOException;
 import java.lang.reflect.*;
 import java.net.URL;
 import java.util.*;
+import javax.swing.JPanel;
 
 /**
- * This Panel is designed for rendering a DjVuImage. Since normally a DjVuImage requires too much
- * memory to render at full resolution, this panel should be added to either a JScrollPane or a
- * ScrollPane. The borders of that pane will be used to automatically segment the DjVuImage, to
- * avoid excessive memory usage.
+ * This Panel is designed for rendering a DjVuImage. Since normally a DjVuImage
+ * requires too much memory to render at full resolution, this panel should be
+ * added to either a JScrollPane or a ScrollPane. The borders of that pane will
+ * be used to automatically segment the DjVuImage, to avoid excessive memory
+ * usage.
  *
  * @author $author$
  * @version $Revision: 1.43 $
  */
-public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInterface, java.io.Serializable, Runnable {
-  //~ Static fields/initializers ---------------------------------------------
+public class DjVuBean extends JPanel implements PropertyChangeListener, DjVuInterface, java.io.Serializable, Runnable {
+    // NOTE: Made DjVuBean extends "JPanel" for testing purposes.
 
+    //~ Static fields/initializers ---------------------------------------------
     // Just an empty string. 
     private static final String NILL = "";
 
@@ -318,8 +324,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     private String status = null;
 
     /**
-     * Properties which may be used to initialize addOn's, and to pass extra values between
-     * add-on's.
+     * Properties which may be used to initialize addOn's, and to pass extra
+     * values between add-on's.
      */
     public final Properties properties;
 
@@ -451,19 +457,19 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     public DjVuBean() {
         properties
                 = new Properties() {
-                    public Object put(
-                            final Object name,
-                            final Object value) {
-                                Object retval = getProperty((String) name);
+            public Object put(
+                    final Object name,
+                    final Object value) {
+                Object retval = getProperty((String) name);
 
-                                if (!value.equals(retval)) {
-                                    retval = super.put(name, (String) value);
-                                    setPropertyName((String) name);
-                                }
+                if (!value.equals(retval)) {
+                    retval = super.put(name, (String) value);
+                    setPropertyName((String) name);
+                }
 
-                                return retval;
-                            }
-                };
+                return retval;
+            }
+        };
         change = new PropertyChangeSupport(this);
         textArea.setEditable(false);
         setMode(PAN_MODE);
@@ -493,17 +499,21 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     /**
      * Sets the background color of this component.
      *
-     * @param color The color to become the components background color. If null the component will
-     * inherit the background color of its parent.
+     * @param color The color to become the components background color. If null
+     * the component will inherit the background color of its parent.
      */
+    @Override
     public void setBackground(final Color color) {
-        textArea.setBackground(color);
+        if (textArea != null) {
+            textArea.setBackground(color);
+        }
         super.setBackground(color);
     }
 
     /**
-     * Query the current caret index used for text searches. -1 may be used to reset to the first
-     * visible page for forward searches and the last visible page for backward searches.
+     * Query the current caret index used for text searches. -1 may be used to
+     * reset to the first visible page for forward searches and the last visible
+     * page for backward searches.
      *
      * @return the current search index.
      */
@@ -512,9 +522,9 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Query the current caret position used for text searches. -1 may be used to reset to the
-     * beginning of the document for forward searches and the end of the document for backward
-     * searches.
+     * Query the current caret position used for text searches. -1 may be used
+     * to reset to the beginning of the document for forward searches and the
+     * end of the document for backward searches.
      *
      * @return the current search position.
      */
@@ -559,7 +569,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Query the number of pages to show at once. Currently only the values of 1 or 2 are supported.
+     * Query the number of pages to show at once. Currently only the values of 1
+     * or 2 are supported.
      *
      * @return number of pages to display.
      */
@@ -568,7 +579,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Query the page offset. Use a value of 1 to start bookmode on an even page number.
+     * Query the page offset. Use a value of 1 to start bookmode on an even page
+     * number.
      *
      * @return offset
      */
@@ -750,8 +762,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Set the layout from the specified String or Number. This method fires a "pagelayout"
-     * PropertyChangeEvent.
+     * Set the layout from the specified String or Number. This method fires a
+     * "pagelayout" PropertyChangeEvent.
      *
      * @param layout object containing either a layout number or layout string.
      */
@@ -775,7 +787,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Set the layout value. This method fires a "pagelayout" PropertyChangeEvent.
+     * Set the layout value. This method fires a "pagelayout"
+     * PropertyChangeEvent.
      *
      * @param layout value to use
      */
@@ -796,8 +809,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Set the display mode from the specified String or Number. This method fires a "mode"
-     * PropertyChangeEvent.
+     * Set the display mode from the specified String or Number. This method
+     * fires a "mode" PropertyChangeEvent.
      *
      * @param mode object containing eithe a mode number or mode string.
      */
@@ -823,10 +836,10 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Used to set the mouselistener for PAN_MODE (panning), or ZOOM_MODE (zoom selection). Other
-     * values such as TEXT_MODE may be used to indicate no internal mouse listener (except for the
-     * mouse over hyperlink listener) should be used. This method fires a "mode"
-     * PropertyChangeEvent.
+     * Used to set the mouselistener for PAN_MODE (panning), or ZOOM_MODE (zoom
+     * selection). Other values such as TEXT_MODE may be used to indicate no
+     * internal mouse listener (except for the mouse over hyperlink listener)
+     * should be used. This method fires a "mode" PropertyChangeEvent.
      *
      * @param mode the new mouse listening mode.
      */
@@ -988,7 +1001,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Return the current layout. May be SINGLE_PAGE_LAYOUT, BOOK_PAGE_LAYOUT, or COVEP_LAYOUT.
+     * Return the current layout. May be SINGLE_PAGE_LAYOUT, BOOK_PAGE_LAYOUT,
+     * or COVEP_LAYOUT.
      *
      * @return the current layout.
      */
@@ -1006,8 +1020,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Browse to the specified page number, starting with page 1. This method fires a "page"
-     * PropertyChangeEvent.
+     * Browse to the specified page number, starting with page 1. This method
+     * fires a "page" PropertyChangeEvent.
      *
      * @param page new page number to browse to.
      */
@@ -1127,9 +1141,10 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Browse to the specified page number, starting with page 1. Special values of FIRST_PAGE,
-     * PREV_PAGE, NEXT_PAGE, and LAST_PAGE will be checked prior to converting the string to an
-     * integer. This method fires a "page" PropertyChangeEvent.
+     * Browse to the specified page number, starting with page 1. Special values
+     * of FIRST_PAGE, PREV_PAGE, NEXT_PAGE, and LAST_PAGE will be checked prior
+     * to converting the string to an integer. This method fires a "page"
+     * PropertyChangeEvent.
      *
      * @param page new page number to browse to.
      */
@@ -1184,8 +1199,9 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Set the current search mask. A special value of -1 may be used to fire a property change
-     * event with the currrent value. This method fires a "searchMask" PropertyChangeEvent.
+     * Set the current search mask. A special value of -1 may be used to fire a
+     * property change event with the currrent value. This method fires a
+     * "searchMask" PropertyChangeEvent.
      *
      * @param mask consisting of search options.
      */
@@ -1287,8 +1303,9 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Set the text used for searching. Setting the text to a non-null value will reset the
-     * caretPosition and selectionList. This method fires a "searchText" PropertyChangeEvent.
+     * Set the text used for searching. Setting the text to a non-null value
+     * will reset the caretPosition and selectionList. This method fires a
+     * "searchText" PropertyChangeEvent.
      *
      * @param searchText text to use in the next search.
      */
@@ -1313,7 +1330,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Set the selected rectangle of the region. This may be used with the zoomSelect() method.
+     * Set the selected rectangle of the region. This may be used with the
+     * zoomSelect() method.
      *
      * @param select the currently selected rectangle.
      */
@@ -1368,8 +1386,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Called to generate a PropertyChangeEvent to tell the monitor load a new URL. This method
-     * fires a "submit" PropertyChangeEvent.
+     * Called to generate a PropertyChangeEvent to tell the monitor load a new
+     * URL. This method fires a "submit" PropertyChangeEvent.
      *
      * @param link a anno.Rect, URL, or String to indicate the link to load.
      */
@@ -1378,8 +1396,9 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Obtain a TextArea appropriate for displaying the hidden text layer. This is mainly intended
-     * for cut and paste support. Any edits will be lost when navigating to a new page.
+     * Obtain a TextArea appropriate for displaying the hidden text layer. This
+     * is mainly intended for cut and paste support. Any edits will be lost when
+     * navigating to a new page.
      *
      * @return represents the hidden text layer.
      */
@@ -1388,8 +1407,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Query the runnable object used for searching. This will be null if the the search add-on is
-     * not available.
+     * Query the runnable object used for searching. This will be null if the
+     * the search add-on is not available.
      *
      * @return the runnable object.
      */
@@ -1467,8 +1486,9 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Set the current caret index, used for text searches. -1 may be used to reset to the first
-     * visible page for forward searches and the the last visible page for backward searches.
+     * Set the current caret index, used for text searches. -1 may be used to
+     * reset to the first visible page for forward searches and the the last
+     * visible page for backward searches.
      *
      * @param caretIndex the new caret index.
      */
@@ -1479,9 +1499,9 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Set the current caret position, used for text searches. -1 may be used to reset to the
-     * beginning of the document for forward searches and the end of the document for backward
-     * searches.
+     * Set the current caret position, used for text searches. -1 may be used to
+     * reset to the beginning of the document for forward searches and the end
+     * of the document for backward searches.
      *
      * @param caretPosition the new caret position.
      */
@@ -1554,8 +1574,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Automatically called to indicated the specified property value has been changed. This method
-     * fires a "propertyName" PropertyChangeEvent.
+     * Automatically called to indicated the specified property value has been
+     * changed. This method fires a "propertyName" PropertyChangeEvent.
      *
      * @param name the name of the property which has changed.
      */
@@ -1609,9 +1629,9 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Sets the target width for toolbar type components. Typically this is set by the containing
-     * Applet, or when the toolbar is resized. This method fires a "TargetWidth"
-     * PropertyChangeEvent.
+     * Sets the target width for toolbar type components. Typically this is set
+     * by the containing Applet, or when the toolbar is resized. This method
+     * fires a "TargetWidth" PropertyChangeEvent.
      *
      * @param width to use for the toolbar layout.
      */
@@ -1652,8 +1672,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Query the current DjVuText Codec. Use a maxWait of 0L if you wish to wait until either text
-     * is available or decoding is complete.
+     * Query the current DjVuText Codec. Use a maxWait of 0L if you wish to wait
+     * until either text is available or decoding is complete.
      *
      * @param index to query
      * @param maxWait the maximum time to wait in milliseconds.
@@ -1666,8 +1686,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Query the current DjVuText Codec. Use a maxWait of 0L if you wish to wait until either text
-     * is available or decoding is complete.
+     * Query the current DjVuText Codec. Use a maxWait of 0L if you wish to wait
+     * until either text is available or decoding is complete.
      *
      * @param maxWait the maximum time to wait in milliseconds.
      *
@@ -1732,9 +1752,10 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     public static int nscale;
 
     /**
-     * Scale the current zoom to either a value specified in the ZOOM_SPECIAL_LIST, or a number
-     * followed by percent sign. i.e. setZoom("125%"). This method calls setZoom which fires a
-     * "zoom" PropertyChangeEvent.
+     * Scale the current zoom to either a value specified in the
+     * ZOOM_SPECIAL_LIST, or a number followed by percent sign. i.e.
+     * setZoom("125%"). This method calls setZoom which fires a "zoom"
+     * PropertyChangeEvent.
      *
      * @param zoom The zoom factor to scale to.
      */
@@ -1824,8 +1845,9 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Called to query the current Zoom setting. This will either be a value from the
-     * ZOOM_SPECIAL_LIST, or the current scale factor appended with a percent sign.
+     * Called to query the current Zoom setting. This will either be a value
+     * from the ZOOM_SPECIAL_LIST, or the current scale factor appended with a
+     * percent sign.
      *
      * @return current zoom setting.
      */
@@ -1853,8 +1875,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * This overloaded ImageObserver method ignores image updates until a full frame is available.
-     * Then refresh is called to display the new pixels.
+     * This overloaded ImageObserver method ignores image updates until a full
+     * frame is available. Then refresh is called to display the new pixels.
      *
      * @param image Updated image
      * @param infoflags Flags indicating the new data available.
@@ -1885,8 +1907,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Called when a property has been changed. This is used to monitor progressive decodes for
-     * text.
+     * Called when a property has been changed. This is used to monitor
+     * progressive decodes for text.
      *
      * @param event indicates the changed property.
      */
@@ -1941,9 +1963,9 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Convert a string to a boolean using a case insensative comparison. "yes" and "true" will be
-     * recognized as true. "no" and "false" will be recognized as false. Anything else will be
-     * return the default value.
+     * Convert a string to a boolean using a case insensative comparison. "yes"
+     * and "true" will be recognized as true. "no" and "false" will be
+     * recognized as false. Anything else will be return the default value.
      *
      * @param value string to convert.
      * @param retval default value to return.
@@ -1968,9 +1990,9 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * This is used to create additional objects, like the TextFinder, toolbars and outline
-     * navigation. In general an add-on may be any class with a constructor which accepts the single
-     * argument of this DjVuBean.
+     * This is used to create additional objects, like the TextFinder, toolbars
+     * and outline navigation. In general an add-on may be any class with a
+     * constructor which accepts the single argument of this DjVuBean.
      *
      * @param name class name of the add-on.
      *
@@ -2162,8 +2184,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Used to specify a rectangle in document coordinates to repaint. This is usually used for
-     * highlighting search results.
+     * Used to specify a rectangle in document coordinates to repaint. This is
+     * usually used for highlighting search results.
      *
      * @param bounds Rectangle to highlight.
      */
@@ -2310,7 +2332,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
 //        setSelect(null);
 //    }
     /**
-     * Set the image to display. This method fires a "image" PropertyChangeEvent.
+     * Set the image to display. This method fires a "image"
+     * PropertyChangeEvent.
      *
      * @param image to display.
      */
@@ -2523,7 +2546,8 @@ public class DjVuBean extends Panel implements PropertyChangeListener, DjVuInter
     }
 
     /**
-     * Change the current zoom value. This method fires a "zoom" PropertyChangeEvent.
+     * Change the current zoom value. This method fires a "zoom"
+     * PropertyChangeEvent.
      *
      * @param zoom to scale to.
      */

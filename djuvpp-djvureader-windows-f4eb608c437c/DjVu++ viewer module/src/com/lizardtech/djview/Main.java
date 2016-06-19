@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import com.lizardtech.djview.frame.Frame;
 import com.lizardtech.djvu.DjVuOptions;
 import java.awt.Button;
+import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JPanel;
 
 /**
@@ -80,6 +82,10 @@ public class Main extends JFrame {
 
         // frame.add(f.getApplet());
         // f.Bean.setPage(10);
+//        JFrame contentPanel = new JFrame();
+//        contentPanel.add(f.Bean);
+//        frame.add(contentPanel.getContentPane());
+//      --------------------------------------------
         frame.add(f.Bean);
 
         frame.setVisible(true);
