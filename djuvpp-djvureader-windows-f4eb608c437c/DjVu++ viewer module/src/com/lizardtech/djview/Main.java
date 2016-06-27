@@ -11,10 +11,6 @@ import javax.swing.JFrame;
 
 import com.lizardtech.djview.frame.Frame;
 import com.lizardtech.djvu.DjVuOptions;
-import java.awt.Button;
-import java.awt.CardLayout;
-import java.awt.Component;
-import javax.swing.JPanel;
 
 /**
  * This class is a Main class to test the module functionality
