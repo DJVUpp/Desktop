@@ -14,6 +14,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import javafx.embed.swing.SwingNode;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
 import javax.swing.JFrame;
@@ -22,7 +23,7 @@ import javax.swing.JFrame;
  * Created by pedro_000 on 1/6/2015.
  */
 public class DjvuMain extends Application {
-
+    
     private Frame contentFrame;
     private ListView outline;
     private ListView pages;
@@ -38,22 +39,22 @@ public class DjvuMain extends Application {
      private Map<String, String> name_url = new ConcurrentHashMap<String, String>();
      private Map<String, String> url_name = new ConcurrentHashMap<String, String>();*/
     static final String RESOURCE = "AdvancedRibbonFXML.fxml";
-
+    
     MenuBar barr = new MenuBar();
     Menu file = new Menu("File");
     MenuItem itemNew = new MenuItem("New            ");
     MenuItem itemSave = new MenuItem("Save          ");
     MenuItem itemSaveAs = new MenuItem("Save As     ");
     MenuItem itemClose = new MenuItem("Close        ");
-
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
         // init the book to open
         opendialog();
-
+        
         URL resource = getClass().getResource(RESOURCE);
         BorderPane root = FXMLLoader.load(resource);
-
+        
         AnchorPane editorRoot = new AnchorPane();
         // file.setText("File");
         barr.setStyle("-fx-background-color: #fff;");
@@ -69,13 +70,13 @@ public class DjvuMain extends Application {
         // create tabPane
         TabPane t = new TabPane();
         final StackPane tabs = new StackPane();
-
+        
         Tab viewTab = new Tab();
 
         // BorderPane to add the two ScrollPanes to it
         // Then add this BorderPane to the tab after arrange its content as i do
         BorderPane view = new BorderPane();
-
+        
         initOutlineView();
         initPagesView();
         view.setLeft(outline);
@@ -85,19 +86,21 @@ public class DjvuMain extends Application {
                 .addAll(editorRoot);
         // Add pane to the tab
         tabs.setAlignment(Pos.CENTER);
-
+        
         tabs.getChildren()
                 .add(view);
         viewTab.setContent(tabs);
-
+        
         viewTab.setText("Hola");
+        
+        t.getTabs().addAll(viewTab);
+        
+        SwingNode swingNode = new SwingNode();
+        swingNode.setContent(contentFrame.Bean);
+        
+//        root.setCenter(t);
+         root.setCenter(swingNode);
 
-        t.getTabs()
-                .addAll(viewTab);
-        root.setCenter(t);
-       // root.getChildren().addAll(pane);
-
-        // root.setCenter(swingNode);
         Scene scene = new Scene(root);
         URL url = this.getClass().getResource("../resource/fxribbon.css");
         if (url
@@ -106,7 +109,7 @@ public class DjvuMain extends Application {
             System.exit(-1);
         }
         String css = url.toExternalForm();
-
+        
         scene.getStylesheets()
                 .add(css);
         URL url2 = this.getClass().getResource("../resource/fxribbon.css");
@@ -117,9 +120,9 @@ public class DjvuMain extends Application {
         primaryStage.setTitle(
                 "Djvu++");
         primaryStage.setScene(scene);
-
+        
         primaryStage.show();
-
+        
     }
 
     /**
@@ -127,7 +130,7 @@ public class DjvuMain extends Application {
      */
     private void initOutlineView() {
         BookObservableList<ImageView> outlineData = new BookObservableList<>(OUTLINE_WIDTH, OUTLINE_HEIGHT);
-
+        
         outline = new ListView<>();
         outline.setItems(outlineData);
 //        outline.setFixedCellSize(OUTLINE_HEIGHT + 2);
@@ -140,18 +143,18 @@ public class DjvuMain extends Application {
      */
     private void initPagesView() {
         pages = new ListView();
-
+        
         BookObservableList<ImageView> pagesData = new BookObservableList<>(PAGE_WIDTH, PAGE_HEIGHT);
         pages.setItems(pagesData);
 //        outline.setFixedCellSize(PAGE_HEIGHT);
     }
-
+    
     public static void main(String[] args) {
         launch(args);
     }
-
+    
     private void opendialog() throws IOException {
-
+        
         FileDialog fd = new FileDialog(new JFrame(), "open djvu file", FileDialog.LOAD);
         fd.setMultipleMode(true);
         fd.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/djvuNewIcon.png")));
@@ -169,7 +172,7 @@ public class DjvuMain extends Application {
             }
         }
     }
-
+    
     public void openBookInNewTab(final String url, String name) {
         this.contentFrame = new Frame(url);
     }
