@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 
 import com.lizardtech.djview.frame.Frame;
 import com.lizardtech.djvu.DjVuOptions;
+import javafx.embed.swing.SwingNode;
 
 /**
  * This class is a Main class to test the module functionality
@@ -64,31 +65,31 @@ public class Main extends JFrame {
 
 	public void openBookInNewTab(final String url, String name) {
 		Frame f = new Frame(url);
-        // f.setVisible(true);
-        // f.setSize(700, 900);
-        // f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// f.setVisible(true);
+		// f.setSize(700, 900);
+		// f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // =========================================================
-
+		// =========================================================
 		JFrame frame = new JFrame();
-        // JPanel panel = new JPanel();
-        // panel.add(new Button("button"));
-        //
-        // // frame.add(f.getFullBook().ThumblainsScrollPane);
-        // frame.add(panel);
-        // frame.add(f.getContentPane());
-		
-        // frame.add(f.getApplet());
-        // f.Bean.setPage(10);
-//        JFrame contentPanel = new JFrame();
-//        contentPanel.add(f.Bean);
-//        frame.add(contentPanel.getContentPane());
-//      --------------------------------------------
-        frame.add(f.Bean);
+		// JPanel panel = new JPanel();
+		// panel.add(new Button("button"));
+		//
+		// // frame.add(f.getFullBook().ThumblainsScrollPane);
+		// frame.add(panel);
+		// frame.add(f.getContentPane());
 
-        frame.setVisible(true);
-        frame.setSize(700, 900);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
+		// frame.add(f.getApplet());
+		// f.Bean.setPage(10);
+		// JFrame contentPanel = new JFrame();
+		// contentPanel.add(f.Bean);
+		// frame.add(contentPanel.getContentPane());
+		// --------------------------------------------
+		frame.add(f.Bean);
+		f.Bean.setPage(10);
+
+		frame.setVisible(true);
+		frame.setSize(700, 900);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
 
 }
