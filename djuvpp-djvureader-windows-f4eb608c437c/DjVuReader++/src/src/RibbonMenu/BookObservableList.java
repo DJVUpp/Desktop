@@ -5,14 +5,9 @@
  */
 package src.RibbonMenu;
 
-import static com.lizardtech.djview.FullBookView.PagesCount;
-import com.lizardtech.djvubean.outline.CreateThumbnails;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import com.lizardtech.djvubean.DjVuBean;
 import javafx.collections.ModifiableObservableListBase;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
+import javafx.embed.swing.SwingNode;
 
 /**
  * A custom observable list to store the book pages in it the
@@ -22,15 +17,15 @@ import javafx.scene.image.WritableImage;
  */
 public class BookObservableList<T> extends ModifiableObservableListBase<T> {
 
-    private DefaultPage defaultElement;     // the dafault value to return if 
-    private final int WIDTH;
-    private final int HEIGHT;
+    private DjVuBean djvuBean;
 
-    public BookObservableList(int width, int height) {
-        WIDTH = width;
-        HEIGHT = height;
-
-        // TODO: init default page
+    public BookObservableList(DjVuBean djVuBean) {
+        this.djvuBean = djVuBean;
+        
+        if (this.djvuBean == null) {
+            System.err.println(" ----------------------------------------------> NULL DjVuBean !!");
+            System.exit(0);
+        }
     }
 
     @Override
@@ -41,29 +36,17 @@ public class BookObservableList<T> extends ModifiableObservableListBase<T> {
     @Override
     public T get(int index) {
         System.out.println("getting element at: " + index);
-        //        if (list.get(index) == null) {
-//            return defaultElement;
-//        }
-//
-//        return list.get(index);
-//        CreateThumbnails.generateThumbnail(index, WIDTH, HEIGHT);
-        BufferedImage BImg = null;
+        SwingNode swingNode = new SwingNode();
+        this.djvuBean.setPage(index);
+        swingNode.setContent(this.djvuBean);
 
-        try {
-            BImg = CreateThumbnails.generateThumbnail(index, WIDTH, HEIGHT);
-        } catch (IOException ex) {
-        }
-
-        WritableImage image = SwingFXUtils.toFXImage(BImg, null);
-        ImageView imgview = new ImageView(image);
-
-        return (T) imgview;
+        return (T) swingNode;
     }
 
     @Override
     public int size() {
         // TODO: return the book pages number.
-        return PagesCount;
+        return 10;
     }
 
     @Override

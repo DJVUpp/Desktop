@@ -4,22 +4,10 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-/modules/DjVu++ Viewer module/nbproject/private/
-/modules/djuvpp-djvureader-windows-f4eb608c437c/DjVuReader++/build/
-/modules/djuvpp-djvureader-windows-f4eb608c437c/DjVuReader++/dist/
-/modules/djuvpp-djvureader-windows-f4eb608c437c/DjVuReader++/nbproject/private/
-/modules/Viewer module/DjVuReader++/build/
-/modules/Viewer module/DjVuReader++/dist/
-/modules/Viewer module/DjVuReader++/nbproject/private/
-/modules/Viewer module/DjVu++ viewer module/dist/
-/modules/Viewer module/DjVu++ viewer module/build/
-/modules/Viewer module/DjVu++ viewer module/nbproject/private/
 
 # documents
 /docs

@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import java.net.URL;
 import javafx.embed.swing.SwingNode;
 import javafx.geometry.Pos;
-import javafx.scene.image.ImageView;
 import javax.swing.JFrame;
 
 /**
@@ -77,8 +76,8 @@ public class DjvuMain extends Application {
         // Then add this BorderPane to the tab after arrange its content as i do
         BorderPane view = new BorderPane();
         
-        initOutlineView();
         initPagesView();
+        initOutlineView();
         view.setLeft(outline);
         view.setCenter(pages);
         //  pane.getChildren().add(swingNode); // Adding swing node
@@ -98,8 +97,8 @@ public class DjvuMain extends Application {
         SwingNode swingNode = new SwingNode();
         swingNode.setContent(contentFrame.Bean);
         
-//        root.setCenter(t);
-         root.setCenter(swingNode);
+        root.setCenter(t);
+//         root.setCenter(swingNode);
 
         Scene scene = new Scene(root);
         URL url = this.getClass().getResource("../resource/fxribbon.css");
@@ -129,23 +128,29 @@ public class DjvuMain extends Application {
      * Initialize the outline listView and creates the view Renderer.
      */
     private void initOutlineView() {
-        BookObservableList<ImageView> outlineData = new BookObservableList<>(OUTLINE_WIDTH, OUTLINE_HEIGHT);
-        
-        outline = new ListView<>();
-        outline.setItems(outlineData);
-//        outline.setFixedCellSize(OUTLINE_HEIGHT + 2);
-
-        outline.setMinWidth(OUTLINE_WIDTH);
+//        BookObservableList<ImageView> outlineData = new BookObservableList<>(OUTLINE_WIDTH, OUTLINE_HEIGHT);
+//
+//        outline = new ListView<>();
+//        outline.setItems(outlineData);
+////        outline.setFixedCellSize(OUTLINE_HEIGHT + 2);
+//
+//        outline.setMinWidth(OUTLINE_WIDTH);
     }
 
     /**
      * Initialize the pages listView and creates the view Renderer.
      */
     private void initPagesView() {
+        if (contentFrame.Bean == null) {
+            System.err.println(" ----------------------------------------------> NULL DjVuBean !!");
+            System.exit(0);
+        }
+        
         pages = new ListView();
         
-        BookObservableList<ImageView> pagesData = new BookObservableList<>(PAGE_WIDTH, PAGE_HEIGHT);
+        BookObservableList<SwingNode> pagesData = new BookObservableList<>(contentFrame.Bean);
         pages.setItems(pagesData);
+
 //        outline.setFixedCellSize(PAGE_HEIGHT);
     }
     

@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Djvu++2.jar" size="1769926" download="eager" />
+    <jar href="Djvu++2.jar" size="1769717" download="eager" />
     <jar href="lib/viewer_module.jar" size="1480974" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Djvu++2" >
