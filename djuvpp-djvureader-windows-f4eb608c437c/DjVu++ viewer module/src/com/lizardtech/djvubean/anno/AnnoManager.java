@@ -246,7 +246,7 @@ public class AnnoManager
   
   // This routine drows a line with the specified thickness an an optional arrow head.
   //
-  private void drawLine(Graphics g,int x0,int y0,int x1,int y1,int weight,boolean arrow)
+ private void drawLine(Graphics g,int x0,int y0,int x1,int y1,int weight,boolean arrow)
   {
     double dx=x1-x0;
     double dy=y1-y0;

@@ -71,6 +71,16 @@ public class DjVuImage
 
   /** A constant indicating the color blue. */
   public static Color BLACK = new Color(0, 0, 0);
+  
+  
+  /** A constant indicating the color YELLOW. */
+  public static Color YELLOW = new Color(255, 255, 0);
+  
+  /** A constant indicating the color red. */
+    public static Color red = new Color(249, 60, 60);
+    
+    /** A constant indicating the color cyan. */
+    public static Color cyan = new Color( 60,249, 233);
 
   /** Magic scale value used to zoom to fit width. */
   public static final int FIT_WIDTH = -1;
@@ -1256,6 +1266,106 @@ public class DjVuImage
       }
     }
   }
+  
+  
+  /** 
+   * Set the color as specified and then call g.fillRect.
+   *
+   * @param g Graphics item to use.
+   * @param color RGB color to use
+   * @param opacity Level of opacity from 0 to 100.
+   * @param xmin left edge
+   * @param ymin top edge
+   * @param xmax right edge
+   * @param ymax bottom edge
+   * @param number an number
+   */
+ 
+  public void fillRect(
+          final Graphics g,
+          int color,
+          int opacity,
+          final int xmin,
+          final int ymin,
+          final int xmax,
+          final int ymax,
+          int number)
+  {
+    if(g!= null)
+    {
+      switch(color)
+      {
+        case 0xFFFFFFFF:
+        {
+          break;
+        }
+        case XOR_HILITE:
+        {
+          if(!BROKEN_XOR && number==1)
+          {
+                
+             
+               g.setColor(DjVuImage.YELLOW);
+              // g.setXORMode(Color.WHITE);
+           
+          // g.fillRect(xmin,ymin+8,xmax,27);
+         
+ 
+          g.fill3DRect(xmin, ymin+8, xmax, 27, true);
+            break;
+          }
+          
+        else  if(!BROKEN_XOR && number==2)
+          {
+            g.setColor(DjVuImage.cyan);
+       //  g.setXORMode(DjVuImage.WHITE);
+           
+           g.fillRect(xmin,ymin,xmax,5);
+          
+           
+            break;
+          }
+          else  if(!BROKEN_XOR && number==3)
+          {
+            g.setColor(DjVuImage.red);
+      //      g.setXORMode(DjVuImage.WHITE);
+            g.fillRect(xmin,ymin,xmax,5);
+        
+            break;
+          }
+          
+          else  if(!BROKEN_XOR && number==4)
+          {
+            g.setColor(DjVuImage.BLUE);
+      //    g.setXORMode(DjVuImage.WHITE);
+            g.fillRect(xmin,ymin,xmax,5);
+          break;
+          }
+           else  if(!BROKEN_XOR && number==5)
+          {
+           g.setColor(DjVuImage.YELLOW);
+            g.setXORMode(DjVuImage.WHITE);
+           g.fillRect(xmin,ymin,xmax,ymax);
+          break;
+          }
+          
+          
+          color=0xffff00;
+        //  opacity=50;
+        }
+        default:
+        {
+        
+        }
+      }
+    }
+  }
+  
+  
+  
+  
+  
+  
   
 
 }

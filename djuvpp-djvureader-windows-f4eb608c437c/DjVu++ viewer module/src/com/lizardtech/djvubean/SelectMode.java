@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -115,6 +116,7 @@ public class SelectMode
                 w = j1;
                 djvuBean.setSelect(select);
                 last.setLocation(i, j);
+                JOptionPane.showMessageDialog(null, select);
             }
         }
     }

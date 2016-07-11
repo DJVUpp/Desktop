@@ -45,17 +45,31 @@
 //
 package com.lizardtech.djvubean;
 
+import com.lizardtech.djview.frame.Frame;
 import com.lizardtech.djvu.*;
+import static com.lizardtech.djvubean.DjVuImage.XOR_HILITE;
+import static com.lizardtech.djvubean.Markmode.xx;
+import static com.lizardtech.djvubean.Markmode.yy;
+import static com.lizardtech.djvubean.annotations.drawing;
+import static com.lizardtech.djvubean.annotations.markup;
+import static com.lizardtech.djvubean.annotations.popupnote;
+import com.lizardtech.djvubean.outline.CreateThumbnails;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import static java.awt.image.ImageObserver.ALLBITS;
 import static java.awt.image.ImageObserver.FRAMEBITS;
 import static java.awt.image.ImageObserver.SOMEBITS;
+import java.awt.image.RenderedImage;
 import java.beans.*;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.*;
 import java.net.URL;
 import java.util.*;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -74,6 +88,8 @@ public class DjVuBean extends JPanel implements PropertyChangeListener, DjVuInte
     //~ Static fields/initializers ---------------------------------------------
     // Just an empty string. 
     private static final String NILL = "";
+    // CURSOR ICON 
+    static Toolkit toolkit = Toolkit.getDefaultToolkit();
 
     /**
      * String used for scrolling up.
@@ -151,6 +167,11 @@ public class DjVuBean extends JPanel implements PropertyChangeListener, DjVuInte
     public static final int ZOOM_MODE = 3;
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static final int SELECT_MODE = 4;
+
+    /**
+     * Constant to switch to zoom mode.
+     */
+    public static final int Mark_MODE = 5;
 
     /**
      * String used for selecting 300% zoom.
@@ -391,6 +412,8 @@ public class DjVuBean extends JPanel implements PropertyChangeListener, DjVuInte
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private Number selmode = new Integer(SELECT_MODE);
 
+    private Number mmode = new Integer(Mark_MODE);
+
     // current display layout
     private Number pageLayout = new Integer(SINGLE_PAGE_LAYOUT);
 
@@ -449,6 +472,7 @@ public class DjVuBean extends JPanel implements PropertyChangeListener, DjVuInte
     public static int currview = 0;
 
     public static com.lizardtech.djview.frame.Frame frame;
+    private Frame Djvu;
 
     //~ Constructors -----------------------------------------------------------
     /**
@@ -457,19 +481,19 @@ public class DjVuBean extends JPanel implements PropertyChangeListener, DjVuInte
     public DjVuBean() {
         properties
                 = new Properties() {
-            public Object put(
-                    final Object name,
-                    final Object value) {
-                Object retval = getProperty((String) name);
+                    public Object put(
+                            final Object name,
+                            final Object value) {
+                                Object retval = getProperty((String) name);
 
-                if (!value.equals(retval)) {
-                    retval = super.put(name, (String) value);
-                    setPropertyName((String) name);
-                }
+                                if (!value.equals(retval)) {
+                                    retval = super.put(name, (String) value);
+                                    setPropertyName((String) name);
+                                }
 
-                return retval;
-            }
-        };
+                                return retval;
+                            }
+                };
         change = new PropertyChangeSupport(this);
         textArea.setEditable(false);
         setMode(PAN_MODE);
@@ -826,6 +850,8 @@ public class DjVuBean extends JPanel implements PropertyChangeListener, DjVuInte
                 setMode(TEXT_MODE);
             } else if ("selectText".equalsIgnoreCase((String) mode)) {
                 setMode(SELECT_MODE);
+            } else if ("Mark".equalsIgnoreCase((String) mode)) {
+                setMode(Mark_MODE);
             } else {
                 try {
                     setMode(Integer.parseInt((String) mode));
@@ -897,6 +923,22 @@ public class DjVuBean extends JPanel implements PropertyChangeListener, DjVuInte
 
                             break;
                         }
+
+                        case Mark_MODE: {
+                            if (!(mlistener instanceof Markmode)) {
+                                if (mlistener != null) {
+                                    removeMouseListener(mlistener);
+                                }
+
+                                mlistener = new Markmode(this);
+                                if (this.image != null) {
+                                    addMouseListener(mlistener);
+                                }
+                            }
+
+                            break;
+                        }
+
                         default: {
                             if (mlistener != null) {
                                 removeMouseListener(mlistener);
@@ -971,6 +1013,22 @@ public class DjVuBean extends JPanel implements PropertyChangeListener, DjVuInte
 
                             break;
                         }
+
+                        case Mark_MODE: {
+                            if (!(mlistener instanceof Markmode)) {
+                                if (mlistener != null) {
+                                    removeMouseListener(mlistener);
+                                }
+
+                                mlistener = new Markmode(this);
+                                if (this.image != null) {
+                                    addMouseListener(mlistener);
+                                }
+                            }
+
+                            break;
+                        }
+
                         default: {
                             if (mlistener != null) {
                                 removeMouseListener(mlistener);
@@ -1778,10 +1836,10 @@ public class DjVuBean extends JPanel implements PropertyChangeListener, DjVuInte
             } else if (DjVuBean.ZOOM_IN.equalsIgnoreCase(zoom)) {
                 final int scale
                         = (this.zoom <= 0)
-                                ? Math.min(
-                                        getXScale(),
-                                        getYScale())
-                                : this.zoom;
+                        ? Math.min(
+                                getXScale(),
+                                getYScale())
+                        : this.zoom;
 
                 if (scale >= 1051) {
                     nscale = 1200;
@@ -1807,10 +1865,10 @@ public class DjVuBean extends JPanel implements PropertyChangeListener, DjVuInte
             } else if (DjVuBean.ZOOM_OUT.equalsIgnoreCase(zoom)) {
                 final int scale
                         = (this.zoom <= 0)
-                                ? Math.max(
-                                        getXScale(),
-                                        getYScale())
-                                : this.zoom;
+                        ? Math.max(
+                                getXScale(),
+                                getYScale())
+                        : this.zoom;
 
                 if (scale < 60) {
                     nscale = 25;
@@ -2111,32 +2169,260 @@ public class DjVuBean extends JPanel implements PropertyChangeListener, DjVuInte
                     } catch (final Throwable exp) {
                     }
                     image.drawHighlight(g, useXOR);
-                }
 
-                final Rectangle select = getSelect();
+                    // for highlights                            
+                    if (markup == 1) {
 
-                if ((select.width > 1) && (select.height > 1)) {
-                    if (useXOR) {
-                        g.setXORMode(DjVuImage.WHITE);
-                        g.drawRect(select.x, select.y, select.width, select.height);
+                        setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+                        popupnote = 0;
+                        setMode(5);
+                        g.setXORMode(Color.white);
+                        image.fillRect(g, XOR_HILITE, 50, getSelect().x, getSelect().y, getSelect().width, getSelect().height, 1);
 
-                        if ((select.width > 3) && (select.height > 3)) {
+                    }
+
+                    // for underline                            
+                    if (markup == 2) {
+                        setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+                        popupnote = 0;
+                        setMode(5);
+
+                        image.fillRect(g, XOR_HILITE, 50, getSelect().x, getSelect().y, getSelect().width, getSelect().height, 2);
+                        g.setXORMode(Color.white);
+                    }
+
+                    // for strick                          
+                    if (markup == 3) {
+                        setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+                        popupnote = 0;
+                        setMode(5);
+                        image.fillRect(g, XOR_HILITE, 50, getSelect().x, getSelect().y, getSelect().width, getSelect().height, 3);
+                        g.setXORMode(Color.white);
+                    }
+
+                    // for replace                          
+                    if (markup == 4) {
+                        setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+                        setMode(5);
+                        popupnote = 1;
+                        image.fillRect(g, XOR_HILITE, 50, getSelect().x, getSelect().y, getSelect().width, getSelect().height, 3);
+                        g.setXORMode(Color.white);
+
+                    }
+
+                    // for insert 
+                    if (markup == 5) {
+                        setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+                        setMode(5);
+                        popupnote = 1;
+
+                    }
+
+                    // show note pic 
+                    if (popupnote == 1) {
+                        URL iconURL2 = getClass().getResource("/images/Comment48.png");
+                        ImageIcon icon2 = new ImageIcon(iconURL2);
+                        g.drawImage(icon2.getImage(), xx - 10, yy - 25, 30, 30, null);
+                    }
+
+                    //  for hand 
+                    if (markup == 6) {
+                        setMode(DjVuBean.PAN_MODE);
+                        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+                    }
+
+                    if (markup == 7) {
+                        Text txt = new Text();
+                        String s = getText();
+                        char letter = text.charAt(2);
+                        if ((letter >= 'a' && letter <= 'z') || (letter >= 'A' && letter <= 'Z')) {
+                            //english letter
+                            txt.showtext(s);
+                        } else if (s == "" || s == null) {
+                            JOptionPane.showMessageDialog(null, "There is no text in this page");
+                        } else {
+
+                            String arabic = txt.re(s);
+                            txt.write(arabic);
+                            txt.showtext(txt.read());
+                        }
+
+                        markup = 0;
+
+                    }
+
+                    if (markup == 8) {
+                        
+                  setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                  setMode(DjVuBean.ZOOM_MODE);
+                     
+                    }
+
+                    if (markup == 9) {
+                        setZoom(DjVuBean.ZOOM100);
+                    }
+
+                    if (markup == 10) {
+
+                        setZoom(DjVuBean.ZOOM_FIT_PAGE);
+
+                    }
+
+                    if (markup == 11) {
+                        setZoom(DjVuBean.ZOOM_FIT_WIDTH);
+                    }
+
+                    if (markup == 12) {
+                        setZoom("115%");
+                    }
+                    if (markup == 13) {
+                        setZoom(DjVuBean.ZOOM_IN);
+                    }
+
+                    if (markup == 14) {
+                        setZoom(DjVuBean.ZOOM_OUT);
+                    }
+
+                    if (markup == 15) {
+                        setZoom(DjVuBean.ZOOM25);
+                    }
+
+                    if (markup == 16) {
+                        setZoom(DjVuBean.ZOOM50);
+                    }
+
+                    if (markup == 17) {
+                        setZoom(DjVuBean.ZOOM75);
+                    }
+
+                    if (markup == 18) {
+                        setZoom(DjVuBean.ZOOM150);
+                    }
+
+                    if (markup == 19) {
+                        setZoom(DjVuBean.ZOOM200);
+                    }
+
+                    if (markup == 20) {
+                        setZoom(DjVuBean.ZOOM400);
+                    }
+
+                   
+
+                    if (markup == 21) {
+                        setZoom(DjVuBean.ZOOM600);
+                    }
+
+                    if (markup == 22) {
+                        setZoom(DjVuBean.ZOOM800);
+                    }
+                    
+                    if (markup==23)
+                    {
+                        snapshot();
+                        markup=0;
+                    }
+
+                    // drawing rectangle 
+                    if (drawing == 1) {
+                        setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+                        setMode(5);
+                        if ((getSelect().width > 1) && (getSelect().height > 1)) {
+                            if (useXOR) {
+                                g.setXORMode(DjVuImage.WHITE);
+                                g.drawRect(getSelect().x, getSelect().y, getSelect().width, getSelect().height);
+
+                                if ((getSelect().width > 3) && (getSelect().height > 3)) {
+                                    g.drawRect(
+                                            getSelect().x + 1,
+                                            getSelect().y + 1,
+                                            getSelect().width - 2,
+                                            getSelect().height - 2);
+
+                                }
+                            }
+
+                            g.setPaintMode();
+                            g.setColor(DjVuImage.BLUE);
                             g.drawRect(
-                                    select.x + 1,
-                                    select.y + 1,
-                                    select.width - 2,
-                                    select.height - 2);
+                                    getSelect().x - 1,
+                                    getSelect().y - 1,
+                                    getSelect().width + 2,
+                                    getSelect().height + 2);
+
                         }
                     }
 
-                    g.setPaintMode();
-                    g.setColor(DjVuImage.BLUE);
-                    g.drawRect(
-                            select.x - 1,
-                            select.y - 1,
-                            select.width + 2,
-                            select.height + 2);
+                    // draw oval
+                    if (drawing == 2) {
+
+                        setMode(5);
+                        setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+                        if ((getSelect().width > 1) && (getSelect().height > 1)) {
+                            if (useXOR) {
+                                g.setXORMode(DjVuImage.WHITE);
+                                g.drawOval(getSelect().x, getSelect().y, getSelect().width, getSelect().height);
+
+                                if ((getSelect().width > 3) && (getSelect().height > 3)) {
+                                    g.drawOval(
+                                            getSelect().x + 1,
+                                            getSelect().y + 1,
+                                            getSelect().width - 2,
+                                            getSelect().height - 2);
+                                }
+                            }
+
+                            g.setPaintMode();
+                            g.setColor(DjVuImage.BLUE);
+                            g.drawOval(
+                                    getSelect().x - 1,
+                                    getSelect().y - 1,
+                                    getSelect().width + 2,
+                                    getSelect().height + 2);
+                        }
+
+                    }
+
+                    // draw round rectangle
+                    if (drawing == 3) {
+                        setMode(5);
+                        setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+                        if ((getSelect().width > 1) && (getSelect().height > 1)) {
+                            if (useXOR) {
+                                g.setXORMode(DjVuImage.WHITE);
+                                g.drawRoundRect(getSelect().x, getSelect().y, getSelect().width, getSelect().height, 100, 30);
+
+                                if ((getSelect().width > 3) && (getSelect().height > 3)) {
+                                    g.drawRoundRect(
+                                            getSelect().x + 1,
+                                            getSelect().y + 1,
+                                            getSelect().width - 2,
+                                            getSelect().height - 2, 100, 30);
+                                }
+                            }
+
+                            g.setPaintMode();
+                            g.setColor(DjVuImage.BLUE);
+                            g.drawRoundRect(
+                                    getSelect().x - 1,
+                                    getSelect().y - 1,
+                                    getSelect().width + 2,
+                                    getSelect().height + 2, 100, 30);
+
+                        }
+
+                    }
+
+                    if (drawing == 4) {
+                        setMode(5);
+                        setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+                        image.fillRect(g, XOR_HILITE, 50, getSelect().x, getSelect().y, getSelect().width, getSelect().height, 4);
+                        g.setXORMode(Color.white);
+                    }
+
                 }
+
                 if (expsaved != null) {
                     throw expsaved;
                 }
@@ -2586,4 +2872,62 @@ public class DjVuBean extends JPanel implements PropertyChangeListener, DjVuInte
             }
         }
     }
+    
+    
+    
+     public Image getImageFromResource(String resource) {
+        Image image = null;
+        try {
+            toolkit = Toolkit.getDefaultToolkit();
+            System.err.println(resource.substring(1));
+            image = toolkit.getImage(DjVuBean.class.getClass().getResource(resource));
+            // Image image = new ImageIcon(getClass().getClassLoader().getResource(resource.substring(1))).getImage();
+
+        } catch (Exception e) {
+
+        }
+        return image;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public void snapshot()
+    {
+        String pa = null;
+                    try {
+                        if (!isDisplayable()) {
+                            while (true);
+                        }
+                        final Document document = new Document();
+                        document.read(getURL());
+                        System.err.println(getURL());
+                        BufferedImage img = CreateThumbnails.generateThumbnail(getPage() - 1,800,600);
+                        Image imge = img;
+                        FileDialog fd = new FileDialog(new java.awt.FileDialog(frame), "Save", FileDialog.SAVE);
+                        fd.show();
+                        pa = fd.getFile().contains(".png") ? fd.getFile() : fd.getFile() + ".png";
+                        File savePath = new File("" + fd.getDirectory() + pa);
+                        ImageIO.write((RenderedImage) imge, "png", savePath);
+                    } catch (final Exception exp) {
+                        if (pa == null) {
+                            JOptionPane.showMessageDialog(null, "Must Choose your Save Director");
+                        }
+                        exp.printStackTrace(DjVuOptions.err);
+                        System.gc();
+                    }
+    }
+
 }
