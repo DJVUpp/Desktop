@@ -1,48 +1,76 @@
 
-/*
-Menu Button
-*/
-/*.menu-button, .menu-button .menu-item, .menu-button .context-menu {
-    -fx-background-color: #28559c;
-}
-.menu-button .menu-item:hover {
-    -fx-background-color: #3b6bb7 ;
-}
-.menu-button .menu-item .label {
-    -fx-text-fill: white ;
-}
-.menu-button > .arrow-button {
-    -fx-background-color: white, #28559c ;
-    -fx-background-insets: 1, 3 ;
-    -fx-background-radius: 16, 16 ;
-    -fx-padding: 8 ;
-
-}
-.menu-button > .arrow-button > .arrow {
-    -fx-background-color: white ;
-    /*-fx-background-insets: 0, 2 ;
-    -fx-background-radius: 12, 12 ;*/
-   /* -fx-padding: 6 ;
-    -fx-shape: "M0 6 l-6 -6 l0 -2 l6 -6 l2 0 l-6 6 l12 0 l0 2 l-12 0 l6 6 z";
-
-}
-.menu-button > .arrow-button {
-    -fx-background-color: white, #cccccc, orange;
-    -fx-background-insets: 1, 3 ;
-    -fx-background-radius: 16, 16 ;
-    -fx-padding: 8 ;
-
-}*/
-.fileBtn{
+.file-btn{
     -fx-background-color: #337AB7;
     -fx-text-fill: white;
     -fx-border: none;
     -fx-min-width: 70;
 
+}
 
+/*Start page background image*/
+.pane {
+    -fx-background-image: url('images/startBack.JPG');
+}
 
+/*recently opened files background image */
+.recentFile{
+    -fx-background-image: url('images/recenetFiles.png');
+}
+.android-btn{
+    -fx-background-image: url('images/android-btn.JPG');
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center;
 
 }
+.an-logo{
+    -fx-background-image: url('images/an.png');
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center;
+}
+    /*task background image*/
+
+.t{
+    -fx-background-image: url('images/tasks.png');
+}
+.task{
+    -fx-background-image: url('taskBack.JPG');
+}
+
+.pdfToDjvu{
+    -fx-background-image: url('images/pdf-djvu.JPG');
+}
+.imageToPdf{
+    -fx-background-image: url('images/img-pdf.JPG');
+}
+.djvuToPdf{
+    -fx-background-image: url('images/djvu-pdf.JPG');
+}
+.pdfToImage{
+    -fx-background-image: url('images/pdf-img.JPG');
+}
+
+.imageToDjvu{
+    -fx-background-image: url('images/img-djvu.JPG');
+}
+
+.djvuToImage{
+    -fx-background-image: url('images/djvu-img.JPG');
+}
+
+
+
+/*when list view mouse hover on items*/
+.list-cell:filled:hover {
+    -fx-background-color: #0093ff;
+    -fx-text-fill: white;
+}
+
+.whiteBackground{
+    -fx-background-color: white;
+}
+
 .fileBtn .label{
     -fx-text-fill:white;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
@@ -64,6 +92,34 @@ Menu Button
     CONTROLS_ACCENT_COLOR: #0675c7;
     CONTROLS_DARK_COLOR: derive(CONTROLS_ACCENT_COLOR, -20%);
     CONTROLS_VERY_DARK_COLOR: derive(CONTROLS_ACCENT_COLOR, -40%);
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #0093ff;
+    -fx-text-fill: black;
+}
+
+
+.list-views {
+    -fx-padding: 3px ;
+    -fx-border-width: 0 2px 0 0;
+    -fx-border-color: #55c4fe;
+    -fx-font-size:16px;
+    -fx-background-color: #ffffff;
+}
+
+.list-cell {
+    -fx-padding: 5px ;
+    -fx-background-insets: 5px, 5px ;
+    -fx-background-color: #ffffff;
+    -fx-text-fill: black;
+}
+
+
+.list-cell:empty {
+    -fx-padding: 2px ;
+    -fx-background-color: transparent ;
+    -fx-background-insets: 0 ;
 }
 
 .label.font-awesome
@@ -1006,8 +1062,8 @@ Menu Button
  * TextField                                                                   *
  *                                                                             *
  ******************************************************************************/
-.text-field{
-    -fx-skin: "jfxtras.styles.jmetro8.MetroTextFieldSkin";
+.ribbon .text-field{
+   /* -fx-skin: "com.pixelduke.javafx.ribbon.skin.MetroTextFieldSkin";*/
 }
 
 .ribbon .text-input{

@@ -24,13 +24,12 @@
 <BorderPane id="BorderPane" maxHeight="710"  minHeight="200" prefHeight="720" prefWidth="1400"
             styleClass="background" xmlns:fx="http://javafx.com/fxml" fx:controller="src.RibbonMenu.DjvuComponents">
 
-
-    <top>
-        <Ribbon maxHeight="175">
-
+  <top>
+        <Ribbon maxHeight="157">
 
 
-            <tabs >
+
+            <tabs>
 
 
 
@@ -48,7 +47,7 @@
                                         </ImageView>
                                     </graphic>
                                 </Button>
-                                <Button contentDisplay="TOP" text="_Select  Text" wrapText="true" styleClass="big">
+                                <Button contentDisplay="TOP" text="_Select  Text" onAction="#textClick" wrapText="true" styleClass="big">
                                     <graphic>
                                         <ImageView>
                                             <image>
@@ -58,7 +57,7 @@
                                     </graphic>
                                 </Button>
 
-                                <Button contentDisplay="TOP" text="    _Select  Annotation" wrapText="true" maxWidth="80">
+                                <Button contentDisplay="TOP" text="_Zoom Area"  onAction="#zoomClick"   wrapText="true" maxWidth="80">
                                     <graphic>
                                         <ImageView>
                                             <image>
@@ -68,7 +67,7 @@
                                     </graphic>
                                 </Button>
                                 <Column>
-                                    <Button  onAction="#handClick" contentDisplay="left" text="_SnapShot" wrapText="true" minWidth="100"  >
+                                    <Button   contentDisplay="left" text="_SnapShot" onAction="#snapClick"  wrapText="true"  minWidth="100"  >
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -90,7 +89,7 @@
                         </RibbonGroup>
                         <RibbonGroup title="View">
                             <nodes>
-                                <Button contentDisplay="TOP" text="_Actual Size" wrapText="true" styleClass="big">
+                                <Button contentDisplay="TOP" text="_Actual Size"  onAction="#ActualClick" wrapText="true" styleClass="big">
                                     <graphic>
                                         <ImageView>
                                             <image>
@@ -101,7 +100,7 @@
                                 </Button>
                                 <Column >
 
-                                    <Button contentDisplay="left" text="_Fit Page" wrapText="true" minWidth="100"  >
+                                    <Button contentDisplay="left" text="_Fit Page" onAction="#fitpageClick" wrapText="true" minWidth="100"  >
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -110,7 +109,7 @@
                                             </ImageView>
                                         </graphic>
                                     </Button>
-                                    <Button contentDisplay="left" text="_Fit Width" wrapText="true" minWidth="100"  >
+                                    <Button contentDisplay="left" text="_Fit Width" onAction="#fitwidthClick" wrapText="true" minWidth="100"  >
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -119,7 +118,7 @@
                                             </ImageView>
                                         </graphic>
                                     </Button>
-                                    <Button contentDisplay="left" text="_Fit Visible" wrapText="true" minWidth="100"  >
+                                    <Button contentDisplay="left" text="_Fit Visible" onAction="#fitvisiblClick" wrapText="true" minWidth="100"  >
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -131,7 +130,7 @@
                                 </Column>
                                 <Column>
                                     <HBox>
-                                        <Button>
+                                        <Button onAction="#zoomoutClick">
                                             <graphic>
                                                 <ImageView>
                                                     <image>
@@ -141,17 +140,15 @@
                                             </graphic>
                                         </Button>
 
+                                            <RibbonItem style="-fx-end-margin: 10em">
+                                                <item >
 
-                                        <ComboBox >
-                                            <items>
-                                                <FXCollections fx:factory="observableArrayList">
-                                                    <String fx:value="Radians" />
-                                                    <String fx:value="Degrees" />
-                                                </FXCollections>
-                                            </items>
-                                        </ComboBox>
+                                                    <ComboBox fx:id="zoomComboBox"></ComboBox>
+                                                </item>
+                                            </RibbonItem>
 
-                                        <Button>
+
+                                        <Button onAction="#zoominClick">
                                             <graphic>
                                                 <ImageView>
                                                     <image>
@@ -161,7 +158,7 @@
                                             </graphic>
                                         </Button>
                                     </HBox>
-                                    <Button contentDisplay="left" text="_Rotate Left" wrapText="true" minWidth="100"  >
+                                    <Button contentDisplay="left" text="_Rotate Left" onAction="#rotateliftClick" wrapText="true" minWidth="100"  >
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -170,7 +167,7 @@
                                             </ImageView>
                                         </graphic>
                                     </Button>
-                                    <Button contentDisplay="left" text="_Rotate Right" wrapText="true" minWidth="100"  >
+                                    <Button contentDisplay="left" text="_Rotate Right"  onAction="#rotateightClick" wrapText="true" minWidth="100"  >
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -197,7 +194,7 @@
                                         </ImageView>
                                     </graphic>
                                 </Button>
-                                <Button contentDisplay="TOP" text="_Note" wrapText="true" styleClass="big">
+                                <Button contentDisplay="TOP"  onAction="#noteCreatClick"  text="_Note" wrapText="true" styleClass="big">
                                     <graphic>
                                         <ImageView>
                                             <image>
@@ -207,7 +204,7 @@
                                     </graphic>
                                 </Button>
                                 <Column >
-                                    <Button contentDisplay="left" text="_Highlight" wrapText="true" minWidth="100"  >
+                                    <Button contentDisplay="left" text="_Highlight" onAction="#higlightClick" wrapText="true" minWidth="100"  >
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -216,7 +213,7 @@
                                             </ImageView>
                                         </graphic>
                                     </Button>
-                                    <Button contentDisplay="left" text="_Strikeout" wrapText="true" minWidth="100"  >
+                                    <Button contentDisplay="left" text="_Strikeout" onAction="#strickClick" wrapText="true" minWidth="100"  >
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -225,7 +222,7 @@
                                             </ImageView>
                                         </graphic>
                                     </Button>
-                                    <Button contentDisplay="left" text="_Underline" wrapText="true" minWidth="100"  >
+                                    <Button contentDisplay="left" text="_Underline"  onAction="#underlineClick" wrapText="true" minWidth="100"  >
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -239,16 +236,8 @@
                         </RibbonGroup>
                         <RibbonGroup title="Create">
                             <nodes>
-                                <Button contentDisplay="TOP" text="_From File" wrapText="true" styleClass="big">
-                                    <graphic>
-                                        <ImageView>
-                                            <image>
-                                                <Image url="@../resource/images/from file48.png" />
-                                            </image>
-                                        </ImageView>
-                                    </graphic>
-                                </Button>
-                                <Button contentDisplay="TOP" text="_Blank" wrapText="true" styleClass="big">
+                               
+                                <Button contentDisplay="TOP" text="_Blank"  onAction="#createfromblank" wrapText="true" styleClass="big">
                                     <graphic>
                                         <ImageView>
                                             <image>
@@ -258,7 +247,7 @@
                                     </graphic>
                                 </Button>
 
-                                <Button contentDisplay="TOP" text="    _From Clipboard" wrapText="true" maxWidth="90">
+                                <Button contentDisplay="TOP" text="    _From Clipboard"  onAction="#createfromclipboard" wrapText="true" maxWidth="90">
                                     <graphic>
                                         <ImageView>
                                             <image>
@@ -270,6 +259,25 @@
 
                             </nodes>
                         </RibbonGroup>
+
+<RibbonGroup title="Recently Files">
+                            <nodes>
+                               
+                               
+                                <Button contentDisplay="TOP" text="    _Delete Recently files"  onAction="#DelRecentFiles" wrapText="true" maxWidth="150">
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/Trash.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                            </nodes>
+                        </RibbonGroup>
+
+
                     </ribbonGroups>
                 </RibbonTab>
                 <RibbonTab text="Comment">
@@ -278,7 +286,7 @@
                         <RibbonGroup title="Tools">
                             <nodes>
                                 <Column>
-                                    <Button contentDisplay="left" text="_Hand" wrapText="true" minWidth="100"  >
+                                    <Button contentDisplay="left" text="_Hand" onAction="#handClick" wrapText="true" minWidth="100"  >
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -288,23 +296,19 @@
                                         </graphic>
                                     </Button>
 
-                                    <ComboBox>
-                                        <items>
-                                            <FXCollections fx:factory="observableArrayList">
-                                                <String fx:value="Radians" />
-                                                <String fx:value="Degrees" />
-                                            </FXCollections>
-                                        </items>
-                                    </ComboBox>
+                                    <RibbonItem style="-fx-end-margin: 10em">
+                                        <item >
 
-                                    <ComboBox>
-                                        <items>
-                                            <FXCollections fx:factory="observableArrayList">
-                                                <String fx:value="Radians" />
-                                                <String fx:value="Degrees" />
-                                            </FXCollections>
-                                        </items>
-                                    </ComboBox>
+                                                <ComboBox fx:id="commentSelectComboBox"  ></ComboBox>
+                                        </item>
+                                    </RibbonItem>
+
+                                    <RibbonItem style="-fx-end-margin: 10em">
+                                        <item >
+
+                                            <ComboBox fx:id="commentZoomComboBox"></ComboBox>
+                                        </item>
+                                    </RibbonItem>
 
                                 </Column>
 
@@ -314,7 +318,7 @@
                             <nodes>
                                 <Column>
 
-                                    <Button>
+                                    <Button  onAction="#higlightClick">
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -323,7 +327,7 @@
                                             </ImageView>
                                         </graphic>
                                     </Button>
-                                    <Button>
+                                    <Button  onAction="#strickClick">
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -335,7 +339,7 @@
 
                                 </Column>
                                 <Column>
-                                    <Button>
+                                    <Button  onAction="#underlineClick">
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -344,7 +348,7 @@
                                             </ImageView>
                                         </graphic>
                                     </Button>
-                                    <Button>
+                                    <Button  onAction="#replaceClick">
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -355,7 +359,7 @@
                                     </Button>
 
                                 </Column>
-                                <Column>
+                                <Column  >
                                     <Button>
                                         <graphic>
                                             <ImageView>
@@ -364,8 +368,8 @@
                                                 </image>
                                             </ImageView>
                                         </graphic>
-                                    </Button>
-                                    <Button>
+                                    </Button  >
+                                    <Button onAction="#insertClick">
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -382,7 +386,7 @@
                         </RibbonGroup>
                         <RibbonGroup title="Typewriter">
                             <nodes>
-                                <Button contentDisplay="TOP" text="_Note" wrapText="true" styleClass="big">
+                                <Button contentDisplay="TOP" onAction="#noteCreatClick"  text="_Note" wrapText="true" styleClass="big">
                                     <graphic>
                                         <ImageView>
                                             <image>
@@ -431,7 +435,7 @@
                         <RibbonGroup title="Drawing">
                             <nodes>
                                 <Column>
-                                    <Button >
+                                    <Button onAction="#rectangleClick">
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -440,7 +444,7 @@
                                             </ImageView>
                                         </graphic>
                                     </Button>
-                                    <Button>
+                                    <Button  onAction="#ovalClick">
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -449,7 +453,7 @@
                                             </ImageView>
                                         </graphic>
                                     </Button>
-                                    <Button>
+                                    <Button onAction="#roundrectClick">
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -471,7 +475,7 @@
                                             </ImageView>
                                         </graphic>
                                     </Button>
-                                    <Button>
+                                    <Button onAction="#lineClick">
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -528,7 +532,7 @@
                         <RibbonGroup title="Tools">
                             <nodes>
                                 <Column>
-                                    <Button contentDisplay="left" text="_Hand" wrapText="true" minWidth="100"  >
+                                    <Button contentDisplay="left" text="_Hand"  onAction="#handClick" wrapText="true" minWidth="100"  >
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -538,23 +542,19 @@
                                         </graphic>
                                     </Button>
 
-                                    <ComboBox>
-                                        <items>
-                                            <FXCollections fx:factory="observableArrayList">
-                                                <String fx:value="Radians" />
-                                                <String fx:value="Degrees" />
-                                            </FXCollections>
-                                        </items>
-                                    </ComboBox>
+                                    <RibbonItem style="-fx-end-margin: 10em">
+                                        <item >
 
-                                    <ComboBox>
-                                        <items>
-                                            <FXCollections fx:factory="observableArrayList">
-                                                <String fx:value="Radians" />
-                                                <String fx:value="Degrees" />
-                                            </FXCollections>
-                                        </items>
-                                    </ComboBox>
+                                            <ComboBox fx:id="viewSelectComboBox"  onAction="#textClick"></ComboBox>
+                                        </item>
+                                    </RibbonItem>
+
+                                    <RibbonItem style="-fx-end-margin: 10em">
+                                        <item >
+
+                                            <ComboBox fx:id="viewZoomComboBox"></ComboBox>
+                                        </item>
+                                    </RibbonItem>
 
                                 </Column>
                             </nodes>
@@ -712,7 +712,7 @@
                         <RibbonGroup title="Tools">
                             <nodes>
                                 <Column>
-                                    <Button contentDisplay="left" text="_Hand" wrapText="true" minWidth="100"  >
+                                    <Button contentDisplay="left" text="_Hand" onAction="#handClick"  wrapText="true" minWidth="100"  >
                                         <graphic>
                                             <ImageView>
                                                 <image>
@@ -722,38 +722,27 @@
                                         </graphic>
                                     </Button>
 
-                                    <ComboBox>
-                                        <items>
-                                            <FXCollections fx:factory="observableArrayList">
-                                                <String fx:value="Radians" />
-                                                <String fx:value="Degrees" />
-                                            </FXCollections>
-                                        </items>
-                                    </ComboBox>
+                                    <RibbonItem style="-fx-end-margin: 10em">
+                                        <item >
 
-                                    <ComboBox>
-                                        <items>
-                                            <FXCollections fx:factory="observableArrayList">
-                                                <String fx:value="Radians" />
-                                                <String fx:value="Degrees" />
-                                            </FXCollections>
-                                        </items>
-                                    </ComboBox>
+                                            <ComboBox fx:id="convertSelectComboBox" ></ComboBox>
+                                        </item>
+                                    </RibbonItem>
+
+                                    <RibbonItem style="-fx-end-margin: 10em">
+                                        <item >
+
+                                            <ComboBox fx:id="convertZoomComboBox"></ComboBox>
+                                        </item>
+                                    </RibbonItem>
+
                                 </Column>
                             </nodes>
                         </RibbonGroup>
                         <RibbonGroup title="Create">
                             <nodes>
-                                <Button contentDisplay="TOP" text="_From File" wrapText="true" styleClass="big">
-                                    <graphic>
-                                        <ImageView>
-                                            <image>
-                                                <Image url="@../resource/images/from file48.png" />
-                                            </image>
-                                        </ImageView>
-                                    </graphic>
-                                </Button>
-                                <Button contentDisplay="TOP" text="_Blank" wrapText="true" styleClass="big">
+                               
+                                <Button contentDisplay="TOP" text="_Blank"  onAction="#createfromblank" wrapText="true" styleClass="big">
                                     <graphic>
                                         <ImageView>
                                             <image>
@@ -763,7 +752,7 @@
                                     </graphic>
                                 </Button>
 
-                                <Button contentDisplay="TOP" text="    _From Clipboard" wrapText="true" maxWidth="90">
+                                <Button contentDisplay="TOP" text="    _From Clipboard"  onAction="#createfromclipboard" wrapText="true" maxWidth="90">
                                     <graphic>
                                         <ImageView>
                                             <image>
@@ -780,7 +769,7 @@
                             <nodes>
                                 <Column>
                                     <HBox>
-                                        <Button>
+                                        <Button onAction="#pdftodjvuclick">
                                             <graphic>
                                                 <ImageView>
                                                     <image>
@@ -789,7 +778,7 @@
                                                 </ImageView>
                                             </graphic>
                                         </Button>
-                                        <Button>
+                                        <Button  onAction="#pdftomageclick">
                                             <graphic>
                                                 <ImageView>
                                                     <image>
@@ -803,7 +792,7 @@
                                 </Column>
                                 <Column>
                                     <HBox>
-                                        <Button>
+                                        <Button onAction="#djvutopdfclick">
                                             <graphic>
                                                 <ImageView>
                                                     <image>
@@ -812,11 +801,11 @@
                                                 </ImageView>
                                             </graphic>
                                         </Button>
-                                        <Button>
+                                        <Button onAction="#djvutoimageclick">
                                             <graphic>
                                                 <ImageView>
                                                     <image>
-                                                        <Image url="@../resource/images/DjVu to P 48.png" />
+                                                        <Image url="@../resource/images/DJVU toImg48.png" />
                                                     </image>
                                                 </ImageView>
                                             </graphic>
@@ -826,7 +815,7 @@
                                 </Column>
                                 <Column>
                                     <HBox>
-                                        <Button>
+                                        <Button onAction="#imagetodfclick">
                                             <graphic>
                                                 <ImageView>
                                                     <image>
@@ -835,7 +824,7 @@
                                                 </ImageView>
                                             </graphic>
                                         </Button>
-                                        <Button>
+                                        <Button onAction="#imagetodjvuclick">
                                             <graphic>
                                                 <ImageView>
                                                     <image>
@@ -854,7 +843,7 @@
                             <nodes>
                                 <Column>
                                     <HBox>
-                                        <Button>
+                                        <Button onAction="#ocrArabicClick">
                                             <graphic>
                                                 <ImageView>
                                                     <image>
@@ -863,7 +852,7 @@
                                                 </ImageView>
                                             </graphic>
                                         </Button>
-                                        <Button>
+                                        <Button onAction="#ocrEnglishClick">
                                             <graphic>
                                                 <ImageView>
                                                     <image>
@@ -878,6 +867,149 @@
                             </nodes>
 
                         </RibbonGroup>
+               </ribbonGroups>
+                </RibbonTab>
+                <RibbonTab text="Edit">
+                    <ribbonGroups>
+                    <RibbonGroup title="Tools">
+                        <nodes>
+                            <Column>
+                                <Button contentDisplay="left" text="_Hand"  onAction="#handClick"  wrapText="true" minWidth="100"  >
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../resource/images/hand16.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+
+                                <RibbonItem style="-fx-end-margin: 10em">
+                                    <item >
+
+                                        <ComboBox fx:id="editSelectComboBox" ></ComboBox>
+                                    </item>
+                                </RibbonItem>
+
+                                <RibbonItem style="-fx-end-margin: 10em">
+                                    <item >
+
+                                        <ComboBox fx:id="editZoomComboBox"></ComboBox>
+                                    </item>
+                                </RibbonItem>
+
+                            </Column>
+                        </nodes>
+                    </RibbonGroup>
+                    <RibbonGroup title="Font">
+                        <nodes>
+                            <Column>
+                                <HBox>
+                                    <RibbonItem>
+                                        <item >
+
+                                            <ComboBox fx:id="fontFamillyComboBox"></ComboBox>
+                                        </item>
+                                    </RibbonItem>
+
+
+                                </HBox>
+                                <HBox>
+                                    <RibbonItem>
+                                        <item >
+
+                                            <ComboBox fx:id="fontWidthComboBox"></ComboBox>
+                                        </item>
+                                    </RibbonItem>
+
+                                    <Button onAction="#boldClick" >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/bold.JPG" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button onAction="#italicClick" >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/italic.JPG" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+                                    <Button onAction="#underlineTextClick" >
+                                        <graphic>
+                                            <ImageView>
+                                                <image>
+                                                    <Image url="@../resource/images/underline.JPG" />
+                                                </image>
+                                            </ImageView>
+                                        </graphic>
+                                    </Button>
+
+                                </HBox>
+
+
+                            </Column>
+                        </nodes>
+                    </RibbonGroup>
+
+                        <RibbonGroup title="Paragraph">
+                            <nodes>
+                                <Column>
+                                    <HBox></HBox>
+                                    <HBox>
+
+                                        <Button onAction="#alignLeftClick" >
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/justify_left.JPG" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button onAction="#alignCenterClick" >
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/justify_center.JPG" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button onAction="#alignRightClick" >
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../resource/images/justify_right.JPG" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+
+
+                                    </HBox>
+                                    <HBox>
+
+                                        <ColorPicker  fx:id="colorPicker" onAction="#colorClick" >
+
+                                        </ColorPicker>
+                                    </HBox>
+
+                                </Column>
+                            </nodes>
+                        </RibbonGroup>
+
+
+
+
+
+
+
                     </ribbonGroups>
                 </RibbonTab>
 

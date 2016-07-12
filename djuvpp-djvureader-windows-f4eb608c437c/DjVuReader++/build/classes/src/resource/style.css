@@ -1,9 +1,256 @@
 .custom-menu-button {
     -fx-background-color: blue;
     -fx-text-fill: white;
+    -fx-font-size: 16px;
     -fx-border: none;
 }
 
 .custom-menu-button:hover {
+
     -fx-background-color: lightblue;
+}
+/*when list view mouse hover on items*/
+.list-cell:filled:hover {
+    -fx-background-color: #0093ff;
+    -fx-text-fill: white;
+}
+.whiteBackground{
+    -fx-background-color: white;
+}
+.no-border{
+    -fx-border-color: #bababa;
+}
+.open{
+
+    -fx-text-fill:black;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+    -fx-padding: 30px 3px 30px 15px;
+
+}
+
+.recent-label{
+
+    -fx-graphic: url("images/recent.JPG");
+    -fx-graphic-text-gap : 10;
+    /*-fx-background-image:url('images/hand.png');*/
+    -fx-background-repeat: no-repeat;
+    /*-fx-background-position: right center;*/
+    -fx-text-fill:#0093ff;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+    -fx-padding: 100px 3px 20px 5px;
+}
+
+.browse{
+    -fx-graphic: url("images/computer.JPG");
+    -fx-graphic-text-gap : 10;
+    /*-fx-background-image:url('images/hand.png');*/
+    -fx-background-repeat: no-repeat;
+    /*-fx-background-position: right center;*/
+    -fx-text-fill:#0093ff;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+    -fx-padding: 100px 3px 20px 5px;
+}
+
+
+
+.blank-label{
+
+
+    -fx-text-fill:#0093ff;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+    -fx-padding: 100px 3px 10px 5px;
+}
+
+.save-pdf-label{
+
+
+    -fx-text-fill:#0093ff;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+    -fx-padding: 20px 3px 10px 5px;
+
+}
+.blank-btn{
+    -fx-background-image: url("images/blank.JPG");
+    -fx-min-height:100px;
+
+    -fx-min-width:100px;
+
+    -fx-background-color: #ffffff;
+
+    /*-fx-background-size: 100px 100px;*/
+
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center;
+}
+
+.blank-btn:hover {
+    -fx-background-color: #55c4fe;
+
+}
+
+.djvu-btn{
+    -fx-background-image: url("images/toDJVU%2048.png");
+    -fx-min-height:80px;
+
+    -fx-min-width:100px;
+
+    -fx-background-color: #ffffff;
+
+    /*-fx-background-size: 100px 100px;*/
+
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center;
+
+}
+
+.djvu-btn:hover {
+    -fx-background-color: #55c4fe;
+
+}
+
+.pdf-btn{
+    -fx-background-image: url("images/to%20PDF%2048_1.png");
+    -fx-min-height:80px;
+
+    -fx-min-width:100px;
+
+    -fx-background-color: #ffffff;
+
+    /*-fx-background-size: 100px 100px;*/
+
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center;
+}
+
+.pdf-btn:hover {
+    -fx-background-color: #55c4fe;
+
+}
+.djvu-logo{
+    -fx-background-image: url("Djvuicon.png");
+    -fx-min-height:100px;
+
+    -fx-min-width:100px;
+
+    /*-fx-background-color: #ffffff;*/
+
+    /*-fx-background-size: 100px 100px;*/
+
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center;
+
+}
+.file-btn{
+    -fx-background-image: url("images/file.JPG");
+    -fx-min-height:100px;
+
+    -fx-min-width:100px;
+
+    -fx-background-color: #ffffff;
+
+    /*-fx-background-size: 100px 100px;*/
+
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center;
+}
+
+
+.file-btn:hover{
+    -fx-background-color: #55c4fe;
+}
+
+.clip-btn{
+    -fx-background-image: url("images/clip.JPG");
+    -fx-min-height:100px;
+
+    -fx-min-width:100px;
+
+    -fx-background-color: #ffffff;
+
+    /*-fx-background-size: 100px 100px;*/
+
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center 8px;
+}
+.clip-btn:hover{
+    -fx-background-color: #55c4fe;
+}
+
+.browse-btn{
+    -fx-background-image: url("images/browse.JPG");
+    -fx-min-height:100px;
+
+    -fx-min-width:100px;
+
+   -fx-background-color: #ffffff;
+
+    /*-fx-background-size: 100px 100px;*/
+
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center 8px;
+    /*-fx-padding: 80px 3px 30px 5px;*/
+}
+
+.browse-btn:hover {
+    -fx-background-color: #55c4fe;
+
+}
+.list-cell:filled:hover {
+    -fx-background-color: #0093ff;
+    -fx-text-fill: black;
+}
+.list-cell:filled:selected {
+    -fx-background-color: #0093ff;
+    -fx-text-fill: black;
+
+}
+.no-border{
+    -fx-border-color: #ffffff;
+    -fx-padding: 3px ;
+    -fx-background-color: #ffffff ;
+    -fx-border-width: 0 2px 0 0;
+    -fx-font-size:18px;}
+.list-views {
+    -fx-padding: 3px ;
+    -fx-background-color: #ffffff ;
+    -fx-border-width: 0 2px 0 0;
+    -fx-border-color: #55c4fe;
+    -fx-font-size:16px;
+}
+
+.list-cell {
+    -fx-padding: 5px ;
+    -fx-background-color: #ffffff ;
+    -fx-background-insets: 5px, 5px ;
+}
+
+.list-cell:empty {
+    -fx-padding: 2px ;
+    -fx-background-color: transparent ;
+    -fx-background-insets: 0 ;
+}
+
+.arrow{
+    -fx-background-color: blue;
+    -fx-background-image: url('images/circle-arrow-left.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-min-height:60px;
 }
